@@ -14,17 +14,17 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="w-64 h-screen bg-[#1a1a1a] border-r border-gray-700 flex flex-col">
-      <div className="p-6">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-[#FF6B47] rounded-lg flex items-center justify-center">
-            <GraduationCap className="w-5 h-5 text-white" />
+    <div className="w-72 h-screen bg-gradient-to-b from-[#1a1a1a] to-[#262626] border-r border-gray-700/50 flex flex-col shadow-2xl">
+      <div className="p-8">
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 bg-gradient-to-br from-[#FF6B47] to-[#e55a3d] rounded-xl flex items-center justify-center shadow-lg shadow-[#FF6B47]/20">
+            <GraduationCap className="w-6 h-6 text-white" />
           </div>
-          <span className="text-xl font-bold text-white">MasterJi</span>
+          <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">MasterJi</span>
         </div>
       </div>
       
-      <nav className="flex-1 px-4">
+      <nav className="flex-1 px-6">
         {menuItems.map((item) => {
           const Icon = item.icon;
           const isActive = location.pathname === item.path;
@@ -33,26 +33,26 @@ const Sidebar = () => {
             <Link
               key={item.path}
               to={item.path}
-              className={`flex items-center gap-3 px-4 py-3 mb-2 rounded-lg transition-colors ${
+              className={`flex items-center gap-4 px-6 py-4 mb-3 rounded-xl transition-all duration-200 group ${
                 isActive 
-                  ? 'bg-[#FF6B47] text-white' 
-                  : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                  ? 'bg-gradient-to-r from-[#FF6B47] to-[#e55a3d] text-white shadow-lg shadow-[#FF6B47]/25' 
+                  : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
               }`}
             >
-              <Icon className="w-5 h-5" />
-              <span>{item.label}</span>
+              <Icon className={`w-6 h-6 transition-transform duration-200 ${!isActive && 'group-hover:scale-110'}`} />
+              <span className="font-medium text-base">{item.label}</span>
             </Link>
           );
         })}
       </nav>
       
-      <div className="p-4 border-t border-gray-700">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-[#FF6B47] rounded-full flex items-center justify-center">
-            <span className="text-white font-semibold">N</span>
+      <div className="p-6 border-t border-gray-700/50">
+        <div className="flex items-center gap-4 p-4 rounded-xl bg-gray-800/30 border border-gray-700/50">
+          <div className="w-12 h-12 bg-gradient-to-br from-[#FF6B47] to-[#e55a3d] rounded-full flex items-center justify-center shadow-lg shadow-[#FF6B47]/20">
+            <span className="text-white font-bold text-lg">N</span>
           </div>
           <div>
-            <div className="text-white font-medium">n8n one</div>
+            <div className="text-white font-semibold text-base">n8n one</div>
             <div className="text-gray-400 text-sm">Student</div>
           </div>
         </div>
