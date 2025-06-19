@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { GraduationCap, Users, BookOpen, Trophy, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -51,7 +50,7 @@ const Landing = () => {
               </Button>
             </Link>
             <Link to="/dashboard">
-              <Button variant="outline" className="border-2 border-gray-600 text-white hover:bg-gray-800/50 hover:border-gray-500 px-10 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105">
+              <Button className="bg-gray-800/80 backdrop-blur-sm border border-gray-600/50 text-white hover:bg-gray-700/80 hover:border-gray-500/70 px-10 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
                 View Dashboard
               </Button>
             </Link>
