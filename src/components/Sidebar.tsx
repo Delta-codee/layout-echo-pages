@@ -1,14 +1,16 @@
 
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Users, Folder, FileText, BarChart3, GraduationCap } from 'lucide-react';
+import { Home, Users, Folder, FileText, BarChart3, GraduationCap, MessageCircle, User, Settings } from 'lucide-react';
 
 const Sidebar = () => {
   const location = useLocation();
 
   const menuItems = [
-    { icon: Home, label: 'Dashboard', path: '/' },
-    { icon: Users, label: 'Peer Reviews', path: '/peer-reviews' },
+    { icon: Home, label: 'Dashboard', path: '/dashboard' },
+    { icon: User, label: 'Profile', path: '/profile' },
     { icon: Folder, label: 'Projects', path: '/projects' },
+    { icon: MessageCircle, label: 'Community', path: '/community' },
+    { icon: Users, label: 'Peer Reviews', path: '/peer-reviews' },
     { icon: FileText, label: 'Blogs', path: '/blogs' },
     { icon: BarChart3, label: 'Evaluations', path: '/evaluations' }
   ];
@@ -56,6 +58,13 @@ const Sidebar = () => {
             <div className="text-gray-400 text-sm">Student</div>
           </div>
         </div>
+        
+        <Link to="/profile" className="block mt-4">
+          <button className="w-full flex items-center gap-2 px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-800/50 rounded-lg transition-all">
+            <Settings className="w-4 h-4" />
+            <span>Settings</span>
+          </button>
+        </Link>
       </div>
     </div>
   );
