@@ -31,7 +31,7 @@ const Landing = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-6 py-24 text-center">
+      <section className="container mx-auto px-6 py-24 text-center bg-gradient-to-br from-[#0a0a0a] via-[#0f0f0f] to-[#1a1a1a]">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight">
             Master Your Learning Journey with{' '}
@@ -59,7 +59,7 @@ const Landing = () => {
       </section>
 
       {/* Features Section */}
-      <section className="container mx-auto px-6 py-24">
+      <section className="container mx-auto px-6 py-24 bg-gradient-to-br from-[#0f0f0f] via-[#1a1a1a] to-[#0a0a0a]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-20">
             Everything You Need to <span className="bg-gradient-to-r from-[#FF6B47] to-[#e55a3d] bg-clip-text text-transparent">Excel</span>
@@ -110,7 +110,7 @@ const Landing = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-[#1a1a1a] via-[#262626] to-[#1a1a1a] border-t border-gray-700/50">
+      <section className="bg-gradient-to-r from-[#1a1a1a] via-[#262626] to-[#1a1a1a] border-t border-gray-700/50 min-h-[400px]">
         <div className="container mx-auto px-6 py-24 text-center">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold mb-8 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Ready to Start Learning?</h2>
