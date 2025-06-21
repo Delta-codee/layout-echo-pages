@@ -11,7 +11,7 @@ const Landing = () => {
   return (
     <div className={`min-h-screen ${currentTheme.bg} text-white transition-all duration-500`}>
       {/* Header */}
-      <header className="border-b border-white/10 bg-black/20 backdrop-blur-xl sticky top-0 z-50">
+      <header className="border-b border-white/10 bg-black/20 backdrop-blur-xl sticky top-0 z-50 shadow-lg">
         <div className="container mx-auto px-6 py-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gradient-to-br from-[#FF6B47] to-[#e55a3d] rounded-xl flex items-center justify-center shadow-lg shadow-[#FF6B47]/20">
@@ -45,7 +45,7 @@ const Landing = () => {
             Master Your Learning Journey with{' '}
             <span className="bg-gradient-to-r from-[#FF6B47] via-[#ff7a5c] to-[#e55a3d] bg-clip-text text-transparent">MasterJi</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
+          <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
             Collaborate with peers, showcase your projects, share knowledge through blogs, 
             and track your progress with comprehensive evaluations.
           </p>
@@ -58,7 +58,7 @@ const Landing = () => {
               </Button>
             </Link>
             <Link to="/dashboard">
-              <Button className="bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 hover:border-white/30 px-10 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
+              <Button variant="outline" className="px-10 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
                 View Dashboard
               </Button>
             </Link>
@@ -79,7 +79,7 @@ const Landing = () => {
                 <Users className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-white">Peer Reviews</h3>
-              <p className="text-gray-300 leading-relaxed">
+              <p className="text-white/70 leading-relaxed">
                 Submit your work and receive detailed feedback from peers to improve your skills.
               </p>
             </div>
@@ -89,7 +89,7 @@ const Landing = () => {
                 <BookOpen className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-white">Project Showcase</h3>
-              <p className="text-gray-300 leading-relaxed">
+              <p className="text-white/70 leading-relaxed">
                 Display your projects and discover amazing work from fellow learners.
               </p>
             </div>
@@ -99,7 +99,7 @@ const Landing = () => {
                 <BookOpen className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-white">Blog Platform</h3>
-              <p className="text-gray-300 leading-relaxed">
+              <p className="text-white/70 leading-relaxed">
                 Share your knowledge and learn from others through engaging blog posts.
               </p>
             </div>
@@ -109,7 +109,7 @@ const Landing = () => {
                 <Trophy className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-white">Evaluations</h3>
-              <p className="text-gray-300 leading-relaxed">
+              <p className="text-white/70 leading-relaxed">
                 Track your performance with detailed assessments and progress reports.
               </p>
             </div>
@@ -118,11 +118,11 @@ const Landing = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-black/20 backdrop-blur-sm border-t border-white/10 min-h-[400px]">
+      <section className="bg-black/20 backdrop-blur-sm border-t border-white/10 min-h-[400px] shadow-inner">
         <div className="container mx-auto px-6 py-24 text-center">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold mb-8 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Ready to Start Learning?</h2>
-            <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
+            <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
               Join thousands of learners who are already mastering their skills with MasterJi.
             </p>
             <Link to="/register">
