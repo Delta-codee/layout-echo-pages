@@ -4,7 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ThemeProvider, useTheme } from "@/contexts/ThemeContext";
 import Dashboard from "./pages/Dashboard";
 import PeerReviews from "./pages/PeerReviews";
 import Projects from "./pages/Projects";
@@ -20,10 +20,12 @@ import Community from "./pages/Community";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <div className="min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#0f0f0f] to-[#1a1a1a]">
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
+const AppContent = () => {
+  const { currentTheme } = useTheme();
+  
+  return (
+    <div className={`min-h-screen ${currentTheme.bg} transition-all duration-500`}>
+      <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
           <Sonner />
@@ -44,9 +46,15 @@ const App = () => (
             </Routes>
           </BrowserRouter>
         </TooltipProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
-  </div>
+      </QueryClientProvider>
+    </div>
+  );
+};
+
+const App = () => (
+  <ThemeProvider>
+    <AppContent />
+  </ThemeProvider>
 );
 
 export default App;
