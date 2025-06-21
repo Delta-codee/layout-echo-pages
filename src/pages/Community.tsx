@@ -1,34 +1,14 @@
 
 import Layout from '@/components/Layout';
-import { Hash, Plus, Settings, Send, Smile, Paperclip, Users, Megaphone, HelpCircle, Code, Palette } from 'lucide-react';
+import { Hash, Plus, Send, Smile, Paperclip, Users, Megaphone, HelpCircle, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useState } from 'react';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const Community = () => {
   const [selectedChannel, setSelectedChannel] = useState('general');
   const [message, setMessage] = useState('');
-  const [currentTheme, setCurrentTheme] = useState('dark');
-
-  const simpleThemes = [
-    { id: 'dark', name: 'Dark', bg: 'bg-gradient-to-br from-[#0a0a0a] via-[#0f0f0f] to-[#1a1a1a]' },
-    { id: 'light', name: 'Light', bg: 'bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300' },
-    { id: 'red', name: 'Red', bg: 'bg-gradient-to-br from-red-900 via-red-800 to-red-700' },
-    { id: 'blue', name: 'Blue', bg: 'bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700' },
-    { id: 'green', name: 'Green', bg: 'bg-gradient-to-br from-green-900 via-green-800 to-green-700' }
-  ];
-
-  const gradientThemes = [
-    { id: 'sunset', name: 'Sunset', bg: 'bg-gradient-to-br from-orange-400 via-red-500 to-pink-500' },
-    { id: 'ocean', name: 'Ocean', bg: 'bg-gradient-to-br from-blue-400 via-cyan-500 to-teal-500' },
-    { id: 'purple-bliss', name: 'Purple Bliss', bg: 'bg-gradient-to-br from-purple-400 via-pink-400 to-red-400' },
-    { id: 'forest', name: 'Forest', bg: 'bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600' },
-    { id: 'cosmic', name: 'Cosmic', bg: 'bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900' }
-  ];
-
-  const allThemes = [...simpleThemes, ...gradientThemes];
-  const selectedThemeData = allThemes.find(theme => theme.id === currentTheme) || simpleThemes[0];
+  const { currentTheme } = useTheme();
 
   const channels = [
     { id: 'announcements', name: 'announcements', icon: Megaphone, adminOnly: true },
@@ -73,49 +53,7 @@ const Community = () => {
 
   return (
     <Layout>
-      <div className={`h-full ${selectedThemeData.bg} transition-all duration-500`}>
-        {/* Theme Selection Header */}
-        <div className="p-4 bg-black/20 backdrop-blur-sm border-b border-white/10">
-          <div className="flex items-center justify-between">
-            <h1 className="text-white text-2xl font-bold">Community Chat</h1>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <Palette className="w-5 h-5 text-white" />
-                <span className="text-white font-medium">Theme:</span>
-              </div>
-              <Select value={currentTheme} onValueChange={setCurrentTheme}>
-                <SelectTrigger className="w-48 bg-white/10 border-white/20 text-white">
-                  <SelectValue placeholder="Select theme" />
-                </SelectTrigger>
-                <SelectContent className="bg-gray-900 border-gray-700">
-                  <div className="px-2 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                    Simple Colors
-                  </div>
-                  {simpleThemes.map((theme) => (
-                    <SelectItem key={theme.id} value={theme.id} className="text-white hover:bg-gray-800">
-                      <div className="flex items-center gap-2">
-                        <div className={`w-4 h-4 rounded-full ${theme.bg}`} />
-                        {theme.name}
-                      </div>
-                    </SelectItem>
-                  ))}
-                  <div className="px-2 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-2">
-                    Gradient Colors
-                  </div>
-                  {gradientThemes.map((theme) => (
-                    <SelectItem key={theme.id} value={theme.id} className="text-white hover:bg-gray-800">
-                      <div className="flex items-center gap-2">
-                        <div className={`w-4 h-4 rounded-full ${theme.bg}`} />
-                        {theme.name}
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </div>
-
+      <div className={`h-full ${currentTheme.bg} transition-all duration-500`}>
         <div className="flex h-[calc(100vh-120px)]">
           {/* Channels Sidebar */}
           <div className="w-64 bg-black/30 backdrop-blur-sm border-r border-white/10 flex flex-col">
