@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider, useTheme } from "@/contexts/ThemeContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 import Dashboard from "./pages/Dashboard";
 import PeerReviews from "./pages/PeerReviews";
 import Projects from "./pages/Projects";
@@ -17,6 +18,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import StudentDashboard from "./pages/StudentDashboard";
 import Community from "./pages/Community";
+import Courses from "./pages/Courses";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +36,7 @@ const AppContent = () => {
               <Route path="/" element={<Landing />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/courses" element={<Courses />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/student-dashboard" element={<StudentDashboard />} />
               <Route path="/profile" element={<Profile />} />
@@ -53,7 +56,9 @@ const AppContent = () => {
 
 const App = () => (
   <ThemeProvider>
-    <AppContent />
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   </ThemeProvider>
 );
 
