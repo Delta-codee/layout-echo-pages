@@ -1,65 +1,62 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ThemeProvider, useTheme } from "@/contexts/ThemeContext";
-import { AuthProvider } from "@/contexts/AuthContext";
-import Dashboard from "./pages/Dashboard";
-import PeerReviews from "./pages/PeerReviews";
-import Projects from "./pages/Projects";
-import Blogs from "./pages/Blogs";
-import Evaluations from "./pages/Evaluations";
-import NotFound from "./pages/NotFound";
-import Landing from "./pages/Landing";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Profile from "./pages/Profile";
-import StudentDashboard from "./pages/StudentDashboard";
-import Courses from "./pages/Courses";
-import ThemeSettings from "./pages/ThemeSettings";
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+import { AuthProvider } from './contexts/AuthContext';
+import { ThemeProvider } from './contexts/ThemeContext';
+
+import Index from './pages/Index';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
+import Courses from './pages/Courses';
+import Projects from './pages/Projects';
+import Blogs from './pages/Blogs';
+import Community from './pages/Community';
+import PeerReviews from './pages/PeerReviews';
+import Evaluations from './pages/Evaluations';
+import ThemeSettings from './pages/ThemeSettings';
+import NotFound from './pages/NotFound';
+import Landing from './pages/Landing';
+import StudentDashboard from './pages/StudentDashboard';
+
+import { Toaster } from '@/components/ui/toaster';
 
 const queryClient = new QueryClient();
 
-const AppContent = () => {
-  const { currentTheme } = useTheme();
-  
+function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Landing />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/courses" element={<Courses />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/student-dashboard" element={<StudentDashboard />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/theme-settings" element={<ThemeSettings />} />
-              <Route path="/peer-reviews" element={<PeerReviews />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/blogs" element={<Blogs />} />
-              <Route path="/evaluations" element={<Evaluations />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
-      </QueryClientProvider>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <ThemeProvider>
+          <Router>
+            <div className="min-h-screen bg-[#0B0B0B]">
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/landing" element={<Landing />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/student-dashboard" element={<StudentDashboard />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/courses" element={<Courses />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/blogs" element={<Blogs />} />
+                <Route path="/community" element={<Community />} />
+                <Route path="/peer-reviews" element={<PeerReviews />} />
+                <Route path="/evaluations" element={<Evaluations />} />
+                <Route path="/theme-settings" element={<ThemeSettings />} />
+                <Route path="/404" element={<NotFound />} />
+                <Route path="*" element={<Navigate to="/404" replace />} />
+              </Routes>
+              <Toaster />
+            </div>
+          </Router>
+        </ThemeProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   );
-};
-
-const App = () => (
-  <ThemeProvider>
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
-  </ThemeProvider>
-);
+}
 
 export default App;

@@ -1,9 +1,14 @@
-
 import Layout from '@/components/Layout';
+import NoticeBoardPanel from '@/components/NoticeBoardPanel';
 import { Users, Folder, FileText, GraduationCap, Calendar, CheckCircle2, BarChart3 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
 
 const Dashboard = () => {
+  const [isNoticeBoardOpen, setIsNoticeBoardOpen] = useState(false);
+  const { toast } = useToast();
+
   const stats = [
     {
       title: 'Peer Reviews',
@@ -44,6 +49,15 @@ const Dashboard = () => {
     { label: 'Penalty Marks', value: '0' }
   ];
 
+  const handleNoticeBoardOpen = () => {
+    setIsNoticeBoardOpen(true);
+    toast({
+      title: "Notice Board Opened",
+      description: "Check out the latest announcements and updates.",
+      variant: "default",
+    });
+  };
+
   return (
     <Layout>
       <div className="p-8 bg-[#0B0B0B] min-h-screen">
@@ -57,7 +71,10 @@ const Dashboard = () => {
             </div>
             <p className="text-[#A1A1A1]">Overview of your progress and upcoming deadlines.</p>
           </div>
-          <button className="text-[#E3583D] hover:text-[#E4593D] font-medium transition-colors px-4 py-2 border border-[#E3583D] rounded-lg hover:bg-[#E3583D]/10">
+          <button 
+            onClick={handleNoticeBoardOpen}
+            className="text-[#E3583D] hover:text-[#E4593D] font-medium transition-colors px-4 py-2 border border-[#E3583D] rounded-lg hover:bg-[#E3583D]/10"
+          >
             View Notice Board
           </button>
         </div>
@@ -123,6 +140,11 @@ const Dashboard = () => {
           </CardContent>
         </Card>
       </div>
+
+      <NoticeBoardPanel 
+        isOpen={isNoticeBoardOpen} 
+        onClose={() => setIsNoticeBoardOpen(false)} 
+      />
     </Layout>
   );
 };
