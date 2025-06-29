@@ -99,7 +99,7 @@ const Landing = () => {
       <section className="pt-20 pb-32 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <Badge variant="outline" className="mb-8 px-6 py-2 text-sm font-medium bg-white border-gray-200">
-            <span className="mr-2">></span>
+            <span className="mr-2">{'>'}</span>
             Trusted by 500+ businesses worldwide
           </Badge>
           
@@ -281,7 +281,7 @@ const Landing = () => {
           <div className="grid md:grid-cols-4 gap-12">
             <div className="md:col-span-2">
               <div className="flex items-center gap-3 mb-6">
-                <span className="text-2xl font-bold">></span>
+                <span className="text-2xl font-bold">{'>'}</span>
                 <span className="text-2xl font-bold">Applabs</span>
               </div>
               <p className="text-gray-400 mb-6 max-w-md leading-relaxed">
