@@ -11,32 +11,32 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 210 12% 6%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 210 12% 6%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 210 12% 6%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 262 83% 58%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 13% 91%;
+    --muted-foreground: 215.4 16.3% 37%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 220 13% 91%;
+    --accent-foreground: 222.2 84% 4.9%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 262 83% 58%;
 
     --radius: 0.75rem;
 
@@ -49,9 +49,10 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* Brand colors for consistency */
-    --brand-primary: 14 83% 64%; /* #FF6B47 */
-    --brand-secondary: 14 78% 58%; /* #e55a3d */
+    /* LMS Brand colors */
+    --brand-primary: 227 61% 22%; /* #E3583D approximation */
+    --brand-secondary: 339 82% 62%; /* #F43F5E */
+    --brand-purple: 262 83% 58%; /* #9333EA */
   }
 
   .dark {
@@ -64,7 +65,7 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
+    --primary: 262 83% 58%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -154,146 +155,16 @@
     @apply text-muted-foreground;
   }
   
-  /* Consistent Card Styles */
-  .card-modern {
-    @apply bg-card border border-border rounded-2xl shadow-lg backdrop-blur-sm;
+  /* LMS Brand Styles */
+  .btn-brand {
+    @apply bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all duration-300;
   }
   
-  .card-hover {
-    @apply transition-all duration-300 hover:shadow-xl hover:scale-[1.02];
+  .card-lms {
+    @apply bg-gray-50 border border-gray-200 rounded-xl p-6 hover:shadow-sm transition-all duration-200;
   }
   
-  /* Glass Morphism Effects */
-  .glass {
-    @apply bg-background/80 backdrop-blur-xl border border-border;
-  }
-  
-  .glass-dark {
-    @apply bg-card/80 backdrop-blur-xl border border-border;
-  }
-  
-  /* Consistent Button Styles */
-  .btn-primary {
-    font-family: 'Inter', sans-serif;
-    @apply bg-[#FF6B47] hover:bg-[#e55a3d] text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl hover:scale-105;
-  }
-  
-  .btn-secondary {
-    font-family: 'Inter', sans-serif;
-    @apply bg-secondary hover:bg-secondary/80 border border-border text-secondary-foreground font-semibold transition-all duration-300 rounded-xl hover:scale-105;
-  }
-
-  .btn-ghost {
-    font-family: 'Inter', sans-serif;
-    @apply bg-transparent hover:bg-accent text-accent-foreground font-medium transition-all duration-300 rounded-xl border border-border/50;
-  }
-  
-  /* Utility Classes for Spacing */
-  .section-padding {
-    @apply py-20 lg:py-32;
-  }
-  
-  .container-padding {
-    @apply px-6 lg:px-8;
-  }
-  
-  /* Text Utilities with consistent colors */
-  .text-gradient {
-    @apply bg-gradient-to-r from-[#FF6B47] to-[#e55a3d] bg-clip-text text-transparent;
-  }
-  
-  .text-muted {
-    @apply text-muted-foreground;
-  }
-  
-  .text-subtle {
-    @apply text-muted-foreground/70;
-  }
-  
-  /* Animation Utilities */
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-out;
-  }
-  
-  .animate-slide-up {
-    animation: slideUp 0.8s ease-out;
-  }
-  
-  .animate-scale-in {
-    animation: scaleIn 0.5s ease-out;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes scaleIn {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  
-  /* Consistent Scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    @apply bg-background;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    @apply bg-[#FF6B47]/50 rounded;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-[#FF6B47]/70;
-  }
-  
-  /* Focus States */
-  button:focus-visible,
-  input:focus-visible,
-  textarea:focus-visible,
-  select:focus-visible {
-    outline: 2px solid #FF6B47;
-    outline-offset: 2px;
-  }
-  
-  /* Line Clamp */
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  .text-gradient-brand {
+    @apply bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent;
   }
 }
