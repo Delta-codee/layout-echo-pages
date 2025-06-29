@@ -304,6 +304,42 @@ const HorizontalTwitterTestimonials: React.FC = () => {
       retweets: 89,
       verified: false,
       role: "Student"
+    },
+    {
+      name: "Miral Dave",
+      username: "mirald_prof",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      content: "So proud of my former students Zeel Jasani and Kunj Jarsaniya. I always knew these two would go on to build something impactful — and here they are with Masterji, changing lives through real education. Keep inspiring. Keep building. You're doing meaningful work.",
+      timestamp: "1d",
+      likes: 567,
+      replies: 89,
+      retweets: 234,
+      verified: true,
+      role: "Professor"
+    },
+    {
+      name: "Khushi Garala",
+      username: "khushiteaches",
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b3b2b8d0?w=150&h=150&fit=crop&crop=face",
+      content: "Seeing what Zeel and Kunj have done with Masterji makes me incredibly proud. I'd love to work with you again! Is there space for a mentor in Data Science on your team?",
+      timestamp: "2d",
+      likes: 345,
+      replies: 67,
+      retweets: 123,
+      verified: true,
+      role: "Teacher"
+    },
+    {
+      name: "Zeel Jasani",
+      username: "zeeljasani.com",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      content: "Absolutely, ma'am! Our students will learn so much from you. I'm truly grateful to have studied under you — and now having you mentor the next generation would mean a lot. Welcome to the team!",
+      timestamp: "2d",
+      likes: 423,
+      replies: 78,
+      retweets: 156,
+      verified: true,
+      role: "Founder, HR & Teacher at MasterJi, CEO & Founder of Delta.codee"
     }
   ];
 
