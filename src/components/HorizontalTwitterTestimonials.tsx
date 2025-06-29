@@ -7,7 +7,7 @@ const HorizontalTwitterTestimonials: React.FC = () => {
   const testimonials = [
     {
       name: "Zeel Jasani",
-      username: "zeeldesigns",
+      username: "zeeljasani.com",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
       content: "Building Masterji has been the most rewarding journey. Watching students grow into professionals, and now even teachers, proves we're doing something right. From HR to product to classroom — I wear all hats proudly.",
       timestamp: "2h",
@@ -15,7 +15,7 @@ const HorizontalTwitterTestimonials: React.FC = () => {
       replies: 48,
       retweets: 89,
       verified: true,
-      role: "Founder, HR & Teacher at MasterJi"
+      role: "Founder, HR & Teacher at MasterJi, CEO & Founder of Delta.codee"
     },
     {
       name: "Kunj Jarsaniya",
@@ -27,7 +27,7 @@ const HorizontalTwitterTestimonials: React.FC = () => {
       replies: 42,
       retweets: 76,
       verified: false,
-      role: "CEO & Co-founder at MasterJi"
+      role: "Co-founder, CEO & Teacher at MasterJi"
     },
     {
       name: "Krish Jasani",
