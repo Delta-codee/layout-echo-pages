@@ -14,81 +14,71 @@ const Landing = () => {
   const features = [
     {
       icon: Code,
-      title: "Modern Web Apps",
-      description: "Building responsive, fast-loading applications that work seamlessly across all devices and browsers."
+      title: "Peer Reviews",
+      description: "Collaborative learning through structured peer feedback and code reviews to enhance your programming skills."
     },
     {
       icon: Palette,
-      title: "Tailored Design", 
-      description: "Custom UI/UX design that reflects your brand identity and creates meaningful user experiences."
+      title: "Blog Writing", 
+      description: "Share your knowledge and experiences through our integrated blogging platform designed for learners."
     },
     {
       icon: Zap,
-      title: "Performance First",
-      description: "Optimized code and architecture ensuring lightning-fast loading times and smooth interactions."
-    }
-  ];
-
-  const recentWork = [
-    {
-      title: "Algorithm",
-      description: "Data structures and algorithms learning platform with interactive coding challenges and real-time feedback.",
-      category: "EdTech Platform"
-    },
-    {
-      title: "Tailwind Master Kit",
-      description: "Complete component library with 200+ pre-built Tailwind CSS components for rapid development.",
-      category: "Developer Tools"
-    },
-    {
-      title: "Cosmo Digital", 
-      description: "Modern digital agency website with smooth animations, portfolio showcase, and client testimonials.",
-      category: "Agency Website"
-    },
-    {
-      title: "Invoicer Labs",
-      description: "Invoice management system with automated billing, payment tracking, and financial reporting.",
-      category: "SaaS Platform"
-    }
-  ];
-
-  const services = [
-    {
-      icon: Code,
-      title: "Web Development",
-      description: "Full-stack development using modern technologies like React, Node.js, and cloud platforms."
-    },
-    {
-      icon: Palette,
-      title: "UI/UX Design",
-      description: "User-centered design process from wireframes to high-fidelity prototypes and design systems."
-    },
-    {
-      icon: TrendingUp,
-      title: "Performance Optimization",
-      description: "Speed optimization, SEO improvements, and technical audits to maximize your site's potential."
+      title: "Assignments",
+      description: "Hands-on projects and assignments that help you apply theoretical knowledge to real-world scenarios."
     },
     {
       icon: Users,
-      title: "Consultation & Strategy",
-      description: "Technical consulting, architecture planning, and strategic guidance for your digital projects."
-    },
-    {
-      icon: Award,
-      title: "Maintenance & Support",
-      description: "Ongoing maintenance, updates, security monitoring, and technical support for your applications."
-    },
-    {
-      icon: Zap,
-      title: "API Development",
-      description: "RESTful APIs, database design, and third-party integrations to power your applications."
+      title: "AI Integration",
+      description: "Advanced AI tools to provide personalized learning paths and intelligent feedback on your progress."
     }
   ];
 
   const metrics = [
     { number: "88%", label: "Success Rate", description: "Projects completed successfully" },
     { number: "1,247", label: "Active Users", description: "Learning daily" },
-    { number: "24", label: "Certificates", description: "Available courses" }
+    { number: "156", label: "Certificates", description: "Available courses" }
+  ];
+
+  const studentProjects = [
+    {
+      title: "E-commerce Platform",
+      description: "Full-stack React application with payment integration",
+      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=300&h=200&fit=crop"
+    },
+    {
+      title: "Machine Learning Dashboard",
+      description: "Data visualization tool for ML models",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=300&h=200&fit=crop"
+    },
+    {
+      title: "Mobile App Design",
+      description: "UI/UX design for social networking app",
+      image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=300&h=200&fit=crop"
+    },
+    {
+      title: "Blockchain Project",
+      description: "Decentralized application for secure transactions",
+      image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=300&h=200&fit=crop"
+    }
+  ];
+
+  const blogPosts = [
+    {
+      title: "AI Powered Assistants Are the Future of Programming",
+      date: "Jan 15, 2024",
+      description: "Exploring how AI is transforming the way we write and debug code."
+    },
+    {
+      title: "Why This Platform is Different from Traditional LMS",
+      date: "Jan 10, 2024", 
+      description: "Understanding the unique approach to peer-based learning."
+    },
+    {
+      title: "Building Your First Full-Stack Application",
+      date: "Jan 05, 2024",
+      description: "A comprehensive guide to modern web development."
+    }
   ];
 
   return (
@@ -96,15 +86,16 @@ const Landing = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="pt-20 pb-32 bg-[#0B0B0B]">
+      <section className="pt-20 pb-32 bg-gradient-to-br from-[#0B0B0B] via-[#1a0d1a] to-[#0B0B0B]">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <Badge variant="outline" className="mb-8 px-6 py-2 text-sm font-medium bg-[#131313] border-[#2B2B2B] text-[#E3583D]">
-            <span className="mr-2">{'>'}</span>
-            Trusted by 500+ businesses worldwide
+            <span className="mr-2">🚀</span>
+            Trusted by 500+ students worldwide
           </Badge>
           
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-none tracking-tight text-[#F1F1F1]">
-            MasterJi
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-none tracking-tight">
+            Empower Your Learning Journey<br />
+            with <span className="text-[#E3583D]">MasterJi</span>
           </h1>
           
           <p className="text-xl md:text-2xl text-[#A1A1A1] mb-12 max-w-4xl mx-auto leading-relaxed">
@@ -115,13 +106,13 @@ const Landing = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20">
             <Link to="/register">
               <Button size="lg" className="bg-[#E4593D] hover:bg-[#E3583D] text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-                Get Started Now
+                Start Learning Now
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>
             <Link to="/login">
               <Button variant="outline" size="lg" className="px-8 py-4 text-lg font-semibold rounded-xl border-2 border-[#2B2B2B] text-[#F1F1F1] hover:bg-[#131313] transition-all duration-300">
-                Explore Courses
+                Browse Courses
               </Button>
             </Link>
           </div>
@@ -129,7 +120,7 @@ const Landing = () => {
           {/* Metrics Cards */}
           <div className="grid md:grid-cols-3 gap-8 mt-20">
             {metrics.map((metric, index) => (
-              <Card key={index} className="bg-[#131313] border-[#2B2B2B] hover:border-[#E3583D]/30 hover:shadow-lg transition-all duration-300 rounded-2xl">
+              <Card key={index} className="bg-gradient-to-br from-[#131313] to-[#1a1a1a] border-[#2B2B2B] hover:border-[#E3583D]/30 hover:shadow-lg transition-all duration-300 rounded-2xl">
                 <CardContent className="p-8 text-center">
                   <div className="text-5xl font-bold text-[#E3583D] mb-4">
                     {metric.number}
@@ -143,16 +134,16 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* AI Section */}
+      {/* Smart Learning with AI Section */}
       <section className="py-20 bg-[#0B0B0B]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#F1F1F1]">
-              <span className="text-[#E3583D]">AI</span>
+              Smart Learning with <span className="text-[#E3583D]">AI</span>
             </h2>
             <p className="text-xl text-[#A1A1A1] max-w-3xl mx-auto">
-              Explore cutting-edge artificial intelligence in school curricula and subjects to 
-              stay ahead of the curve.
+              Harness artificial intelligence to enhance your learning experience with personalized 
+              feedback and intelligent course recommendations.
             </p>
           </div>
           
@@ -172,16 +163,15 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Inspire Section */}
+      {/* Showcase & Inspire Section */}
       <section className="py-32 bg-[#0B0B0B]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#F1F1F1]">
-              <span className="text-[#E3583D]">Inspire</span>
+              Showcase & <span className="text-[#E3583D]">Inspire</span>
             </h2>
             <p className="text-xl text-[#A1A1A1] max-w-3xl mx-auto">
-              Discover diverse podcasts to expand your mind and elevate your 
-              professional knowledge.
+              Explore amazing student projects and get inspired by our community's latest blog posts and achievements.
             </p>
           </div>
           
@@ -189,12 +179,20 @@ const Landing = () => {
             <div>
               <h3 className="text-2xl font-bold text-[#F1F1F1] mb-8">Student Projects</h3>
               <div className="grid grid-cols-2 gap-4">
-                {[1, 2, 3, 4].map((item) => (
-                  <div key={item} className="bg-[#131313] rounded-xl aspect-square flex items-center justify-center border border-[#2B2B2B]">
-                    <div className="w-8 h-8 bg-[#E3583D]/20 rounded-full flex items-center justify-center">
-                      <div className="w-3 h-3 bg-[#E3583D] rounded-full"></div>
+                {studentProjects.map((project, index) => (
+                  <Card key={index} className="bg-[#131313] border-[#2B2B2B] hover:border-[#E3583D]/30 transition-all duration-300 rounded-xl overflow-hidden group">
+                    <div className="aspect-video overflow-hidden">
+                      <img 
+                        src={project.image} 
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
                     </div>
-                  </div>
+                    <CardContent className="p-4">
+                      <h4 className="font-semibold text-[#F1F1F1] text-sm mb-1">{project.title}</h4>
+                      <p className="text-[#A1A1A1] text-xs">{project.description}</p>
+                    </CardContent>
+                  </Card>
                 ))}
               </div>
             </div>
@@ -202,14 +200,12 @@ const Landing = () => {
             <div>
               <h3 className="text-2xl font-bold text-[#F1F1F1] mb-8">Latest Blog Posts</h3>
               <div className="space-y-4">
-                {[
-                  "AI Powered Assistants Are the Programmers",
-                  "Why is This Different from a One-Stop LMS"
-                ].map((title, index) => (
+                {blogPosts.map((post, index) => (
                   <Card key={index} className="bg-[#131313] border-[#2B2B2B] hover:border-[#E3583D]/30 transition-all duration-300 rounded-xl">
                     <CardContent className="p-6">
-                      <h4 className="text-lg font-semibold text-[#F1F1F1] mb-2">{title}</h4>
-                      <p className="text-[#A1A1A1] text-sm">Jan 06, 2024</p>
+                      <h4 className="text-lg font-semibold text-[#F1F1F1] mb-2">{post.title}</h4>
+                      <p className="text-[#A1A1A1] text-sm mb-3">{post.description}</p>
+                      <p className="text-[#E3583D] text-sm font-medium">{post.date}</p>
                     </CardContent>
                   </Card>
                 ))}
@@ -219,57 +215,18 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Students Section */}
-      <section className="py-20 bg-[#0B0B0B]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#F1F1F1]">
-              <span className="text-[#E3583D]">Students</span>
-            </h2>
-            <p className="text-xl text-[#A1A1A1] max-w-3xl mx-auto">
-              Join thousands of learners who trust our experience. Real testimonials from satisfied 
-              students.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { name: "Brian Johnson", rating: 5, text: "Simply extraordinary web programming. I love the well-structured courses, which cover every aspect.", avatar: "BJ" },
-              { name: "Marina Chen", rating: 5, text: "As a complete beginner I got foundational skills and understanding like no other course.", avatar: "MC" },  
-              { name: "Rodriguez Lopez", rating: 5, text: "Incredibly well organized course content. It really sets a foundation that will benefit me the most.", avatar: "RL" }
-            ].map((testimonial, index) => (
-              <Card key={index} className="bg-[#131313] border-[#2B2B2B] hover:border-[#E3583D]/30 transition-all duration-300 rounded-xl">
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 bg-[#E3583D] rounded-full flex items-center justify-center text-white font-semibold mr-4">
-                      {testimonial.avatar}
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-[#F1F1F1]">{testimonial.name}</h4>
-                      <div className="flex text-[#E3583D]">
-                        {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 fill-current" />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-[#A1A1A1] text-sm leading-relaxed">{testimonial.text}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Twitter-style Testimonials Section */}
+      <HorizontalTwitterTestimonials />
 
       {/* Pricing Section */}
       <section className="py-32 bg-[#0B0B0B]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#F1F1F1]">
-              <span className="text-[#E3583D]">Everyone</span>
+              Pricing for <span className="text-[#E3583D]">Everyone</span>
             </h2>
             <p className="text-xl text-[#A1A1A1] max-w-3xl mx-auto">
-              Simple pricing tailored to learners and creators.
+              Flexible pricing options to fit every learner's budget and goals.
             </p>
           </div>
           
@@ -277,15 +234,15 @@ const Landing = () => {
             {[
               { 
                 name: "Free Plan", 
-                price: "Free", 
-                features: ["5 active peer-reviews", "1 GB total uploads", "10 monthly peer graders"],
+                price: "$0", 
+                features: ["5 active peer-reviews", "1 GB total uploads", "10 monthly peer graders", "Basic AI assistance"],
                 cta: "Get Started Free"
               },
               { 
                 name: "Standard Plan", 
                 price: "$49", 
                 period: "/mo",
-                features: ["30 active peer-reviews", "25 GB total uploads", "25 monthly peer graders"],
+                features: ["30 active peer-reviews", "25 GB total uploads", "25 monthly peer graders", "Advanced AI features", "Priority support"],
                 cta: "Choose Standard",
                 popular: true
               },
@@ -293,7 +250,7 @@ const Landing = () => {
                 name: "Pro Plan", 
                 price: "$99", 
                 period: "/mo",
-                features: ["Unlimited peer-reviews", "100 GB total uploads", "Unlimited peer graders"],
+                features: ["Unlimited peer-reviews", "100 GB total uploads", "Unlimited peer graders", "Full AI suite", "1-on-1 mentoring"],
                 cta: "Choose Pro"
               }
             ].map((plan, index) => (
@@ -338,7 +295,7 @@ const Landing = () => {
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#F1F1F1]">
-              Need to <span className="text-[#E3583D]">Know</span>
+              Everything You <span className="text-[#E3583D]">Need to Know</span>
             </h2>
             <p className="text-xl text-[#A1A1A1]">
               Common questions about our platform and learning experience.
@@ -347,10 +304,10 @@ const Landing = () => {
           
           <div className="space-y-6">
             {[
-              { q: "How do I start a program?", a: "You can enroll in any program by browsing our course catalog and clicking the enroll button. Most courses start immediately after enrollment." },
-              { q: "How does peer review work?", a: "Our peer review system allows you to receive and give feedback on projects and assignments, fostering collaborative learning and skill development." },
-              { q: "Can I get a certificate?", a: "Yes! Upon successful completion of any course you'll receive a certificate that you can share with employers and on professional networks." },
-              { q: "What if I have technical difficulties?", a: "Our support team is available 24/7 to help with any technical issues. You can reach us through the help center or live chat." }
+              { q: "How do I schedule a program?", a: "You can enroll in any program by browsing our course catalog and clicking the enroll button. Most courses start immediately after enrollment with flexible scheduling options." },
+              { q: "How does peer review work?", a: "Our peer review system allows you to receive and give feedback on projects and assignments, fostering collaborative learning and skill development through structured evaluation criteria." },
+              { q: "Can I get a certificate?", a: "Yes! Upon successful completion of any course you'll receive a verified certificate that you can share with employers and on professional networks like LinkedIn." },
+              { q: "What if I need a custom deadline?", a: "We offer flexible deadlines for most assignments. You can request extensions through your dashboard or contact our support team for personalized scheduling assistance." }
             ].map((faq, index) => (
               <Card key={index} className="bg-[#131313] border-[#2B2B2B] hover:border-[#E3583D]/30 transition-all duration-300 rounded-xl">
                 <CardContent className="p-6">
@@ -364,15 +321,17 @@ const Landing = () => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-32 bg-[#0B0B0B] text-center">
+      <section className="py-32 bg-gradient-to-br from-[#0B0B0B] via-[#1a0d1a] to-[#0B0B0B] text-center">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight text-[#F1F1F1]">
-            Join thousands of learners who are already, learning new skills with 
-            <span className="text-[#E3583D]"> MasterJi</span>
+            Ready to Start Learning?
           </h2>
+          <p className="text-xl text-[#A1A1A1] mb-12 max-w-2xl mx-auto">
+            Join thousands of learners who are already advancing their skills with MasterJi's comprehensive learning platform.
+          </p>
           <Link to="/register">
-            <Button size="lg" className="bg-[#E4593D] hover:bg-[#E3583D] text-white px-12 py-5 text-xl font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 mt-8">
-              Start Your Learning Journey
+            <Button size="lg" className="bg-[#E4593D] hover:bg-[#E3583D] text-white px-12 py-5 text-xl font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+              Start Your Journey
             </Button>
           </Link>
         </div>
@@ -390,7 +349,7 @@ const Landing = () => {
                 <span className="text-2xl font-bold">MasterJi</span>
               </div>
               <p className="text-[#A1A1A1] mb-6 max-w-md leading-relaxed">
-                Building modern learning experiences that solve real problems and create meaningful educational outcomes.
+                Building modern learning experiences that solve real problems and create meaningful educational outcomes for the next generation of learners.
               </p>
             </div>
             
@@ -399,6 +358,7 @@ const Landing = () => {
               <ul className="space-y-3 text-[#A1A1A1]">
                 <li><Link to="/courses" className="hover:text-[#E3583D] transition-colors">Courses</Link></li>
                 <li><Link to="/blogs" className="hover:text-[#E3583D] transition-colors">Blogs</Link></li>
+                <li><Link to="/peer-reviews" className="hover:text-[#E3583D] transition-colors">Peer Reviews</Link></li>
                 <li><Link to="/dashboard" className="hover:text-[#E3583D] transition-colors">Dashboard</Link></li>
               </ul>
             </div>
