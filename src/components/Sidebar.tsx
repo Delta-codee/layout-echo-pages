@@ -15,13 +15,13 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="w-72 h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 flex flex-col">
-      <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+    <div className="w-72 h-screen bg-[#0B0B0B] border-r border-[#2B2B2B] flex flex-col">
+      <div className="p-6 border-b border-[#2B2B2B]">
         <Link to="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-500 rounded-xl flex items-center justify-center">
+          <div className="w-10 h-10 bg-[#E3583D] rounded-xl flex items-center justify-center">
             <GraduationCap className="w-6 h-6 text-white" />
           </div>
-          <span className="text-2xl font-bold text-gray-900 dark:text-white">MasterJi</span>
+          <span className="text-2xl font-bold text-[#F1F1F1]">MasterJi</span>
         </Link>
       </div>
       
@@ -36,8 +36,8 @@ const Sidebar = () => {
               to={item.path}
               className={`flex items-center gap-3 px-4 py-3 mb-2 rounded-xl transition-all duration-200 ${
                 isActive 
-                  ? 'bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-sm' 
-                  : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
+                  ? 'bg-[#E3583D] text-white shadow-sm' 
+                  : 'text-[#A1A1A1] hover:text-[#F1F1F1] hover:bg-[#131313]'
               }`}
             >
               <Icon className="w-5 h-5" />
@@ -47,7 +47,7 @@ const Sidebar = () => {
         })}
       </nav>
       
-      <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+      <div className="p-4 border-t border-[#2B2B2B]">
         <ProfileDropdown />
       </div>
     </div>

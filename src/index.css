@@ -6,91 +6,76 @@
 /* Import Inter font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-/* Definition of the design system with consistent colors and typography */
+/* Dark MasterJi Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 210 12% 6%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 210 12% 6%;
+    --card: 0 0% 7.5%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 210 12% 6%;
+    --popover: 0 0% 7.5%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 262 83% 58%;
+    --primary: 15 85% 57%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
+    --secondary: 0 0% 7.5%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 220 13% 91%;
-    --muted-foreground: 215.4 16.3% 37%;
+    --muted: 0 0% 16%;
+    --muted-foreground: 215.4 16.3% 63%;
 
-    --accent: 220 13% 91%;
-    --accent-foreground: 222.2 84% 4.9%;
+    --accent: 0 0% 16%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 262 83% 58%;
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 15 85% 57%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-
-    /* LMS Brand colors */
-    --brand-primary: 227 61% 22%; /* #E3583D approximation */
-    --brand-secondary: 339 82% 62%; /* #F43F5E */
-    --brand-purple: 262 83% 58%; /* #9333EA */
+    /* MasterJi Dark Brand colors */
+    --brand-primary: 15 85% 57%; /* #E3583D */
+    --brand-secondary: 15 85% 57%; /* #E4593D */
+    --brand-success: 154 73% 52%; /* #3FCF8E */
+    --brand-error: 0 73% 67%; /* #FF5C5C */
+    --brand-info: 214 95% 64%; /* #3A8EFF */
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 0 0% 4.3%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 0 0% 7.5%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 0 0% 7.5%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 262 83% 58%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 15 85% 57%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 0 0% 16%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0 0% 16%;
+    --muted-foreground: 215 20.2% 63%;
 
-    --accent: 217.2 32.6% 17.5%;
+    --accent: 0 0% 16%;
     --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62.8% 67%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
     --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -101,7 +86,7 @@
 
   html, body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    @apply bg-background text-foreground;
+    @apply bg-[#0B0B0B] text-[#F1F1F1];
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -111,7 +96,7 @@
 
   #root {
     min-height: 100vh;
-    @apply bg-background;
+    @apply bg-[#0B0B0B];
   }
   
   /* Typography Hierarchy with Inter font */
@@ -120,7 +105,7 @@
     font-weight: 600;
     letter-spacing: -0.025em;
     line-height: 1.2;
-    @apply text-foreground;
+    @apply text-[#F1F1F1];
   }
   
   .text-display {
@@ -129,7 +114,7 @@
     font-weight: 800;
     letter-spacing: -0.04em;
     line-height: 0.95;
-    @apply text-foreground;
+    @apply text-[#F1F1F1];
   }
   
   .text-headline {
@@ -137,7 +122,7 @@
     font-size: clamp(1.75rem, 4vw, 3rem);
     font-weight: 700;
     letter-spacing: -0.03em;
-    @apply text-foreground;
+    @apply text-[#F1F1F1];
   }
   
   .text-title {
@@ -145,26 +130,34 @@
     font-size: clamp(1.25rem, 2.5vw, 1.875rem);
     font-weight: 600;
     letter-spacing: -0.02em;
-    @apply text-foreground;
+    @apply text-[#F1F1F1];
   }
 
   .text-body {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     line-height: 1.6;
-    @apply text-muted-foreground;
+    @apply text-[#A1A1A1];
   }
   
-  /* LMS Brand Styles */
+  /* MasterJi Dark Brand Styles */
   .btn-brand {
-    @apply bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all duration-300;
+    @apply bg-[#E4593D] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#E3583D] transition-all duration-300;
   }
   
-  .card-lms {
-    @apply bg-gray-50 border border-gray-200 rounded-xl p-6 hover:shadow-sm transition-all duration-200;
+  .card-dark {
+    @apply bg-[#131313] border border-[#2B2B2B] rounded-xl p-6 hover:shadow-sm transition-all duration-200;
   }
   
   .text-gradient-brand {
-    @apply bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[#E3583D] to-[#E4593D] bg-clip-text text-transparent;
+  }
+
+  .text-subtext {
+    @apply text-[#A1A1A1];
+  }
+
+  .border-dark {
+    @apply border-[#2B2B2B];
   }
 }

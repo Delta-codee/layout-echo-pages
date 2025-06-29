@@ -46,13 +46,13 @@ const Dashboard = () => {
 
   return (
     <Layout>
-      <div className="p-8 bg-white min-h-screen">
+      <div className="p-8 bg-[#0B0B0B] min-h-screen">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
-            <p className="text-gray-600">Overview of your progress and upcoming deadlines.</p>
+            <h1 className="text-3xl font-bold text-[#F1F1F1] mb-2">Dashboard</h1>
+            <p className="text-[#A1A1A1]">Overview of your progress and upcoming deadlines.</p>
           </div>
-          <button className="text-purple-600 hover:text-purple-700 font-medium transition-colors">
+          <button className="text-[#E3583D] hover:text-[#E4593D] font-medium transition-colors">
             View Notice Board
           </button>
         </div>
@@ -61,29 +61,29 @@ const Dashboard = () => {
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
-              <Card key={index} className="bg-gray-50 border-gray-200 hover:shadow-sm transition-shadow">
+              <Card key={index} className="bg-[#131313] border-[#2B2B2B] hover:shadow-sm transition-shadow">
                 <CardHeader className="pb-3">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gradient-to-br from-purple-600 to-pink-500 rounded-lg">
+                    <div className="p-2 bg-[#E3583D] rounded-lg">
                       <Icon className="w-4 h-4 text-white" />
                     </div>
-                    <span className="text-gray-600 text-sm font-medium">{stat.title}</span>
+                    <span className="text-[#A1A1A1] text-sm font-medium">{stat.title}</span>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-4xl font-bold text-gray-900 mb-4">{stat.total}</div>
+                  <div className="text-4xl font-bold text-[#F1F1F1] mb-4">{stat.total}</div>
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 text-sm">
+                      <span className="text-[#A1A1A1] text-sm">
                         {stat.title === 'Courses Enrolled' ? 'Completed' : 'Total'}
                       </span>
-                      <span className="text-green-600 text-sm font-medium">0</span>
+                      <span className="text-[#3FCF8E] text-sm font-medium">0</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 text-sm">
+                      <span className="text-[#A1A1A1] text-sm">
                         {stat.title === 'Courses Enrolled' ? 'Ongoing' : 'Pending'}
                       </span>
-                      <span className="text-pink-500 text-sm font-medium">0</span>
+                      <span className="text-[#E3583D] text-sm font-medium">0</span>
                     </div>
                   </div>
                 </CardContent>
@@ -94,26 +94,26 @@ const Dashboard = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {metrics.map((metric, index) => (
-            <Card key={index} className="bg-gray-50 border-gray-200 hover:shadow-sm transition-shadow">
+            <Card key={index} className="bg-[#131313] border-[#2B2B2B] hover:shadow-sm transition-shadow">
               <CardContent className="p-6">
-                <div className="text-3xl font-bold text-gray-900 mb-2">{metric.value}</div>
-                <div className="text-gray-600 text-sm font-medium">{metric.label}</div>
+                <div className="text-3xl font-bold text-[#F1F1F1] mb-2">{metric.value}</div>
+                <div className="text-[#A1A1A1] text-sm font-medium">{metric.label}</div>
               </CardContent>
             </Card>
           ))}
         </div>
 
-        <Card className="bg-gray-50 border-gray-200 hover:shadow-sm transition-shadow">
+        <Card className="bg-[#131313] border-[#2B2B2B] hover:shadow-sm transition-shadow">
           <CardHeader>
-            <CardTitle className="flex items-center gap-3 text-gray-900">
+            <CardTitle className="flex items-center gap-3 text-[#F1F1F1]">
               <Calendar className="w-5 h-5" />
               Upcoming Deadlines
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-center py-12">
-              <CheckCircle2 className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600 italic">No upcoming deadlines. You're all caught up!</p>
+              <CheckCircle2 className="w-16 h-16 text-[#A1A1A1] mx-auto mb-4" />
+              <p className="text-[#A1A1A1] italic">No upcoming deadlines. You're all caught up!</p>
             </div>
           </CardContent>
         </Card>
