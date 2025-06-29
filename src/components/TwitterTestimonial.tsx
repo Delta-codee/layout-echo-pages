@@ -12,6 +12,7 @@ interface TwitterTestimonialProps {
   replies: number;
   retweets: number;
   verified?: boolean;
+  role?: string;
   isHorizontal?: boolean;
 }
 
@@ -25,6 +26,7 @@ const TwitterTestimonial: React.FC<TwitterTestimonialProps> = ({
   replies,
   retweets,
   verified = false,
+  role,
   isHorizontal = false
 }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -34,16 +36,27 @@ const TwitterTestimonial: React.FC<TwitterTestimonialProps> = ({
     ? "bg-gray-900 border border-gray-800 rounded-2xl p-6 hover:bg-gray-800/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/10 h-fit min-w-0"
     : "bg-gray-900 border border-gray-800 rounded-2xl p-6 hover:bg-gray-800/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/10";
 
+  // Check if this is a MasterJi team member for special styling
+  const isMasterJiTeam = role && (role.includes('MasterJi') || role.includes('Teacher') || role.includes('Founder') || role.includes('CEO'));
+
   return (
     <div className={containerClasses}>
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3 flex-1 min-w-0">
-          <img 
-            src={avatar} 
-            alt={name}
-            className="w-12 h-12 rounded-full object-cover ring-2 ring-gray-700 flex-shrink-0"
-          />
+          <div className="relative">
+            <img 
+              src={avatar} 
+              alt={name}
+              className="w-12 h-12 rounded-full object-cover ring-2 ring-gray-700 flex-shrink-0"
+            />
+            {/* MasterJi logo for team members */}
+            {isMasterJiTeam && (
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-[#E3583D] rounded-full flex items-center justify-center ring-2 ring-gray-900">
+                <span className="text-white font-bold text-xs">M</span>
+              </div>
+            )}
+          </div>
           <div className="flex flex-col min-w-0 flex-1">
             <div className="flex items-center gap-2">
               <h4 className="text-white font-semibold text-base truncate">{name}</h4>
@@ -54,6 +67,9 @@ const TwitterTestimonial: React.FC<TwitterTestimonialProps> = ({
               )}
             </div>
             <p className="text-gray-400 text-sm truncate">@{username}</p>
+            {role && (
+              <p className="text-[#E3583D] text-xs font-medium mt-1 truncate">{role}</p>
+            )}
           </div>
         </div>
         <div className="flex items-center gap-2 text-gray-500 flex-shrink-0">
