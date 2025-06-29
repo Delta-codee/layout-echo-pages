@@ -27,23 +27,23 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-500 rounded-xl flex items-center justify-center shadow-sm">
+            <div className="w-12 h-12 bg-gradient-to-br from-[#E3583D] to-[#E4593D] rounded-xl flex items-center justify-center shadow-sm">
               <GraduationCap className="w-7 h-7 text-white" />
             </div>
-            <span className="text-3xl font-bold text-gray-900 dark:text-white">MasterJi</span>
+            <span className="text-3xl font-bold text-[#F1F1F1]">MasterJi</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Create Account</h1>
-          <p className="text-gray-600 dark:text-gray-400">Join the learning community today</p>
+          <h1 className="text-2xl font-bold text-[#F1F1F1] mb-2">Create Account</h1>
+          <p className="text-[#A1A1A1]">Join the learning community today</p>
         </div>
 
-        <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+        <Card className="bg-[#131313] border-[#2B2B2B]">
           <CardHeader>
-            <CardTitle className="text-gray-900 dark:text-white">Sign Up</CardTitle>
-            <CardDescription className="text-gray-600 dark:text-gray-400">
+            <CardTitle className="text-[#F1F1F1]">Sign Up</CardTitle>
+            <CardDescription className="text-[#A1A1A1]">
               Fill in your details to create your account
             </CardDescription>
           </CardHeader>
@@ -51,7 +51,7 @@ const Register = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Role Selection */}
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">I am a:</label>
+                <label className="text-sm font-medium text-[#F1F1F1]">I am a:</label>
                 <div className="grid grid-cols-3 gap-2">
                   {['student', 'faculty', 'admin'].map((role) => (
                     <button
@@ -60,8 +60,8 @@ const Register = () => {
                       onClick={() => setFormData(prev => ({ ...prev, role }))}
                       className={`p-3 rounded-lg border text-sm font-medium transition-all ${
                         formData.role === role
-                          ? 'bg-gradient-to-r from-purple-600 to-pink-500 border-purple-600 text-white'
-                          : 'bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500'
+                          ? 'bg-gradient-to-r from-[#E3583D] to-[#E4593D] border-[#E3583D] text-white'
+                          : 'bg-[#0B0B0B] border-[#2B2B2B] text-[#A1A1A1] hover:border-[#E3583D]/30 hover:text-[#F1F1F1]'
                       }`}
                     >
                       {role.charAt(0).toUpperCase() + role.slice(1)}
@@ -72,14 +72,14 @@ const Register = () => {
 
               {/* Full Name */}
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Full Name</label>
+                <label className="text-sm font-medium text-[#F1F1F1]">Full Name</label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#A1A1A1] w-4 h-4" />
                   <input
                     type="text"
                     value={formData.fullName}
                     onChange={(e) => setFormData(prev => ({ ...prev, fullName: e.target.value }))}
-                    className="w-full bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl pl-10 pr-4 py-3 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600 transition-all"
+                    className="w-full bg-[#0B0B0B] border border-[#2B2B2B] rounded-xl pl-10 pr-4 py-3 text-[#F1F1F1] placeholder-[#A1A1A1] focus:outline-none focus:border-[#E3583D] focus:ring-1 focus:ring-[#E3583D] transition-all"
                     placeholder="Enter your full name"
                     required
                   />
@@ -88,14 +88,14 @@ const Register = () => {
 
               {/* Email */}
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                <label className="text-sm font-medium text-[#F1F1F1]">Email</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#A1A1A1] w-4 h-4" />
                   <input
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                    className="w-full bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl pl-10 pr-4 py-3 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600 transition-all"
+                    className="w-full bg-[#0B0B0B] border border-[#2B2B2B] rounded-xl pl-10 pr-4 py-3 text-[#F1F1F1] placeholder-[#A1A1A1] focus:outline-none focus:border-[#E3583D] focus:ring-1 focus:ring-[#E3583D] transition-all"
                     placeholder="Enter your email"
                     required
                   />
@@ -104,21 +104,21 @@ const Register = () => {
 
               {/* Password */}
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+                <label className="text-sm font-medium text-[#F1F1F1]">Password</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#A1A1A1] w-4 h-4" />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={formData.password}
                     onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
-                    className="w-full bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl pl-10 pr-12 py-3 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600 transition-all"
+                    className="w-full bg-[#0B0B0B] border border-[#2B2B2B] rounded-xl pl-10 pr-12 py-3 text-[#F1F1F1] placeholder-[#A1A1A1] focus:outline-none focus:border-[#E3583D] focus:ring-1 focus:ring-[#E3583D] transition-all"
                     placeholder="Create a password"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#A1A1A1] hover:text-[#F1F1F1] transition-colors"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -127,21 +127,21 @@ const Register = () => {
 
               {/* Confirm Password */}
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Confirm Password</label>
+                <label className="text-sm font-medium text-[#F1F1F1]">Confirm Password</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#A1A1A1] w-4 h-4" />
                   <input
                     type={showConfirmPassword ? 'text' : 'password'}
                     value={formData.confirmPassword}
                     onChange={(e) => setFormData(prev => ({ ...prev, confirmPassword: e.target.value }))}
-                    className="w-full bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl pl-10 pr-12 py-3 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600 transition-all"
+                    className="w-full bg-[#0B0B0B] border border-[#2B2B2B] rounded-xl pl-10 pr-12 py-3 text-[#F1F1F1] placeholder-[#A1A1A1] focus:outline-none focus:border-[#E3583D] focus:ring-1 focus:ring-[#E3583D] transition-all"
                     placeholder="Confirm your password"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#A1A1A1] hover:text-[#F1F1F1] transition-colors"
                   >
                     {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -150,15 +150,15 @@ const Register = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white py-3 rounded-xl font-medium transition-all"
+                className="w-full bg-gradient-to-r from-[#E3583D] to-[#E4593D] hover:from-[#E3583D]/90 hover:to-[#E4593D]/90 text-white py-3 rounded-xl font-medium transition-all"
               >
                 Create Account
               </Button>
             </form>
 
-            <div className="mt-6 text-center text-gray-600 dark:text-gray-400">
+            <div className="mt-6 text-center text-[#A1A1A1]">
               Already have an account?{' '}
-              <Link to="/login" className="text-purple-600 hover:text-purple-700 font-medium transition-colors">
+              <Link to="/login" className="text-[#E3583D] hover:text-[#E4593D] font-medium transition-colors">
                 Sign in
               </Link>
             </div>
