@@ -184,6 +184,126 @@ const HorizontalTwitterTestimonials: React.FC = () => {
       retweets: 98,
       verified: false,
       role: "Student"
+    },
+    {
+      name: "Parth Soni",
+      username: "parthcodes",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      content: "Got placed off-campus thanks to Masterji! I was struggling after college, but their DSA & Java crash course gave me the confidence to crack the interview. No fake promises — just proper learning and mentorship.",
+      timestamp: "2d",
+      likes: 278,
+      replies: 42,
+      retweets: 87,
+      verified: false,
+      role: "Student"
+    },
+    {
+      name: "Mitali Rana",
+      username: "mitali_rana",
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b3b2b8d0?w=150&h=150&fit=crop&crop=face",
+      content: "The teachers at Masterji are honestly better than my university profs. We worked on real-world projects, not just theory. My portfolio actually got noticed by a startup — I'm joining next week!",
+      timestamp: "3d",
+      likes: 321,
+      replies: 56,
+      retweets: 112,
+      verified: false,
+      role: "Student"
+    },
+    {
+      name: "Aman Vyas",
+      username: "amanontech",
+      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
+      content: "Everyone says they prepare you for the industry. Masterji actually does. I was part of a weekend batch and got hands-on with API design, SQL optimization, and live debugging sessions.",
+      timestamp: "4d",
+      likes: 445,
+      replies: 73,
+      retweets: 156,
+      verified: false,
+      role: "Student"
+    },
+    {
+      name: "Charmi Patel",
+      username: "charmitech",
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+      content: "Other platforms just give you videos. Masterji gave me feedback, mentorship, and real competition. I won a MacBook Air M4 during our internal project championship — best learning experience ever!",
+      timestamp: "5d",
+      likes: 389,
+      replies: 67,
+      retweets: 134,
+      verified: false,
+      role: "Student"
+    },
+    {
+      name: "Raj Chauhan",
+      username: "rajcodesx",
+      avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop&crop=face",
+      content: "I joined Masterji with 0 confidence in coding. Today, I'm interning at a US-based SaaS company — all because of their structured roadmap and personal support. It felt like family.",
+      timestamp: "6d",
+      likes: 267,
+      replies: 38,
+      retweets: 89,
+      verified: false,
+      role: "Student"
+    },
+    {
+      name: "Nirali Desai",
+      username: "niralionweb",
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
+      content: "I wasn't expecting this much attention from the mentors — every small doubt got answered, even late at night. They treat students like teammates. Very different vibe from normal courses.",
+      timestamp: "1w",
+      likes: 312,
+      replies: 45,
+      retweets: 78,
+      verified: false,
+      role: "Student"
+    },
+    {
+      name: "Tushar Panchal",
+      username: "tusharlearns",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      content: "We built a full-stack health tracker with React + Node in the capstone project. The best part? I got shortlisted at a product company because of that project. Thank you Masterji team!",
+      timestamp: "1w",
+      likes: 234,
+      replies: 33,
+      retweets: 67,
+      verified: false,
+      role: "Student"
+    },
+    {
+      name: "Dhruvi Modi",
+      username: "dhruvi_ui",
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+      content: "I joined only for UI/UX, but ended up falling in love with frontend dev too. Ishita ma'am's way of explaining flows & system design is just chef's kiss. Can't wait to take the backend batch now!",
+      timestamp: "2w",
+      likes: 189,
+      replies: 28,
+      retweets: 54,
+      verified: false,
+      role: "Student"
+    },
+    {
+      name: "Jay Parmar",
+      username: "jaywritescode",
+      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      content: "Masterji doesn't just teach — they build you. The resume sessions, mock interviews, and coding weekends made me ready for my first job. Also, Kunj sir's DSA playlist is gold.",
+      timestamp: "2w",
+      likes: 345,
+      replies: 52,
+      retweets: 98,
+      verified: false,
+      role: "Student"
+    },
+    {
+      name: "Ananya Rao",
+      username: "ananyarao_dev",
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
+      content: "I applied for 7 jobs using my Masterji project repo. Got 3 callbacks within a week. Real projects + proper Git workflow + mentor support = guaranteed confidence boost.",
+      timestamp: "3w",
+      likes: 278,
+      replies: 41,
+      retweets: 89,
+      verified: false,
+      role: "Student"
     }
   ];
 
@@ -284,7 +404,7 @@ const HorizontalTwitterTestimonials: React.FC = () => {
 
         .scroll-content {
           display: flex;
-          animation: scroll 180s linear infinite;
+          animation: scroll 240s linear infinite;
           gap: 1.5rem;
           width: max-content;
         }
@@ -309,7 +429,7 @@ const HorizontalTwitterTestimonials: React.FC = () => {
           }
           
           .scroll-content {
-            animation: scroll 120s linear infinite;
+            animation: scroll 160s linear infinite;
           }
         }
       `}</style>
