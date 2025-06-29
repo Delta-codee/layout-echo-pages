@@ -45,7 +45,7 @@ const Dashboard = () => {
 
   return (
     <Layout>
-      <div className="p-8">
+      <div className="p-8 h-full overflow-y-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-white mb-2">Dashboard</h1>

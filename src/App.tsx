@@ -17,7 +17,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import StudentDashboard from "./pages/StudentDashboard";
-import Community from "./pages/Community";
 import Courses from "./pages/Courses";
 
 const queryClient = new QueryClient();
@@ -40,7 +39,6 @@ const AppContent = () => {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/student-dashboard" element={<StudentDashboard />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/community" element={<Community />} />
               <Route path="/peer-reviews" element={<PeerReviews />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/blogs" element={<Blogs />} />

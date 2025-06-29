@@ -1,6 +1,6 @@
 
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Users, Folder, FileText, BarChart3, GraduationCap, MessageCircle, User, Settings } from 'lucide-react';
+import { Home, Users, Folder, FileText, BarChart3, GraduationCap, User } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 
 const Sidebar = () => {
@@ -11,21 +11,20 @@ const Sidebar = () => {
     { icon: Home, label: 'Dashboard', path: '/dashboard' },
     { icon: User, label: 'Profile', path: '/profile' },
     { icon: Folder, label: 'Projects', path: '/projects' },
-    { icon: MessageCircle, label: 'Community', path: '/community' },
     { icon: Users, label: 'Peer Reviews', path: '/peer-reviews' },
     { icon: FileText, label: 'Blogs', path: '/blogs' },
     { icon: BarChart3, label: 'Evaluations', path: '/evaluations' }
   ];
 
   return (
-    <div className="w-72 h-screen bg-black/30 backdrop-blur-sm border-r border-white/10 flex flex-col shadow-2xl">
+    <div className="w-72 h-screen bg-black/30 backdrop-blur-sm border-r border-white/10 flex flex-col shadow-2xl sticky top-0">
       <div className="p-8">
-        <div className="flex items-center gap-4">
+        <Link to="/" className="flex items-center gap-4">
           <div className="w-10 h-10 bg-gradient-to-br from-[#FF6B47] to-[#e55a3d] rounded-xl flex items-center justify-center shadow-lg shadow-[#FF6B47]/20">
             <GraduationCap className="w-6 h-6 text-white" />
           </div>
           <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">MasterJi</span>
-        </div>
+        </Link>
       </div>
       
       <nav className="flex-1 px-6">
@@ -60,13 +59,6 @@ const Sidebar = () => {
             <div className="text-gray-300 text-sm">Student</div>
           </div>
         </div>
-        
-        <Link to="/profile" className="block mt-4">
-          <button className="w-full flex items-center gap-2 px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-all">
-            <Settings className="w-4 h-4" />
-            <span>Settings</span>
-          </button>
-        </Link>
       </div>
     </div>
   );

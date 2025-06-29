@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import { GraduationCap, User, Settings, LogOut } from 'lucide-react';
+import { GraduationCap, User, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useAuth } from '@/contexts/AuthContext';
@@ -31,9 +31,6 @@ const Header = () => {
         <nav className="hidden md:flex items-center gap-8">
           <Link to="/courses" className="text-gray-300 hover:text-white transition-colors">
             Courses
-          </Link>
-          <Link to="/community" className="text-gray-300 hover:text-white transition-colors">
-            Community
           </Link>
           <Link to="/blogs" className="text-gray-300 hover:text-white transition-colors">
             Blogs
@@ -90,9 +87,8 @@ const Header = () => {
                   <span>Edit Profile</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="text-white hover:bg-white/10 cursor-pointer">
-                  <Settings className="mr-2 h-4 w-4" />
                   <div className="flex items-center justify-between w-full">
-                    <span>Change Theme</span>
+                    <span>Theme</span>
                     <ThemeSelector compact />
                   </div>
                 </DropdownMenuItem>
