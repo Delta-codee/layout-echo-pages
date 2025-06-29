@@ -31,16 +31,16 @@ const Profile = () => {
 
   return (
     <Layout>
-      <div className="max-w-4xl mx-auto p-6">
+      <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-gray-900 min-h-screen">
         {/* Cover Photo Section */}
         <div className="relative mb-6">
-          <div className="h-48 bg-gradient-to-r from-[#FF6B47] to-[#e55a3d] rounded-xl relative overflow-hidden">
+          <div className="h-48 bg-gradient-to-r from-purple-600 to-pink-500 rounded-xl relative overflow-hidden">
             {user.coverImage ? (
               <img src={user.coverImage} alt="Cover" className="w-full h-full object-cover" />
             ) : (
-              <div className="w-full h-full bg-gradient-to-r from-[#FF6B47] to-[#e55a3d]" />
+              <div className="w-full h-full bg-gradient-to-r from-purple-600 to-pink-500" />
             )}
-            <button className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white p-2 rounded-lg transition-all">
+            <button className="absolute top-4 right-4 bg-black/20 hover:bg-black/40 text-white p-2 rounded-lg transition-all">
               <Camera className="w-4 h-4" />
             </button>
           </div>
@@ -48,16 +48,16 @@ const Profile = () => {
           {/* Profile Picture */}
           <div className="absolute -bottom-16 left-6">
             <div className="relative">
-              <div className="w-32 h-32 bg-gray-800 rounded-full border-4 border-[#1a1a1a] overflow-hidden">
+              <div className="w-32 h-32 bg-white dark:bg-gray-800 rounded-full border-4 border-white dark:border-gray-800 overflow-hidden">
                 {user.profileImage ? (
                   <img src={user.profileImage} alt="Profile" className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-[#FF6B47] to-[#e55a3d] flex items-center justify-center text-white text-2xl font-bold">
+                  <div className="w-full h-full bg-gradient-to-br from-purple-600 to-pink-500 flex items-center justify-center text-white text-2xl font-bold">
                     {user.fullName.split(' ').map(n => n[0]).join('')}
                   </div>
                 )}
               </div>
-              <button className="absolute bottom-2 right-2 bg-[#FF6B47] hover:bg-[#e55a3d] text-white p-1.5 rounded-full transition-all">
+              <button className="absolute bottom-2 right-2 bg-purple-600 hover:bg-purple-700 text-white p-1.5 rounded-full transition-all">
                 <Camera className="w-3 h-3" />
               </button>
             </div>
@@ -68,9 +68,9 @@ const Profile = () => {
         <div className="mt-20 mb-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-white mb-1">{user.fullName}</h1>
-              <p className="text-[#FF6B47] text-lg mb-2">{user.username}</p>
-              <div className="flex items-center gap-4 text-gray-400 text-sm">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{user.fullName}</h1>
+              <p className="text-purple-600 text-lg mb-2">{user.username}</p>
+              <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400 text-sm">
                 <span className="flex items-center gap-1">
                   <Mail className="w-4 h-4" />
                   {user.email}
@@ -85,7 +85,7 @@ const Profile = () => {
                 </span>
               </div>
             </div>
-            <Button className="bg-[#FF6B47] hover:bg-[#e55a3d] text-white">
+            <Button className="bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white rounded-xl">
               <Edit3 className="w-4 h-4 mr-2" />
               Edit Profile
             </Button>
@@ -96,19 +96,19 @@ const Profile = () => {
           {/* Left Column */}
           <div className="space-y-6">
             {/* Bio */}
-            <Card className="bg-[#1a1a1a] border-gray-700">
+            <Card className="bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700">
               <CardHeader>
-                <CardTitle className="text-white">About</CardTitle>
+                <CardTitle className="text-gray-900 dark:text-white">About</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-300 leading-relaxed">{user.bio}</p>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{user.bio}</p>
               </CardContent>
             </Card>
 
             {/* Social Links */}
-            <Card className="bg-[#1a1a1a] border-gray-700">
+            <Card className="bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700">
               <CardHeader>
-                <CardTitle className="text-white">Social Links</CardTitle>
+                <CardTitle className="text-gray-900 dark:text-white">Social Links</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 {[
@@ -124,12 +124,12 @@ const Profile = () => {
                         href={link.value}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#FF6B47] hover:text-[#e55a3d] transition-colors"
+                        className="text-purple-600 hover:text-purple-700 transition-colors"
                       >
                         {link.label}
                       </a>
                     ) : (
-                      <span className="text-gray-500">Add {link.label}</span>
+                      <span className="text-gray-500 dark:text-gray-400">Add {link.label}</span>
                     )}
                   </div>
                 ))}
@@ -137,20 +137,20 @@ const Profile = () => {
             </Card>
 
             {/* Stats */}
-            <Card className="bg-[#1a1a1a] border-gray-700">
+            <Card className="bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700">
               <CardContent className="pt-6">
                 <div className="grid grid-cols-3 gap-4 text-center">
                   <div>
-                    <div className="text-2xl font-bold text-[#FF6B47]">{user.stats.projects}</div>
-                    <div className="text-gray-400 text-sm">Projects</div>
+                    <div className="text-2xl font-bold text-purple-600">{user.stats.projects}</div>
+                    <div className="text-gray-600 dark:text-gray-400 text-sm">Projects</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-[#FF6B47]">{user.stats.followers}</div>
-                    <div className="text-gray-400 text-sm">Followers</div>
+                    <div className="text-2xl font-bold text-purple-600">{user.stats.followers}</div>
+                    <div className="text-gray-600 dark:text-gray-400 text-sm">Followers</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-[#FF6B47]">{user.stats.following}</div>
-                    <div className="text-gray-400 text-sm">Following</div>
+                    <div className="text-2xl font-bold text-purple-600">{user.stats.following}</div>
+                    <div className="text-gray-600 dark:text-gray-400 text-sm">Following</div>
                   </div>
                 </div>
               </CardContent>
@@ -159,14 +159,14 @@ const Profile = () => {
 
           {/* Right Column - Recent Projects */}
           <div className="md:col-span-2">
-            <Card className="bg-[#1a1a1a] border-gray-700">
+            <Card className="bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700">
               <CardHeader>
-                <CardTitle className="text-white">Recent Projects</CardTitle>
+                <CardTitle className="text-gray-900 dark:text-white">Recent Projects</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-center py-12">
-                  <div className="text-gray-400 mb-4">No projects yet</div>
-                  <Button className="bg-[#FF6B47] hover:bg-[#e55a3d] text-white">
+                  <div className="text-gray-500 dark:text-gray-400 mb-4">No projects yet</div>
+                  <Button className="bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white rounded-xl">
                     Upload Your First Project
                   </Button>
                 </div>
