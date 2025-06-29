@@ -21,10 +21,9 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: [
+					'Inter',
 					'-apple-system',
 					'BlinkMacSystemFont',
-					'SF Pro Display',
-					'SF Pro Text',
 					'system-ui',
 					'Segoe UI',
 					'Roboto',
@@ -33,14 +32,14 @@ export default {
 					'sans-serif'
 				],
 				display: [
-					'SF Pro Display',
+					'Inter',
 					'-apple-system',
 					'BlinkMacSystemFont',
 					'system-ui',
 					'sans-serif'
 				],
-				text: [
-					'SF Pro Text',
+				body: [
+					'Inter',
 					'-apple-system',
 					'BlinkMacSystemFont',
 					'system-ui',
@@ -48,17 +47,17 @@ export default {
 				]
 			},
 			fontSize: {
-				'display-lg': ['4.5rem', { lineHeight: '1', letterSpacing: '-0.04em' }],
-				'display-md': ['3.75rem', { lineHeight: '1.1', letterSpacing: '-0.035em' }],
-				'display-sm': ['3rem', { lineHeight: '1.15', letterSpacing: '-0.03em' }],
-				'headline-lg': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.025em' }],
-				'headline-md': ['1.875rem', { lineHeight: '1.25', letterSpacing: '-0.02em' }],
-				'headline-sm': ['1.5rem', { lineHeight: '1.3', letterSpacing: '-0.015em' }],
-				'title-lg': ['1.25rem', { lineHeight: '1.4', letterSpacing: '-0.01em' }],
-				'title-md': ['1.125rem', { lineHeight: '1.45', letterSpacing: '-0.005em' }],
-				'body-lg': ['1rem', { lineHeight: '1.6' }],
-				'body-md': ['0.875rem', { lineHeight: '1.65' }],
-				'body-sm': ['0.75rem', { lineHeight: '1.7' }],
+				'display-lg': ['4.5rem', { lineHeight: '1', letterSpacing: '-0.04em', fontWeight: '800' }],
+				'display-md': ['3.75rem', { lineHeight: '1.1', letterSpacing: '-0.035em', fontWeight: '800' }],
+				'display-sm': ['3rem', { lineHeight: '1.15', letterSpacing: '-0.03em', fontWeight: '700' }],
+				'headline-lg': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.025em', fontWeight: '700' }],
+				'headline-md': ['1.875rem', { lineHeight: '1.25', letterSpacing: '-0.02em', fontWeight: '600' }],
+				'headline-sm': ['1.5rem', { lineHeight: '1.3', letterSpacing: '-0.015em', fontWeight: '600' }],
+				'title-lg': ['1.25rem', { lineHeight: '1.4', letterSpacing: '-0.01em', fontWeight: '600' }],
+				'title-md': ['1.125rem', { lineHeight: '1.45', letterSpacing: '-0.005em', fontWeight: '500' }],
+				'body-lg': ['1rem', { lineHeight: '1.6', fontWeight: '400' }],
+				'body-md': ['0.875rem', { lineHeight: '1.65', fontWeight: '400' }],
+				'body-sm': ['0.75rem', { lineHeight: '1.7', fontWeight: '400' }],
 			},
 			spacing: {
 				'18': '4.5rem',

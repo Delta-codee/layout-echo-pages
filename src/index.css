@@ -3,7 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+/* Import Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* Definition of the design system with consistent colors and typography */
 
 @layer base {
   :root {
@@ -45,6 +48,10 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Brand colors for consistency */
+    --brand-primary: 14 83% 64%; /* #FF6B47 */
+    --brand-secondary: 14 78% 58%; /* #e55a3d */
   }
 
   .dark {
@@ -92,9 +99,9 @@
   }
 
   html, body {
-    @apply bg-gradient-to-br from-[#0a0a0a] via-[#0f0f0f] to-[#1a1a1a] text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    @apply bg-background text-foreground;
     min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: 'cv01', 'cv03', 'cv04', 'cv11';
@@ -103,60 +110,82 @@
 
   #root {
     min-height: 100vh;
-    background: linear-gradient(135deg, #0a0a0a 0%, #0f0f0f 50%, #1a1a1a 100%);
+    @apply bg-background;
   }
   
-  /* Modern Typography Hierarchy */
+  /* Typography Hierarchy with Inter font */
   h1, h2, h3, h4, h5, h6 {
-    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
     letter-spacing: -0.025em;
     line-height: 1.2;
+    @apply text-foreground;
   }
   
   .text-display {
+    font-family: 'Inter', sans-serif;
     font-size: clamp(2.5rem, 8vw, 6rem);
     font-weight: 800;
     letter-spacing: -0.04em;
     line-height: 0.95;
+    @apply text-foreground;
   }
   
   .text-headline {
+    font-family: 'Inter', sans-serif;
     font-size: clamp(1.75rem, 4vw, 3rem);
     font-weight: 700;
     letter-spacing: -0.03em;
+    @apply text-foreground;
   }
   
   .text-title {
+    font-family: 'Inter', sans-serif;
     font-size: clamp(1.25rem, 2.5vw, 1.875rem);
     font-weight: 600;
     letter-spacing: -0.02em;
+    @apply text-foreground;
+  }
+
+  .text-body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    @apply text-muted-foreground;
   }
   
-  /* Modern Card Styles */
+  /* Consistent Card Styles */
   .card-modern {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl;
+    @apply bg-card border border-border rounded-2xl shadow-lg backdrop-blur-sm;
   }
   
   .card-hover {
-    @apply transition-all duration-300 hover:bg-white/10 hover:scale-[1.02] hover:shadow-2xl;
+    @apply transition-all duration-300 hover:shadow-xl hover:scale-[1.02];
   }
   
   /* Glass Morphism Effects */
   .glass {
-    @apply bg-white/10 backdrop-blur-xl border border-white/20;
+    @apply bg-background/80 backdrop-blur-xl border border-border;
   }
   
   .glass-dark {
-    @apply bg-black/20 backdrop-blur-xl border border-white/10;
+    @apply bg-card/80 backdrop-blur-xl border border-border;
   }
   
-  /* Modern Button Styles */
+  /* Consistent Button Styles */
   .btn-primary {
-    @apply bg-gradient-to-r from-[#FF6B47] to-[#e55a3d] hover:from-[#e55a3d] hover:to-[#d4493a] text-white font-semibold shadow-lg shadow-[#FF6B47]/25 hover:shadow-xl hover:shadow-[#FF6B47]/30 transition-all duration-300 rounded-xl hover:scale-105;
+    font-family: 'Inter', sans-serif;
+    @apply bg-[#FF6B47] hover:bg-[#e55a3d] text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl hover:scale-105;
   }
   
   .btn-secondary {
-    @apply bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 text-white font-semibold transition-all duration-300 rounded-xl hover:scale-105;
+    font-family: 'Inter', sans-serif;
+    @apply bg-secondary hover:bg-secondary/80 border border-border text-secondary-foreground font-semibold transition-all duration-300 rounded-xl hover:scale-105;
+  }
+
+  .btn-ghost {
+    font-family: 'Inter', sans-serif;
+    @apply bg-transparent hover:bg-accent text-accent-foreground font-medium transition-all duration-300 rounded-xl border border-border/50;
   }
   
   /* Utility Classes for Spacing */
@@ -168,17 +197,17 @@
     @apply px-6 lg:px-8;
   }
   
-  /* Text Utilities */
+  /* Text Utilities with consistent colors */
   .text-gradient {
     @apply bg-gradient-to-r from-[#FF6B47] to-[#e55a3d] bg-clip-text text-transparent;
   }
   
   .text-muted {
-    @apply text-white/70;
+    @apply text-muted-foreground;
   }
   
   .text-subtle {
-    @apply text-white/60;
+    @apply text-muted-foreground/70;
   }
   
   /* Animation Utilities */
@@ -227,22 +256,21 @@
     }
   }
   
-  /* Modern Scrollbar */
+  /* Consistent Scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
   }
   
   ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
+    @apply bg-background;
   }
   
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 107, 71, 0.5);
-    border-radius: 4px;
+    @apply bg-[#FF6B47]/50 rounded;
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 107, 71, 0.7);
+    @apply bg-[#FF6B47]/70;
   }
   
   /* Focus States */
@@ -254,7 +282,7 @@
     outline-offset: 2px;
   }
   
-  /* Modern Line Clamp */
+  /* Line Clamp */
   .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -265,13 +293,6 @@
   .line-clamp-3 {
     display: -webkit-box;
     -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  
-  .line-clamp-4 {
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }

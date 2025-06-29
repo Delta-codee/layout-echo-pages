@@ -17,13 +17,13 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="w-72 h-screen bg-black/30 backdrop-blur-sm border-r border-white/10 flex flex-col shadow-2xl sticky top-0">
+    <div className={`w-72 h-screen ${currentTheme.bg} border-r border-border/20 flex flex-col shadow-lg sticky top-0`} style={{ backdropFilter: 'blur(12px)' }}>
       <div className="p-8">
         <Link to="/" className="flex items-center gap-4">
-          <div className="w-10 h-10 bg-gradient-to-br from-[#FF6B47] to-[#e55a3d] rounded-xl flex items-center justify-center shadow-lg shadow-[#FF6B47]/20">
+          <div className="w-10 h-10 bg-gradient-to-br from-[#FF6B47] to-[#e55a3d] rounded-xl flex items-center justify-center shadow-lg">
             <GraduationCap className="w-6 h-6 text-white" />
           </div>
-          <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">MasterJi</span>
+          <span className="text-2xl font-bold text-foreground">MasterJi</span>
         </Link>
       </div>
       
@@ -38,8 +38,8 @@ const Sidebar = () => {
               to={item.path}
               className={`flex items-center gap-4 px-6 py-4 mb-3 rounded-xl transition-all duration-200 group ${
                 isActive 
-                  ? 'bg-gradient-to-r from-[#FF6B47] to-[#e55a3d] text-white shadow-lg shadow-[#FF6B47]/25' 
-                  : 'text-gray-300 hover:text-white hover:bg-white/10'
+                  ? 'bg-gradient-to-r from-[#FF6B47] to-[#e55a3d] text-white shadow-lg' 
+                  : 'text-muted-foreground hover:text-foreground hover:bg-accent'
               }`}
             >
               <Icon className={`w-6 h-6 transition-transform duration-200 ${!isActive && 'group-hover:scale-110'}`} />
@@ -49,14 +49,14 @@ const Sidebar = () => {
         })}
       </nav>
       
-      <div className="p-6 border-t border-white/10">
-        <div className="flex items-center gap-4 p-4 rounded-xl bg-black/20 backdrop-blur-sm border border-white/10">
-          <div className="w-12 h-12 bg-gradient-to-br from-[#FF6B47] to-[#e55a3d] rounded-full flex items-center justify-center shadow-lg shadow-[#FF6B47]/20">
+      <div className="p-6 border-t border-border/20">
+        <div className="flex items-center gap-4 p-4 rounded-xl bg-card/50 border border-border/20">
+          <div className="w-12 h-12 bg-gradient-to-br from-[#FF6B47] to-[#e55a3d] rounded-full flex items-center justify-center shadow-lg">
             <span className="text-white font-bold text-lg">N</span>
           </div>
           <div>
-            <div className="text-white font-semibold text-base">n8n one</div>
-            <div className="text-gray-300 text-sm">Student</div>
+            <div className="text-foreground font-semibold text-base">n8n one</div>
+            <div className="text-muted-foreground text-sm">Student</div>
           </div>
         </div>
       </div>

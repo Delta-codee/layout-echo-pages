@@ -1,6 +1,7 @@
 
 import Layout from '@/components/Layout';
 import { Users, Folder, FileText, GraduationCap, Calendar, CheckCircle2 } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const Dashboard = () => {
   const stats = [
@@ -48,10 +49,10 @@ const Dashboard = () => {
       <div className="p-8 h-full overflow-y-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-white mb-2">Dashboard</h1>
-            <p className="text-gray-400">Overview of your progress and upcoming deadlines.</p>
+            <h1 className="text-3xl font-bold text-foreground mb-2">Dashboard</h1>
+            <p className="text-muted-foreground">Overview of your progress and upcoming deadlines.</p>
           </div>
-          <button className="text-gray-400 hover:text-white">
+          <button className="text-muted-foreground hover:text-foreground transition-colors">
             View Notice Board
           </button>
         </div>
@@ -60,51 +61,60 @@ const Dashboard = () => {
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
-              <div key={index} className="bg-[#1a1a1a] rounded-lg p-6 border border-gray-700">
-                <div className="flex items-center gap-3 mb-4">
-                  <Icon className="w-5 h-5 text-[#FF6B47]" />
-                  <span className="text-gray-400 text-sm">{stat.title}</span>
-                </div>
-                <div className="text-4xl font-bold text-white mb-4">{stat.total}</div>
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-400 text-sm">
-                      {stat.title === 'Courses Enrolled' ? 'Completed' : 'Total'}
-                    </span>
-                    <span className="text-green-500 text-sm font-medium">0</span>
+              <Card key={index} className="hover:shadow-lg transition-shadow">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center gap-3">
+                    <Icon className="w-5 h-5 text-[#FF6B47]" />
+                    <span className="text-muted-foreground text-sm font-medium">{stat.title}</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-400 text-sm">
-                      {stat.title === 'Courses Enrolled' ? 'Ongoing' : 'Pending'}
-                    </span>
-                    <span className="text-red-500 text-sm font-medium">0</span>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-4xl font-bold text-foreground mb-4">{stat.total}</div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground text-sm">
+                        {stat.title === 'Courses Enrolled' ? 'Completed' : 'Total'}
+                      </span>
+                      <span className="text-green-600 text-sm font-medium">0</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground text-sm">
+                        {stat.title === 'Courses Enrolled' ? 'Ongoing' : 'Pending'}
+                      </span>
+                      <span className="text-red-500 text-sm font-medium">0</span>
+                    </div>
                   </div>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             );
           })}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {metrics.map((metric, index) => (
-            <div key={index} className="bg-[#1a1a1a] rounded-lg p-6 border border-gray-700">
-              <div className="text-3xl font-bold text-white mb-2">{metric.value}</div>
-              <div className="text-gray-400 text-sm">{metric.label}</div>
-            </div>
+            <Card key={index} className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="text-3xl font-bold text-foreground mb-2">{metric.value}</div>
+                <div className="text-muted-foreground text-sm font-medium">{metric.label}</div>
+              </CardContent>
+            </Card>
           ))}
         </div>
 
-        <div className="bg-[#1a1a1a] rounded-lg p-6 border border-gray-700">
-          <div className="flex items-center gap-3 mb-6">
-            <Calendar className="w-5 h-5 text-white" />
-            <h2 className="text-xl font-bold text-white">Upcoming Deadlines</h2>
-          </div>
-          
-          <div className="text-center py-12">
-            <CheckCircle2 className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-            <p className="text-gray-400 italic">No upcoming deadlines. You're all caught up!</p>
-          </div>
-        </div>
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-3">
+              <Calendar className="w-5 h-5 text-foreground" />
+              Upcoming Deadlines
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-center py-12">
+              <CheckCircle2 className="w-16 h-16 text-muted-foreground/50 mx-auto mb-4" />
+              <p className="text-muted-foreground italic">No upcoming deadlines. You're all caught up!</p>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </Layout>
   );
