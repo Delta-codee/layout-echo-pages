@@ -44,9 +44,9 @@ const ProfileDropdown = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-48 bg-[#131313] border border-[#2B2B2B] rounded-xl shadow-xl py-2 z-[100] animate-fade-in">
-          {/* Arrow pointing up */}
-          <div className="absolute -top-2 right-4 w-4 h-4 bg-[#131313] border-l border-t border-[#2B2B2B] transform rotate-45"></div>
+        <div className="absolute right-0 bottom-full mb-2 w-48 bg-[#131313] border border-[#2B2B2B] rounded-xl shadow-xl py-2 z-[100] animate-fade-in">
+          {/* Arrow pointing down */}
+          <div className="absolute -bottom-2 right-4 w-4 h-4 bg-[#131313] border-r border-b border-[#2B2B2B] transform rotate-45"></div>
           
           <Link
             to="/profile"
