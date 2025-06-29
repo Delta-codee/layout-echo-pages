@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import TwitterTestimonial from './TwitterTestimonial';
 
@@ -10,7 +9,7 @@ const HorizontalTwitterTestimonials: React.FC = () => {
       name: "Zeel Jasani",
       username: "zeeldesigns",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-      content: "Building MasterJi has been an incredible journey! Seeing students transform from beginners to confident developers makes every late night worth it. Our focus on peer reviews and AI-powered feedback is revolutionizing how people learn to code. 🚀",
+      content: "Building Masterji has been the most rewarding journey. Watching students grow into professionals, and now even teachers, proves we're doing something right. From HR to product to classroom — I wear all hats proudly.",
       timestamp: "2h",
       likes: 324,
       replies: 48,
@@ -22,19 +21,19 @@ const HorizontalTwitterTestimonials: React.FC = () => {
       name: "Kunj Jarsaniya",
       username: "kunjcodes",
       avatar: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=150&h=150&fit=crop&crop=face",
-      content: "Co-founding MasterJi with Zeel has been the best decision of my life. We're not just building another ed-tech platform - we're creating a community where every student gets personalized attention and real-world skills. The future of education is here! 💡",
+      content: "Masterji started as a dream between two college friends. Today, it's a platform shaping real developers. As CEO, I've made it my mission to deliver structured, high-quality tech education — fast, hands-on, and modern.",
       timestamp: "4h",
       likes: 289,
       replies: 42,
       retweets: 76,
-      verified: true,
+      verified: false,
       role: "CEO & Co-founder at MasterJi"
     },
     {
       name: "Krish Jasani",
       username: "krish_js",
       avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-      content: "From being one of MasterJi's first students to now teaching DevOps, Java, and DSA - this platform changed my life! The structured peer review system and hands-on projects prepared me for the real world. Now I get to pay it forward by teaching the next generation. 🎯",
+      content: "From student to faculty — my journey with Masterji is special. Now I help students master DevOps, DSA, and Java the same way I did. If you're serious about learning, this is the place.",
       timestamp: "6h",
       likes: 456,
       replies: 73,
@@ -46,7 +45,7 @@ const HorizontalTwitterTestimonials: React.FC = () => {
       name: "Abhi Jagani",
       username: "abhiux",
       avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
-      content: "Watching Zeel and Kunj build MasterJi from our college days to now has been amazing! Handling marketing and finance for this revolutionary platform feels like contributing to India's education revolution. Every student success story validates our mission. 📈",
+      content: "I remember when Zeel and Kunj pitched the first version of Masterji over chai. Fast forward: I now handle the finance and marketing strategy that scaled this beast. True passion and process win.",
       timestamp: "8h",
       likes: 203,
       replies: 31,
@@ -58,7 +57,7 @@ const HorizontalTwitterTestimonials: React.FC = () => {
       name: "Ishita Faldu",
       username: "ishita_ui",
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
-      content: "Teaching System Design, SQL, APIs, and Python at MasterJi has been incredibly rewarding! Our students don't just learn syntax - they understand real-world applications. The collaborative learning environment we've created here is something special. 🔧",
+      content: "System design, SQL, APIs, Python — I love teaching these at Masterji. This isn't just a job; it's my way to help students build backend intuition with clarity. Grateful to be part of something this impactful.",
       timestamp: "12h",
       likes: 378,
       replies: 56,
@@ -70,7 +69,7 @@ const HorizontalTwitterTestimonials: React.FC = () => {
       name: "Nitu (BigBuffalo)",
       username: "nitu_dev",
       avatar: "https://images.unsplash.com/photo-1494790108755-2616b3b2b8d0?w=150&h=150&fit=crop&crop=face",
-      content: "Teaching Data Science at MasterJi is a dream job! Our students go from zero to building ML models that solve real problems. The AI-powered feedback system helps them understand concepts deeply, not just memorize formulas. Data science education done right! 📊",
+      content: "Data Science isn't scary — not when you break it down right. That's what I do at Masterji. From beginner to pro, I make sure students get hands-on with the tools that matter in the real world.",
       timestamp: "1d",
       likes: 445,
       replies: 67,
@@ -188,7 +187,6 @@ const HorizontalTwitterTestimonials: React.FC = () => {
     }
   ];
 
-  // Duplicate testimonials for seamless infinite scroll
   const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   useEffect(() => {
@@ -197,10 +195,8 @@ const HorizontalTwitterTestimonials: React.FC = () => {
 
     let isScrollPaused = false;
 
-    // Mouse wheel horizontal scrolling
     const handleWheel = (e: WheelEvent) => {
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-        // Already horizontal scroll, let it pass
         return;
       }
       
@@ -208,7 +204,6 @@ const HorizontalTwitterTestimonials: React.FC = () => {
       container.scrollLeft += e.deltaY;
     };
 
-    // Pause/resume animation on hover
     const handleMouseEnter = () => {
       isScrollPaused = true;
       const scrollContent = container.querySelector('.scroll-content') as HTMLElement;
@@ -239,7 +234,6 @@ const HorizontalTwitterTestimonials: React.FC = () => {
   return (
     <section className="py-20 lg:py-32 bg-[#0B0B0B] overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#F1F1F1]">
             What Our <span className="text-[#E3583D]">Community Says</span>
@@ -249,13 +243,10 @@ const HorizontalTwitterTestimonials: React.FC = () => {
           </p>
         </div>
 
-        {/* Scrolling Container */}
         <div className="relative">
-          {/* Gradient Fade Edges */}
           <div className="absolute left-0 top-0 w-20 h-full bg-gradient-to-r from-[#0B0B0B] to-transparent z-10 pointer-events-none"></div>
           <div className="absolute right-0 top-0 w-20 h-full bg-gradient-to-l from-[#0B0B0B] to-transparent z-10 pointer-events-none"></div>
           
-          {/* Scrolling Testimonials */}
           <div ref={scrollContainerRef} className="scroll-container">
             <div className="scroll-content">
               {duplicatedTestimonials.map((testimonial, index) => (
