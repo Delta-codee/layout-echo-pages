@@ -1,476 +1,306 @@
+
 import { Link } from 'react-router-dom';
-import { GraduationCap, Users, BookOpen, Trophy, ArrowRight, Star, MessageCircle, Heart, Award, CheckCircle, Play, TrendingUp, Calendar, Clock } from 'lucide-react';
+import { ArrowRight, CheckCircle, Code, Palette, Zap, Users, Award, TrendingUp, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useTheme } from '@/contexts/ThemeContext';
 import Header from '@/components/Header';
-import { useState } from 'react';
 import HorizontalTwitterTestimonials from '@/components/HorizontalTwitterTestimonials';
 
 const Landing = () => {
   const { currentTheme } = useTheme();
-  const [likedPosts, setLikedPosts] = useState<Record<number, boolean>>({});
-
-  const handleLike = (postId: number) => {
-    setLikedPosts(prev => ({
-      ...prev,
-      [postId]: !prev[postId]
-    }));
-  };
 
   const features = [
     {
+      icon: Code,
+      title: "Modern Web Apps",
+      description: "Building responsive, fast-loading applications that work seamlessly across all devices and browsers."
+    },
+    {
+      icon: Palette,
+      title: "Tailored Design",
+      description: "Custom UI/UX design that reflects your brand identity and creates meaningful user experiences."
+    },
+    {
+      icon: Zap,
+      title: "Performance First",
+      description: "Optimized code and architecture ensuring lightning-fast loading times and smooth interactions."
+    }
+  ];
+
+  const recentWork = [
+    {
+      title: "Algorithm",
+      description: "Data structures and algorithms learning platform with interactive coding challenges and real-time feedback.",
+      category: "EdTech Platform"
+    },
+    {
+      title: "Tailwind Master Kit",
+      description: "Complete component library with 200+ pre-built Tailwind CSS components for rapid development.",
+      category: "Developer Tools"
+    },
+    {
+      title: "Cosmo Digital",
+      description: "Modern digital agency website with smooth animations, portfolio showcase, and client testimonials.",
+      category: "Agency Website"
+    },
+    {
+      title: "Invoicer Labs",
+      description: "Invoice management system with automated billing, payment tracking, and financial reporting.",
+      category: "SaaS Platform"
+    }
+  ];
+
+  const services = [
+    {
+      icon: Code,
+      title: "Web Development",
+      description: "Full-stack development using modern technologies like React, Node.js, and cloud platforms."
+    },
+    {
+      icon: Palette,
+      title: "UI/UX Design",
+      description: "User-centered design process from wireframes to high-fidelity prototypes and design systems."
+    },
+    {
+      icon: TrendingUp,
+      title: "Performance Optimization",
+      description: "Speed optimization, SEO improvements, and technical audits to maximize your site's potential."
+    },
+    {
       icon: Users,
-      title: "Peer Reviews",
-      description: "Submit your work and receive detailed feedback from peers to improve your skills continuously."
+      title: "Consultation & Strategy",
+      description: "Technical consulting, architecture planning, and strategic guidance for your digital projects."
     },
     {
-      icon: BookOpen,
-      title: "Project Showcase",
-      description: "Display your projects and discover amazing work from fellow learners in our community."
+      icon: Award,
+      title: "Maintenance & Support",
+      description: "Ongoing maintenance, updates, security monitoring, and technical support for your applications."
     },
     {
-      icon: MessageCircle,
-      title: "Blog Platform",
-      description: "Share your knowledge and learn from others through engaging blog posts and discussions."
-    },
-    {
-      icon: Trophy,
-      title: "Evaluations",
-      description: "Track your performance with detailed assessments and comprehensive progress reports."
+      icon: Zap,
+      title: "API Development",
+      description: "RESTful APIs, database design, and third-party integrations to power your applications."
     }
   ];
 
-  const testimonials = [
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      role: "Full Stack Developer",
-      course: "Web Development Bootcamp",
-      rating: 5,
-      text: "MasterJi transformed my career! The peer review system helped me improve my code quality significantly.",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b3b2b8d0?w=150&h=150&fit=crop&crop=face"
-    },
-    {
-      id: 2,
-      name: "Michael Chen",
-      role: "Data Scientist",
-      course: "Machine Learning Master Class",
-      rating: 5,
-      text: "The AI-powered feedback and mentorship made complex concepts easy to understand.",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-    },
-    {
-      id: 3,
-      name: "Emily Rodriguez",
-      role: "UX Designer",
-      course: "Design Thinking Course",
-      rating: 5,
-      text: "Love the project showcase feature! It helped me build an amazing portfolio.",
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
-    }
-  ];
-
-  const blogPosts = [
-    {
-      id: 1,
-      title: "10 Essential JavaScript Tips for Beginners",
-      author: "Alex Thompson",
-      likes: 45,
-      comments: 12,
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=300&h=200&fit=crop"
-    },
-    {
-      id: 2,
-      title: "Building Your First React App: A Step-by-Step Guide",
-      author: "Sarah Kim",
-      likes: 67,
-      comments: 18,
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=300&h=200&fit=crop"
-    }
-  ];
-
-  const faqs = [
-    {
-      question: "How do I submit a project?",
-      answer: "You can submit projects through your dashboard by uploading a ZIP file containing your code and documentation."
-    },
-    {
-      question: "How does peer review work?",
-      answer: "After submitting your project, it's assigned to peers in your cohort who provide detailed feedback and ratings."
-    },
-    {
-      question: "Can I get a certificate?",
-      answer: "Yes! Upon successful completion of a course and passing all evaluations, you'll receive a verified certificate."
-    },
-    {
-      question: "What if I miss a cohort deadline?",
-      answer: "Don't worry! You can join the next available cohort or switch to self-paced learning mode."
-    }
+  const metrics = [
+    { number: "100%", label: "Client Satisfaction", description: "Every project delivered on time" },
+    { number: "121%", label: "Performance Boost", description: "Average speed improvement" },
+    { number: "2x", label: "Faster Development", description: "Using modern frameworks" }
   ];
 
   return (
-    <div className={`min-h-screen ${currentTheme.bg} text-white transition-all duration-500`}>
+    <div className="min-h-screen bg-white text-gray-900">
       <Header />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="container mx-auto px-6 py-20 lg:py-32">
-          <div className="max-w-6xl mx-auto text-center">
-            <Badge variant="outline" className="mb-6 px-4 py-2 text-sm font-medium bg-white/10 border-white/20">
-              🚀 Trusted by 10,000+ learners worldwide
-            </Badge>
-            
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight tracking-tight">
-              Empower Your Learning Journey with{' '}
-              <span className="bg-gradient-to-r from-[#FF6B47] via-[#ff7a5c] to-[#e55a3d] bg-clip-text text-transparent">
-                MasterJi
-              </span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
-              Access free & premium courses, submit projects, get peer reviews, and grow your network — all in one powerful learning platform.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-              <Link to="/courses">
-                <Button className="bg-gradient-to-r from-[#FF6B47] to-[#e55a3d] hover:from-[#e55a3d] hover:to-[#d4493a] text-white px-8 py-4 text-lg font-semibold shadow-2xl shadow-[#FF6B47]/25 hover:shadow-3xl hover:shadow-[#FF6B47]/30 transition-all duration-300 rounded-xl hover:scale-105">
-                  <Play className="w-5 h-5 mr-2" />
-                  Start Learning Now
-                </Button>
-              </Link>
-              <Link to="/courses">
-                <Button variant="outline" className="px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl border-white/20 hover:bg-white/10">
-                  Browse Courses
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </Link>
-            </div>
-            
-            {/* Dashboard Preview */}
-            <div className="relative max-w-5xl mx-auto">
-              <div className="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl p-8">
-                <div className="grid md:grid-cols-3 gap-6">
-                  <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-all duration-300">
-                    <CardContent className="p-6 text-center">
-                      <TrendingUp className="w-12 h-12 mx-auto mb-4 text-green-400" />
-                      <h3 className="text-2xl font-bold text-white mb-2">89%</h3>
-                      <p className="text-white/60">Course Completion</p>
-                    </CardContent>
-                  </Card>
-                  <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-all duration-300">
-                    <CardContent className="p-6 text-center">
-                      <Users className="w-12 h-12 mx-auto mb-4 text-blue-400" />
-                      <h3 className="text-2xl font-bold text-white mb-2">1,247</h3>
-                      <p className="text-white/60">Active Learners</p>
-                    </CardContent>
-                  </Card>
-                  <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-all duration-300">
-                    <CardContent className="p-6 text-center">
-                      <Award className="w-12 h-12 mx-auto mb-4 text-yellow-400" />
-                      <h3 className="text-2xl font-bold text-white mb-2">156</h3>
-                      <p className="text-white/60">Certificates Earned</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20 lg:py-32">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Smart Learning with <span className="bg-gradient-to-r from-[#FF6B47] to-[#e55a3d] bg-clip-text text-transparent">AI</span>
-              </h2>
-              <p className="text-xl text-white/70 max-w-3xl mx-auto">
-                Experience the future of education with our AI-powered platform that adapts to your learning style.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {features.map((feature, index) => (
-                <Card key={index} className="bg-white/5 border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-105 group">
-                  <CardContent className="p-8 text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-[#FF6B47] to-[#e55a3d] rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-lg shadow-[#FF6B47]/20 group-hover:shadow-xl group-hover:shadow-[#FF6B47]/30 transition-all duration-300">
-                      <feature.icon className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-xl font-bold text-white mb-4">{feature.title}</h3>
-                    <p className="text-white/70 leading-relaxed">{feature.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Showcase Section */}
-      <section className="py-20 lg:py-32 bg-black/20">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Showcase & <span className="bg-gradient-to-r from-[#FF6B47] to-[#e55a3d] bg-clip-text text-transparent">Inspire</span>
-              </h2>
-              <p className="text-xl text-white/70">
-                Discover amazing projects and engaging content from our community
-              </p>
-            </div>
-            
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h3 className="text-2xl font-bold mb-8 text-white">Student Projects</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="relative group overflow-hidden rounded-lg">
-                      <img 
-                        src={`https://images.unsplash.com/photo-${i === 1 ? '1461749280684-dccba630e2f6' : i === 2 ? '1498050108023-c5249f4df085' : i === 3 ? '1581091226825-a6a2a5aee158' : '1487058792275-0ad4aaf24ca7'}?w=300&h=200&fit=crop`}
-                        alt={`Project ${i}`}
-                        className="w-full h-32 object-cover transition-transform duration-300 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                        <div className="p-4 w-full">
-                          <Button size="sm" variant="outline" className="w-full">
-                            View Project
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              <div>
-                <h3 className="text-2xl font-bold mb-8 text-white">Latest Blog Posts</h3>
-                <div className="space-y-6">
-                  {blogPosts.map((post) => (
-                    <Card key={post.id} className="bg-white/5 border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-[1.02]">
-                      <CardContent className="p-6">
-                        <div className="flex gap-4">
-                          <img 
-                            src={post.image}
-                            alt={post.title}
-                            className="w-20 h-16 object-cover rounded-lg"
-                          />
-                          <div className="flex-1">
-                            <h4 className="font-semibold mb-2 text-white line-clamp-2">{post.title}</h4>
-                            <p className="text-sm text-white/60 mb-3">by {post.author}</p>
-                            <div className="flex items-center gap-4 text-sm text-white/60">
-                              <button 
-                                onClick={() => handleLike(post.id)}
-                                className={`flex items-center gap-1 transition-colors ${likedPosts[post.id] ? 'text-red-400' : 'hover:text-red-400'}`}
-                              >
-                                <Heart className={`w-4 h-4 ${likedPosts[post.id] ? 'fill-current' : ''}`} />
-                                {post.likes + (likedPosts[post.id] ? 1 : 0)}
-                              </button>
-                              <div className="flex items-center gap-1">
-                                <MessageCircle className="w-4 h-4" />
-                                {post.comments}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </div>
-            
-            <div className="text-center mt-12">
-              <p className="text-xl text-white/80 font-light italic">
-                "Let your skills shine. Get inspired by fellow learners."
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Horizontal Twitter-style Testimonials */}
-      <HorizontalTwitterTestimonials />
-
-      {/* Pricing Section */}
-      <section className="py-20 lg:py-32 bg-black/20">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Pricing for <span className="bg-gradient-to-r from-[#FF6B47] to-[#e55a3d] bg-clip-text text-transparent">Everyone</span>
-              </h2>
-              <p className="text-xl text-white/70">From Hobby Learners to Career Starters</p>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-105">
-                <CardHeader className="text-center pb-8">
-                  <CardTitle className="text-2xl mb-4 text-white">Free Plan</CardTitle>
-                  <div className="text-4xl font-bold text-[#FF6B47] mb-4">₹0</div>
-                  <CardDescription className="text-white/70">Perfect for getting started</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-4 mb-8">
-                    <li className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-400" />
-                      <span className="text-white/80">Access free courses</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-400" />
-                      <span className="text-white/80">Join open cohorts</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-400" />
-                      <span className="text-white/80">Limited peer reviews</span>
-                    </li>
-                  </ul>
-                  <Button className="w-full" variant="outline">
-                    Get Started
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-white/5 border-[#FF6B47] hover:bg-white/10 transition-all duration-300 hover:scale-105 relative">
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <Badge className="bg-gradient-to-r from-[#FF6B47] to-[#e55a3d] text-white px-4 py-1">Most Popular</Badge>
-                </div>
-                <CardHeader className="text-center pb-8">
-                  <CardTitle className="text-2xl mb-4 text-white">Standard Plan</CardTitle>
-                  <div className="text-4xl font-bold text-[#FF6B47] mb-4">₹499<span className="text-lg text-white/60">/mo</span></div>
-                  <CardDescription className="text-white/70">Everything you need to learn</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-4 mb-8">
-                    <li className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-400" />
-                      <span className="text-white/80">Full course library</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-400" />
-                      <span className="text-white/80">Submit unlimited projects</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-400" />
-                      <span className="text-white/80">Personalized evaluations</span>
-                    </li>
-                  </ul>
-                  <Button className="w-full bg-gradient-to-r from-[#FF6B47] to-[#e55a3d] hover:from-[#e55a3d] hover:to-[#d4493a]">
-                    Choose Standard
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-105">
-                <CardHeader className="text-center pb-8">
-                  <CardTitle className="text-2xl mb-4 text-white">Pro Plan</CardTitle>
-                  <div className="text-4xl font-bold text-[#FF6B47] mb-4">₹999<span className="text-lg text-white/60">/mo</span></div>
-                  <CardDescription className="text-white/70">For serious career growth</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-4 mb-8">
-                    <li className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-400" />
-                      <span className="text-white/80">1-on-1 mentorship</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-400" />
-                      <span className="text-white/80">Blog publishing access</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-400" />
-                      <span className="text-white/80">Showcase portfolio globally</span>
-                    </li>
-                  </ul>
-                  <Button className="w-full" variant="outline">
-                    Choose Pro
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-20 lg:py-32">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Everything You <span className="bg-gradient-to-r from-[#FF6B47] to-[#e55a3d] bg-clip-text text-transparent">Need to Know</span>
-              </h2>
-              <p className="text-xl text-white/70">
-                Common questions about our platform and learning experience
-              </p>
-            </div>
-            
-            <div className="space-y-4">
-              {faqs.map((faq, index) => (
-                <Card key={index} className="bg-white/5 border-white/10 hover:bg-white/10 transition-all duration-300">
-                  <CardHeader>
-                    <CardTitle className="text-lg text-white">{faq.question}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-white/70">{faq.answer}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 lg:py-32 bg-gradient-to-r from-[#FF6B47]/10 to-[#e55a3d]/10 border-t border-white/10">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-8">Ready to Start Learning?</h2>
-            <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
-              Join thousands of learners who are already mastering their skills with MasterJi.
-            </p>
-            <Link to="/register">
-              <Button className="bg-gradient-to-r from-[#FF6B47] to-[#e55a3d] hover:from-[#e55a3d] hover:to-[#d4493a] text-white px-12 py-5 text-xl font-semibold shadow-2xl shadow-[#FF6B47]/25 hover:shadow-3xl hover:shadow-[#FF6B47]/30 transition-all duration-300 rounded-xl hover:scale-105">
-                Create Your Account
-                <ArrowRight className="w-6 h-6 ml-3" />
+      <section className="pt-20 pb-32 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <Badge variant="outline" className="mb-8 px-6 py-2 text-sm font-medium bg-white border-gray-200">
+            <span className="mr-2">></span>
+            Trusted by 500+ businesses worldwide
+          </Badge>
+          
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-none tracking-tight">
+            Web Apps that{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+              Make Sense.
+            </span>
+          </h1>
+          
+          <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed">
+            We build modern, performant web applications that solve real problems. 
+            From design to deployment, we handle the technical complexity so you can focus on your business.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20">
+            <Link to="/courses">
+              <Button size="lg" className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+                Explore Work
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
+            <Link to="/login">
+              <Button variant="outline" size="lg" className="px-8 py-4 text-lg font-semibold rounded-full border-2 hover:bg-gray-50 transition-all duration-300">
+                Get Started
               </Button>
             </Link>
           </div>
+
+          {/* Feature Cards */}
+          <div className="grid md:grid-cols-3 gap-8 mt-20">
+            {features.map((feature, index) => (
+              <Card key={index} className="bg-white border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300 rounded-2xl">
+                <CardContent className="p-8 text-center">
+                  <div className="w-16 h-16 bg-gray-100 rounded-2xl mx-auto mb-6 flex items-center justify-center">
+                    <feature.icon className="w-8 h-8 text-gray-700" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">{feature.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Metrics Section - Dark Theme (Steamline Style) */}
+      <section className="py-20 bg-gray-900">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+              Built for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Performance</span>
+            </h2>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              Our development process delivers measurable results that matter to your business
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {metrics.map((metric, index) => (
+              <Card key={index} className="bg-gray-800 border-gray-700 hover:bg-gray-750 transition-all duration-300 group">
+                <CardContent className="p-8 text-center">
+                  <div className="text-5xl font-bold text-white mb-4 group-hover:scale-110 transition-transform duration-300">
+                    {metric.number}
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-200 mb-2">{metric.label}</h3>
+                  <p className="text-gray-400">{metric.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Recent Work Section */}
+      <section className="py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+              Recent <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-500">Work</span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              A selection of projects we've built for clients across different industries
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-12">
+            {recentWork.map((project, index) => (
+              <Card key={index} className="bg-gray-50 border-0 hover:bg-gray-100 transition-all duration-300 rounded-2xl group">
+                <CardContent className="p-8">
+                  <Badge variant="outline" className="mb-4 text-xs font-medium bg-white">
+                    {project.category}
+                  </Badge>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-gray-700 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-600 mb-6 leading-relaxed">{project.description}</p>
+                  <Button variant="outline" className="rounded-full font-medium">
+                    Live Preview
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonial Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div className="mb-12">
+            <div className="w-16 h-16 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
+              <Star className="w-8 h-8 text-gray-600" />
+            </div>
+            <blockquote className="text-2xl md:text-3xl font-medium text-gray-900 mb-8 leading-relaxed">
+              "Applabs helped us build our website from scratch to production in 3 months. Worth it too. They took our messy brief and delivered a product so refined that even our team-mates swore we were faking it."
+            </blockquote>
+            <div>
+              <p className="font-semibold text-gray-900 text-lg">Joel Sutton</p>
+              <p className="text-gray-600">Co-owner at Heart Software</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Twitter Testimonials */}
+      <HorizontalTwitterTestimonials />
+
+      {/* Services Section */}
+      <section className="py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+              We handle just about <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-blue-500">everything!</span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              From initial concept to final deployment, we provide comprehensive web development services
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => (
+              <Card key={index} className="bg-white border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300 rounded-2xl group">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-gray-100 rounded-xl mb-4 flex items-center justify-center group-hover:bg-gray-200 transition-colors">
+                    <service.icon className="w-6 h-6 text-gray-700" />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-3">{service.title}</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">{service.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section - Dark Theme */}
+      <section className="py-32 bg-gray-900 text-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight">
+            Let's build your website today!
+          </h2>
+          <p className="text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+            Turn your ideas into reality with our expert development team. 
+            We're ready to bring your vision to life.
+          </p>
+          <Link to="/register">
+            <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 px-12 py-5 text-xl font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+              Get Quote
+            </Button>
+          </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-black/30 backdrop-blur-sm border-t border-white/10">
-        <div className="container mx-auto px-6 py-16">
-          <div className="grid md:grid-cols-4 gap-8">
+      <footer className="bg-black text-white py-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-4 gap-12">
             <div className="md:col-span-2">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-br from-[#FF6B47] to-[#e55a3d] rounded-xl flex items-center justify-center">
-                  <GraduationCap className="w-6 h-6 text-white" />
-                </div>
-                <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">MasterJi</span>
+                <span className="text-2xl font-bold">></span>
+                <span className="text-2xl font-bold">Applabs</span>
               </div>
-              <p className="text-white/60 mb-6 max-w-md leading-relaxed">
-                Empowering learners worldwide with cutting-edge education technology and peer-to-peer learning experiences.
+              <p className="text-gray-400 mb-6 max-w-md leading-relaxed">
+                Building modern web applications that solve real problems and create meaningful user experiences.
               </p>
             </div>
             
             <div>
               <h4 className="font-semibold mb-6 text-white">Platform</h4>
-              <ul className="space-y-3 text-white/60">
+              <ul className="space-y-3 text-gray-400">
                 <li><Link to="/courses" className="hover:text-white transition-colors">Courses</Link></li>
-                <li><Link to="/community" className="hover:text-white transition-colors">Community</Link></li>
                 <li><Link to="/blogs" className="hover:text-white transition-colors">Blogs</Link></li>
-                <li><Link to="/about" className="hover:text-white transition-colors">About</Link></li>
+                <li><Link to="/dashboard" className="hover:text-white transition-colors">Dashboard</Link></li>
               </ul>
             </div>
             
             <div>
               <h4 className="font-semibold mb-6 text-white">Support</h4>
-              <ul className="space-y-3 text-white/60">
+              <ul className="space-y-3 text-gray-400">
                 <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
@@ -479,8 +309,8 @@ const Landing = () => {
             </div>
           </div>
           
-          <div className="border-t border-white/10 mt-12 pt-8 text-center text-white/60">
-            <p>&copy; 2025 MasterJi. All rights reserved.</p>
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
+            <p>&copy; 2025 Applabs. All rights reserved.</p>
           </div>
         </div>
       </footer>

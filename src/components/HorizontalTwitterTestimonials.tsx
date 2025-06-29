@@ -162,7 +162,7 @@ const HorizontalTwitterTestimonials: React.FC = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .scroll-container {
           width: 100%;
           overflow: hidden;
