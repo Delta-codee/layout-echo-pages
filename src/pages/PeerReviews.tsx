@@ -1,16 +1,41 @@
 
 import Layout from '@/components/Layout';
-import { Search, Users, Plus, Calendar, Clock } from 'lucide-react';
+import { Search, Users, Plus, Calendar, Clock, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 
 const PeerReviews = () => {
-  const [activeTab, setActiveTab] = useState<'upcoming' | 'past'>('upcoming');
+  const [activeTab, setActiveTab] = useState<'current' | 'upcoming' | 'past'>('current');
 
   // Mock data for demonstration
-  const upcomingReviews = [
+  const currentReviews = [
     {
       id: 1,
+      title: 'Login Component Review',
+      author: 'John Smith',
+      description: 'Review authentication component with validation logic',
+      startedDate: '2024-01-10',
+      category: 'Frontend',
+      timeRemaining: '2 days',
+      reviewsCompleted: 1,
+      reviewsNeeded: 3
+    },
+    {
+      id: 2,
+      title: 'Payment Gateway Integration',
+      author: 'Lisa Wang',
+      description: 'Review Stripe payment integration implementation',
+      startedDate: '2024-01-12',
+      category: 'Backend',
+      timeRemaining: '4 days',
+      reviewsCompleted: 0,
+      reviewsNeeded: 2
+    }
+  ];
+
+  const upcomingReviews = [
+    {
+      id: 3,
       title: 'React Component Review',
       author: 'Sarah Johnson',
       description: 'Review reusable button component implementation',
@@ -19,7 +44,7 @@ const PeerReviews = () => {
       reviewsNeeded: 3
     },
     {
-      id: 2,
+      id: 4,
       title: 'API Integration Code Review',
       author: 'Mike Chen',
       description: 'Review REST API integration with error handling',
@@ -31,7 +56,7 @@ const PeerReviews = () => {
 
   const pastReviews = [
     {
-      id: 3,
+      id: 5,
       title: 'Database Schema Review',
       author: 'Alex Rivera',
       description: 'User management system database design',
@@ -41,7 +66,7 @@ const PeerReviews = () => {
       avgRating: 4.2
     },
     {
-      id: 4,
+      id: 6,
       title: 'CSS Animation Review',
       author: 'Emma Davis',
       description: 'Smooth transitions and micro-interactions',
@@ -84,6 +109,17 @@ const PeerReviews = () => {
 
         <div className="flex gap-4 mb-8">
           <button
+            onClick={() => setActiveTab('current')}
+            className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+              activeTab === 'current'
+                ? 'bg-gradient-to-r from-[#E3583D] to-[#E4593D] text-white'
+                : 'text-[#A1A1A1] hover:text-[#F1F1F1] hover:bg-[#131313]'
+            }`}
+          >
+            <Play className="w-4 h-4 inline mr-2" />
+            Current ({currentReviews.length})
+          </button>
+          <button
             onClick={() => setActiveTab('upcoming')}
             className={`px-6 py-3 rounded-lg font-medium transition-colors ${
               activeTab === 'upcoming'
@@ -106,6 +142,43 @@ const PeerReviews = () => {
             Past ({pastReviews.length})
           </button>
         </div>
+
+        {activeTab === 'current' && (
+          <div className="space-y-4">
+            {currentReviews.map((review) => (
+              <div key={review.id} className="bg-[#131313] border border-[#2B2B2B] rounded-lg p-6">
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-[#F1F1F1] mb-2">{review.title}</h3>
+                    <p className="text-[#A1A1A1] mb-2">by {review.author}</p>
+                    <p className="text-[#A1A1A1] mb-3">{review.description}</p>
+                    <div className="flex items-center gap-4 text-sm mb-3">
+                      <span className="bg-[#E3583D]/20 text-[#E3583D] px-3 py-1 rounded-full">
+                        {review.category}
+                      </span>
+                      <span className="text-[#A1A1A1]">Started: {review.startedDate}</span>
+                      <span className="text-orange-400">{review.timeRemaining} left</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-[#A1A1A1]">
+                        Progress: {review.reviewsCompleted}/{review.reviewsNeeded} reviews
+                      </span>
+                      <div className="flex-1 bg-[#2B2B2B] rounded-full h-2 max-w-[200px]">
+                        <div 
+                          className="bg-gradient-to-r from-[#E3583D] to-[#E4593D] h-2 rounded-full"
+                          style={{ width: `${(review.reviewsCompleted / review.reviewsNeeded) * 100}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                  <Button className="bg-gradient-to-r from-[#E3583D] to-[#E4593D] hover:from-[#E3583D]/90 hover:to-[#E4593D]/90 text-white">
+                    Continue Review
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
         {activeTab === 'upcoming' && (
           <div className="space-y-4">

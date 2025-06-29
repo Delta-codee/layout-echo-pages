@@ -1,16 +1,37 @@
 
 import Layout from '@/components/Layout';
-import { Search, Folder, Plus, Settings, Calendar, Clock } from 'lucide-react';
+import { Search, Folder, Plus, Settings, Calendar, Clock, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 
 const Projects = () => {
-  const [activeTab, setActiveTab] = useState<'upcoming' | 'past'>('upcoming');
+  const [activeTab, setActiveTab] = useState<'current' | 'upcoming' | 'past'>('current');
 
   // Mock data for demonstration
-  const upcomingProjects = [
+  const currentProjects = [
     {
       id: 1,
+      title: 'Mobile App Redesign',
+      description: 'Complete UI/UX redesign of the company mobile application',
+      startedDate: '2024-01-05',
+      category: 'UI/UX Design',
+      difficulty: 'Advanced',
+      progress: 65
+    },
+    {
+      id: 2,
+      title: 'Database Optimization',
+      description: 'Optimize database queries and improve performance',
+      startedDate: '2024-01-08',
+      category: 'Backend Development',
+      difficulty: 'Intermediate',
+      progress: 40
+    }
+  ];
+
+  const upcomingProjects = [
+    {
+      id: 3,
       title: 'React Portfolio Website',
       description: 'Build a responsive portfolio website using React and Tailwind CSS',
       dueDate: '2024-01-15',
@@ -18,7 +39,7 @@ const Projects = () => {
       difficulty: 'Intermediate'
     },
     {
-      id: 2,
+      id: 4,
       title: 'E-commerce API Integration',
       description: 'Integrate payment gateway and product management system',
       dueDate: '2024-01-20',
@@ -29,7 +50,7 @@ const Projects = () => {
 
   const pastProjects = [
     {
-      id: 3,
+      id: 5,
       title: 'Todo App with Redux',
       description: 'Simple todo application with state management',
       completedDate: '2023-12-10',
@@ -38,7 +59,7 @@ const Projects = () => {
       difficulty: 'Beginner'
     },
     {
-      id: 4,
+      id: 6,
       title: 'Weather Dashboard',
       description: 'Weather app with API integration and data visualization',
       completedDate: '2023-12-05',
@@ -85,6 +106,17 @@ const Projects = () => {
 
         <div className="flex gap-4 mb-8">
           <button
+            onClick={() => setActiveTab('current')}
+            className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+              activeTab === 'current'
+                ? 'bg-gradient-to-r from-[#E3583D] to-[#E4593D] text-white'
+                : 'text-[#A1A1A1] hover:text-[#F1F1F1] hover:bg-[#131313]'
+            }`}
+          >
+            <Play className="w-4 h-4 inline mr-2" />
+            Current ({currentProjects.length})
+          </button>
+          <button
             onClick={() => setActiveTab('upcoming')}
             className={`px-6 py-3 rounded-lg font-medium transition-colors ${
               activeTab === 'upcoming'
@@ -107,6 +139,40 @@ const Projects = () => {
             Past ({pastProjects.length})
           </button>
         </div>
+
+        {activeTab === 'current' && (
+          <div className="space-y-4">
+            {currentProjects.map((project) => (
+              <div key={project.id} className="bg-[#131313] border border-[#2B2B2B] rounded-lg p-6">
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-[#F1F1F1] mb-2">{project.title}</h3>
+                    <p className="text-[#A1A1A1] mb-3">{project.description}</p>
+                    <div className="flex items-center gap-4 text-sm mb-3">
+                      <span className="bg-[#E3583D]/20 text-[#E3583D] px-3 py-1 rounded-full">
+                        {project.category}
+                      </span>
+                      <span className="text-[#A1A1A1]">Started: {project.startedDate}</span>
+                      <span className="text-[#A1A1A1]">Difficulty: {project.difficulty}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 bg-[#2B2B2B] rounded-full h-2">
+                        <div 
+                          className="bg-gradient-to-r from-[#E3583D] to-[#E4593D] h-2 rounded-full"
+                          style={{ width: `${project.progress}%` }}
+                        ></div>
+                      </div>
+                      <span className="text-sm text-[#A1A1A1]">{project.progress}%</span>
+                    </div>
+                  </div>
+                  <Button className="bg-gradient-to-r from-[#E3583D] to-[#E4593D] hover:from-[#E3583D]/90 hover:to-[#E4593D]/90 text-white">
+                    Continue Working
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
         {activeTab === 'upcoming' && (
           <div className="space-y-4">
