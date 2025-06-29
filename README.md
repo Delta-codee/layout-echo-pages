@@ -1,3 +1,4 @@
+
 # Welcome to your Lovable project
 
 ## Project info
@@ -59,6 +60,22 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+
+## Test Accounts
+
+For testing purposes, you can use the following accounts to log in:
+
+### Student Account
+- **Email**: `student@test.com`
+- **Password**: `student123`
+- **Role**: Student
+- **Name**: John Student
+
+### Admin Account
+- **Email**: `admin@test.com`
+- **Password**: `admin123`
+- **Role**: Admin
+- **Name**: Jane Admin
 
 ## How can I deploy this project?
 

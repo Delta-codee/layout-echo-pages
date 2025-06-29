@@ -6,6 +6,7 @@ interface User {
   name: string;
   email: string;
   avatar?: string;
+  role: 'student' | 'admin';
 }
 
 interface AuthContextType {
@@ -18,6 +19,30 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Test accounts
+const testAccounts = {
+  'student@test.com': {
+    password: 'student123',
+    user: {
+      id: '1',
+      name: 'John Student',
+      email: 'student@test.com',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+      role: 'student' as const
+    }
+  },
+  'admin@test.com': {
+    password: 'admin123',
+    user: {
+      id: '2',
+      name: 'Jane Admin',
+      email: 'admin@test.com',
+      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
+      role: 'admin' as const
+    }
+  }
+};
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
@@ -25,16 +50,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Mock user data
-    const mockUser: User = {
-      id: '1',
-      name: 'John Doe',
-      email: email,
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
-    };
+    const account = testAccounts[email as keyof typeof testAccounts];
     
-    setUser(mockUser);
-    localStorage.setItem('user', JSON.stringify(mockUser));
+    if (account && account.password === password) {
+      setUser(account.user);
+      localStorage.setItem('user', JSON.stringify(account.user));
+    } else {
+      throw new Error('Invalid credentials');
+    }
   };
 
   const register = async (name: string, email: string, password: string) => {
@@ -45,7 +68,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       id: Date.now().toString(),
       name: name,
       email: email,
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+      role: 'student'
     };
     
     setUser(mockUser);
