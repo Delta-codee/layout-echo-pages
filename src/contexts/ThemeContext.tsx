@@ -52,6 +52,14 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     if (theme) {
       setCurrentTheme(theme);
       localStorage.setItem('preferred-theme', themeId);
+      
+      // Apply theme to document body
+      const body = document.body;
+      // Remove existing theme classes
+      body.className = body.className.replace(/bg-gradient-to-br[^\s]*/g, '');
+      // Add new theme class
+      const bgClasses = theme.bg.replace('bg-gradient-to-br ', '');
+      body.classList.add('bg-gradient-to-br', ...bgClasses.split(' '));
     }
   };
 
@@ -62,6 +70,10 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
       const theme = themes.find(t => t.id === savedTheme);
       if (theme) {
         setCurrentTheme(theme);
+        // Apply theme to document body
+        const body = document.body;
+        const bgClasses = theme.bg.replace('bg-gradient-to-br ', '');
+        body.classList.add('bg-gradient-to-br', ...bgClasses.split(' '));
       }
     }
   }, []);

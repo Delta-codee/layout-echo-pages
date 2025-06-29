@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
 import Courses from './pages/Courses';
 import Projects from './pages/Projects';
 import Blogs from './pages/Blogs';
@@ -40,6 +41,7 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/student-dashboard" element={<StudentDashboard />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/edit-profile" element={<EditProfile />} />
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/blogs" element={<Blogs />} />
