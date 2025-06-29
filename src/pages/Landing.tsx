@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { useTheme } from '@/contexts/ThemeContext';
 import Header from '@/components/Header';
 import { useState } from 'react';
-import TwitterTestimonialsSection from '@/components/TwitterTestimonialsSection';
+import HorizontalTwitterTestimonials from '@/components/HorizontalTwitterTestimonials';
 
 const Landing = () => {
   const { currentTheme } = useTheme();
@@ -292,8 +292,8 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Twitter-style Testimonials */}
-      <TwitterTestimonialsSection />
+      {/* Horizontal Twitter-style Testimonials */}
+      <HorizontalTwitterTestimonials />
 
       {/* Pricing Section */}
       <section className="py-20 lg:py-32 bg-black/20">
