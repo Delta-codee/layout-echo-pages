@@ -20,20 +20,38 @@ const Login = () => {
         <div className="flex justify-center">
           <SignIn 
             appearance={{
+              variables: {
+                colorPrimary: '#E3583D',
+                colorBackground: '#131313',
+                colorInputBackground: '#0B0B0B',
+                colorInputText: '#F1F1F1',
+                colorText: '#F1F1F1',
+                colorTextSecondary: '#A1A1A1',
+                colorNeutral: '#2B2B2B',
+                borderRadius: '12px',
+                fontFamily: 'Inter, system-ui, sans-serif'
+              },
               elements: {
                 rootBox: "w-full",
-                card: "bg-[#131313] border-[#2B2B2B] shadow-xl",
-                headerTitle: "text-[#F1F1F1]",
+                card: "bg-[#131313] border border-[#2B2B2B] shadow-2xl rounded-xl",
+                headerTitle: "text-[#F1F1F1] font-semibold",
                 headerSubtitle: "text-[#A1A1A1]",
-                socialButtonsBlockButton: "bg-[#0B0B0B] border-[#2B2B2B] text-[#F1F1F1] hover:bg-[#1A1A1A]",
-                formFieldInput: "bg-[#0B0B0B] border-[#2B2B2B] text-[#F1F1F1] focus:border-[#E3583D]",
-                formButtonPrimary: "bg-gradient-to-r from-[#E3583D] to-[#E4593D] hover:from-[#E3583D]/90 hover:to-[#E4593D]/90",
-                footerActionLink: "text-[#E3583D] hover:text-[#E4593D]",
+                socialButtonsBlockButton: "bg-[#0B0B0B] border border-[#2B2B2B] text-[#F1F1F1] hover:bg-[#1A1A1A] transition-colors rounded-xl",
+                socialButtonsBlockButtonText: "text-[#F1F1F1] font-medium",
+                formFieldInput: "bg-[#0B0B0B] border border-[#2B2B2B] text-[#F1F1F1] focus:border-[#E3583D] focus:ring-1 focus:ring-[#E3583D] rounded-xl",
+                formButtonPrimary: "bg-gradient-to-r from-[#E3583D] to-[#E4593D] hover:from-[#E3583D]/90 hover:to-[#E4593D]/90 text-white font-medium rounded-xl transition-all",
+                footerActionLink: "text-[#E3583D] hover:text-[#E4593D] font-medium",
                 dividerLine: "bg-[#2B2B2B]",
-                dividerText: "text-[#A1A1A1]",
-                formFieldLabel: "text-[#F1F1F1]",
+                dividerText: "text-[#A1A1A1] bg-[#131313]",
+                formFieldLabel: "text-[#F1F1F1] font-medium",
                 identityPreviewText: "text-[#F1F1F1]",
-                identityPreviewEditButton: "text-[#E3583D]"
+                identityPreviewEditButton: "text-[#E3583D] hover:text-[#E4593D]",
+                alternativeMethodsBlockButton: "bg-[#0B0B0B] border border-[#2B2B2B] text-[#F1F1F1] hover:bg-[#1A1A1A] rounded-xl",
+                alternativeMethodsBlockButtonText: "text-[#F1F1F1]",
+                formFieldSuccessText: "text-green-400",
+                formFieldErrorText: "text-red-400",
+                alertText: "text-[#F1F1F1]",
+                formFieldHintText: "text-[#A1A1A1]"
               }
             }}
             fallbackRedirectUrl="/dashboard"

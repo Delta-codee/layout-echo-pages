@@ -1,5 +1,6 @@
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, ReactNode } from 'react';
+import { useAuth as useClerkAuth, useUser } from '@clerk/clerk-react';
 
 interface User {
   id: string;
@@ -19,75 +20,33 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Test accounts
-const testAccounts = {
-  'student@test.com': {
-    password: 'student123',
-    user: {
-      id: '1',
-      name: 'John Student',
-      email: 'student@test.com',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-      role: 'student' as const
-    }
-  },
-  'admin@test.com': {
-    password: 'admin123',
-    user: {
-      id: '2',
-      name: 'Jane Admin',
-      email: 'admin@test.com',
-      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
-      role: 'admin' as const
-    }
-  }
-};
-
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const { isSignedIn, signOut } = useClerkAuth();
+  const { user: clerkUser } = useUser();
 
+  // Convert Clerk user to our User interface
+  const user: User | null = clerkUser ? {
+    id: clerkUser.id,
+    name: clerkUser.fullName || clerkUser.firstName || clerkUser.username || 'User',
+    email: clerkUser.primaryEmailAddress?.emailAddress || '',
+    avatar: clerkUser.imageUrl,
+    role: 'student' // Default role, you can modify this based on your needs
+  } : null;
+
+  // These functions are kept for compatibility but won't be used with Clerk
   const login = async (email: string, password: string) => {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    const account = testAccounts[email as keyof typeof testAccounts];
-    
-    if (account && account.password === password) {
-      setUser(account.user);
-      localStorage.setItem('user', JSON.stringify(account.user));
-    } else {
-      throw new Error('Invalid credentials');
-    }
+    // Redirect to Clerk sign-in instead
+    window.location.href = '/login';
   };
 
   const register = async (name: string, email: string, password: string) => {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    const mockUser: User = {
-      id: Date.now().toString(),
-      name: name,
-      email: email,
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-      role: 'student'
-    };
-    
-    setUser(mockUser);
-    localStorage.setItem('user', JSON.stringify(mockUser));
+    // Redirect to Clerk sign-up instead
+    window.location.href = '/register';
   };
 
   const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
+    signOut();
   };
-
-  // Check for existing user on mount
-  React.useEffect(() => {
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
-  }, []);
 
   return (
     <AuthContext.Provider value={{
@@ -95,7 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       login,
       register,
       logout,
-      isAuthenticated: !!user
+      isAuthenticated: isSignedIn || false
     }}>
       {children}
     </AuthContext.Provider>

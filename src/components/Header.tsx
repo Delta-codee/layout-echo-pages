@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
-import ProfileDropdown from './ProfileDropdown';
+import { UserButton, SignInButton, SignUpButton } from '@clerk/clerk-react';
 import { GraduationCap } from 'lucide-react';
 
 const Header = () => {
@@ -21,19 +21,31 @@ const Header = () => {
         <div className="flex items-center gap-3">
           {!isAuthenticated ? (
             <>
-              <Link to="/login">
+              <SignInButton mode="modal">
                 <Button variant="ghost" className="text-[#A1A1A1] hover:text-[#F1F1F1] hover:bg-[#131313] font-medium px-6">
                   Login
                 </Button>
-              </Link>
-              <Link to="/register">
+              </SignInButton>
+              <SignUpButton mode="modal">
                 <Button className="bg-[#E4593D] hover:bg-[#E3583D] text-white font-medium px-6 rounded-xl">
                   Signup
                 </Button>
-              </Link>
+              </SignUpButton>
             </>
           ) : (
-            <ProfileDropdown />
+            <UserButton 
+              appearance={{
+                elements: {
+                  avatarBox: "w-10 h-10 rounded-full",
+                  userButtonPopoverCard: "bg-[#131313] border border-[#2B2B2B] shadow-xl",
+                  userButtonPopoverActionButton: "text-[#F1F1F1] hover:bg-[#2B2B2B]",
+                  userButtonPopoverActionButtonText: "text-[#F1F1F1]",
+                  userButtonPopoverFooter: "hidden"
+                }
+              }}
+              userProfileMode="modal"
+              afterSignOutUrl="/"
+            />
           )}
         </div>
       </div>

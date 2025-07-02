@@ -3,24 +3,29 @@ import Layout from '@/components/Layout';
 import { Camera, Edit3, Github, Linkedin, Instagram, Twitter, MapPin, Calendar, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useAuth } from '@/contexts/AuthContext';
+import { useUser } from '@clerk/clerk-react';
 
 const Profile = () => {
-  // Mock user data - will be replaced with real data from Supabase
-  const user = {
-    fullName: 'John Doe',
-    username: '@johndoe',
-    email: 'john.doe@example.com',
-    bio: 'Full-stack developer passionate about creating innovative web applications. Currently learning React, Node.js, and cloud technologies.',
+  const { user } = useAuth();
+  const { user: clerkUser } = useUser();
+
+  // Use real user data from Clerk
+  const profileData = {
+    fullName: user?.name || 'User',
+    username: clerkUser?.username ? `@${clerkUser.username}` : '@user',
+    email: user?.email || '',
+    bio: 'Learning enthusiast passionate about creating innovative web applications. Currently exploring React, Node.js, and cloud technologies.',
     location: 'San Francisco, CA',
-    joinDate: 'March 2024',
-    role: 'Student',
-    profileImage: null,
+    joinDate: clerkUser?.createdAt ? new Date(clerkUser.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'Recently',
+    role: user?.role || 'Student',
+    profileImage: user?.avatar || null,
     coverImage: null,
     socialLinks: {
-      github: 'https://github.com/johndoe',
-      linkedin: 'https://linkedin.com/in/johndoe',
+      github: '',
+      linkedin: '',
       instagram: '',
-      twitter: 'https://twitter.com/johndoe'
+      twitter: ''
     },
     stats: {
       projects: 12,
@@ -29,14 +34,23 @@ const Profile = () => {
     }
   };
 
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   return (
     <Layout>
       <div className="max-w-4xl mx-auto p-6 bg-[#0B0B0B] min-h-screen">
         {/* Cover Photo Section */}
         <div className="relative mb-6">
           <div className="h-48 bg-gradient-to-r from-[#E3583D] to-[#E4593D] rounded-xl relative overflow-hidden">
-            {user.coverImage ? (
-              <img src={user.coverImage} alt="Cover" className="w-full h-full object-cover" />
+            {profileData.coverImage ? (
+              <img src={profileData.coverImage} alt="Cover" className="w-full h-full object-cover" />
             ) : (
               <div className="w-full h-full bg-gradient-to-r from-[#E3583D] to-[#E4593D]" />
             )}
@@ -49,11 +63,11 @@ const Profile = () => {
           <div className="absolute -bottom-16 left-6">
             <div className="relative">
               <div className="w-32 h-32 bg-[#131313] rounded-full border-4 border-[#0B0B0B] overflow-hidden">
-                {user.profileImage ? (
-                  <img src={user.profileImage} alt="Profile" className="w-full h-full object-cover" />
+                {profileData.profileImage ? (
+                  <img src={profileData.profileImage} alt="Profile" className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-[#E3583D] to-[#E4593D] flex items-center justify-center text-white text-2xl font-bold">
-                    {user.fullName.split(' ').map(n => n[0]).join('')}
+                    {getInitials(profileData.fullName)}
                   </div>
                 )}
               </div>
@@ -68,20 +82,20 @@ const Profile = () => {
         <div className="mt-20 mb-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-[#F1F1F1] mb-1">{user.fullName}</h1>
-              <p className="text-[#E3583D] text-lg mb-2">{user.username}</p>
+              <h1 className="text-3xl font-bold text-[#F1F1F1] mb-1">{profileData.fullName}</h1>
+              <p className="text-[#E3583D] text-lg mb-2">{profileData.username}</p>
               <div className="flex items-center gap-4 text-[#A1A1A1] text-sm">
                 <span className="flex items-center gap-1">
                   <Mail className="w-4 h-4" />
-                  {user.email}
+                  {profileData.email}
                 </span>
                 <span className="flex items-center gap-1">
                   <MapPin className="w-4 h-4" />
-                  {user.location}
+                  {profileData.location}
                 </span>
                 <span className="flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
-                  Joined {user.joinDate}
+                  Joined {profileData.joinDate}
                 </span>
               </div>
             </div>
@@ -104,7 +118,7 @@ const Profile = () => {
                 <CardTitle className="text-[#F1F1F1]">About</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-[#A1A1A1] leading-relaxed">{user.bio}</p>
+                <p className="text-[#A1A1A1] leading-relaxed">{profileData.bio}</p>
               </CardContent>
             </Card>
 
@@ -115,10 +129,10 @@ const Profile = () => {
               </CardHeader>
               <CardContent className="space-y-3">
                 {[
-                  { icon: Github, label: 'GitHub', value: user.socialLinks.github },
-                  { icon: Linkedin, label: 'LinkedIn', value: user.socialLinks.linkedin },
-                  { icon: Twitter, label: 'Twitter', value: user.socialLinks.twitter },
-                  { icon: Instagram, label: 'Instagram', value: user.socialLinks.instagram }
+                  { icon: Github, label: 'GitHub', value: profileData.socialLinks.github },
+                  { icon: Linkedin, label: 'LinkedIn', value: profileData.socialLinks.linkedin },
+                  { icon: Twitter, label: 'Twitter', value: profileData.socialLinks.twitter },
+                  { icon: Instagram, label: 'Instagram', value: profileData.socialLinks.instagram }
                 ].map((link) => (
                   <div key={link.label} className="flex items-center gap-3">
                     <link.icon className="w-5 h-5 text-[#A1A1A1]" />
@@ -144,15 +158,15 @@ const Profile = () => {
               <CardContent className="pt-6">
                 <div className="grid grid-cols-3 gap-4 text-center">
                   <div>
-                    <div className="text-2xl font-bold text-[#E3583D]">{user.stats.projects}</div>
+                    <div className="text-2xl font-bold text-[#E3583D]">{profileData.stats.projects}</div>
                     <div className="text-[#A1A1A1] text-sm">Projects</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-[#E3583D]">{user.stats.followers}</div>
+                    <div className="text-2xl font-bold text-[#E3583D]">{profileData.stats.followers}</div>
                     <div className="text-[#A1A1A1] text-sm">Followers</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-[#E3583D]">{user.stats.following}</div>
+                    <div className="text-2xl font-bold text-[#E3583D]">{profileData.stats.following}</div>
                     <div className="text-[#A1A1A1] text-sm">Following</div>
                   </div>
                 </div>

@@ -9,7 +9,7 @@ const ProfileDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { currentTheme } = useTheme();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -31,14 +31,34 @@ const ProfileDropdown = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Get user initials for fallback
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   return (
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
         className="flex items-center gap-2 p-2 rounded-xl hover:bg-[#131313] transition-colors focus:outline-none focus:ring-2 focus:ring-[#E3583D] focus:ring-offset-2 focus:ring-offset-[#0B0B0B]"
       >
-        <div className="w-8 h-8 bg-gradient-to-br from-[#E3583D] to-[#E4593D] rounded-full flex items-center justify-center">
-          <span className="text-white font-semibold text-sm">U</span>
+        <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-br from-[#E3583D] to-[#E4593D]">
+          {user?.avatar ? (
+            <img 
+              src={user.avatar} 
+              alt={user.name}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <span className="text-white font-semibold text-sm">
+              {user?.name ? getInitials(user.name) : 'U'}
+            </span>
+          )}
         </div>
         <ChevronDown className={`w-4 h-4 text-[#A1A1A1] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
