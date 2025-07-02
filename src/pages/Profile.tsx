@@ -13,10 +13,10 @@ const Profile = () => {
   // Use real user data from Clerk
   const profileData = {
     fullName: user?.name || 'User',
-    username: clerkUser?.username ? `@${clerkUser.username}` : '@user',
+    username: clerkUser?.username ? `@${clerkUser.username}` : `@${user?.name?.toLowerCase().replace(/\s+/g, '') || 'user'}`,
     email: user?.email || '',
-    bio: 'Learning enthusiast passionate about creating innovative web applications. Currently exploring React, Node.js, and cloud technologies.',
-    location: 'San Francisco, CA',
+    bio: user?.name ? `Hi, I'm ${user.name}! I'm excited to start my learning journey with MasterJi and connect with fellow learners.` : 'Learning enthusiast passionate about creating innovative web applications.',
+    location: 'Not specified',
     joinDate: clerkUser?.createdAt ? new Date(clerkUser.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'Recently',
     role: user?.role || 'Student',
     profileImage: user?.avatar || null,
@@ -28,9 +28,9 @@ const Profile = () => {
       twitter: ''
     },
     stats: {
-      projects: 12,
-      followers: 156,
-      following: 89
+      projects: 0,
+      followers: 0,
+      following: 0
     }
   };
 
@@ -42,6 +42,8 @@ const Profile = () => {
       .toUpperCase()
       .slice(0, 2);
   };
+
+  const isNewUser = profileData.stats.projects === 0;
 
   return (
     <Layout>
@@ -119,6 +121,13 @@ const Profile = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-[#A1A1A1] leading-relaxed">{profileData.bio}</p>
+                {isNewUser && (
+                  <div className="mt-4 p-3 bg-[#E3583D]/10 rounded-lg border border-[#E3583D]/20">
+                    <p className="text-[#E3583D] text-sm">
+                      Welcome to MasterJi! Complete your profile and start uploading projects to showcase your skills.
+                    </p>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -182,7 +191,15 @@ const Profile = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-center py-12">
-                  <div className="text-[#A1A1A1] mb-4">No projects yet</div>
+                  <div className="text-[#A1A1A1] mb-4">
+                    {isNewUser ? "Welcome! No projects yet" : "No projects yet"}
+                  </div>
+                  <p className="text-[#A1A1A1] text-sm mb-6">
+                    {isNewUser 
+                      ? "Start your journey by uploading your first project and showcasing your skills to the community."
+                      : "Upload your first project to get started."
+                    }
+                  </p>
                   <Button className="bg-gradient-to-r from-[#E3583D] to-[#E4593D] hover:from-[#E4593D] hover:to-[#E3583D] text-white rounded-xl">
                     Upload Your First Project
                   </Button>

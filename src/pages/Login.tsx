@@ -54,7 +54,7 @@ const Login = () => {
                 formFieldHintText: "text-[#A1A1A1]"
               }
             }}
-            fallbackRedirectUrl="/dashboard"
+            fallbackRedirectUrl="/landing"
             signUpUrl="/register"
           />
         </div>
