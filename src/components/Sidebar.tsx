@@ -1,18 +1,29 @@
 
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Users, Folder, FileText, BarChart3, GraduationCap } from 'lucide-react';
+import { Home, Users, Folder, FileText, BarChart3, GraduationCap, BookOpen } from 'lucide-react';
+import { useAuth } from '@clerk/clerk-react';
 import ProfileDropdown from './ProfileDropdown';
 
 const Sidebar = () => {
   const location = useLocation();
+  const { isSignedIn } = useAuth();
 
   const menuItems = [
     { icon: Home, label: 'Dashboard', path: '/dashboard' },
+    { icon: BookOpen, label: 'My Classroom', path: '/my-classroom', authRequired: true },
     { icon: Folder, label: 'Projects', path: '/projects' },
     { icon: Users, label: 'Peer Reviews', path: '/peer-reviews' },
     { icon: FileText, label: 'Blogs', path: '/blogs' },
     { icon: BarChart3, label: 'Evaluations', path: '/evaluations' }
   ];
+
+  // Filter menu items based on authentication status
+  const filteredMenuItems = menuItems.filter(item => {
+    if (item.authRequired && !isSignedIn) {
+      return false;
+    }
+    return true;
+  });
 
   return (
     <div className="w-72 h-screen bg-[#0B0B0B] border-r border-[#2B2B2B] flex flex-col">
@@ -26,7 +37,7 @@ const Sidebar = () => {
       </div>
       
       <nav className="flex-1 px-4 py-6">
-        {menuItems.map((item) => {
+        {filteredMenuItems.map((item) => {
           const Icon = item.icon;
           const isActive = location.pathname === item.path;
           

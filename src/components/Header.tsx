@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { UserButton, SignInButton, SignUpButton } from '@clerk/clerk-react';
-import { GraduationCap } from 'lucide-react';
+import { useAuth as useClerkAuth } from '@clerk/clerk-react';
+import { GraduationCap, BookOpen } from 'lucide-react';
 
 const Header = () => {
   const { isAuthenticated } = useAuth();
+  const { isSignedIn } = useClerkAuth();
 
   return (
     <header className="border-b border-[#2B2B2B] bg-[#0B0B0B]/95 backdrop-blur-xl sticky top-0 z-50">
@@ -19,6 +21,16 @@ const Header = () => {
         </Link>
         
         <div className="flex items-center gap-3">
+          {/* Show My Classroom button only if user is signed in */}
+          {isSignedIn && (
+            <Link to="/my-classroom">
+              <Button variant="ghost" className="text-[#A1A1A1] hover:text-[#F1F1F1] hover:bg-[#131313] font-medium px-4">
+                <BookOpen className="w-4 h-4 mr-2" />
+                My Classroom
+              </Button>
+            </Link>
+          )}
+          
           {!isAuthenticated ? (
             <>
               <SignInButton mode="modal">
