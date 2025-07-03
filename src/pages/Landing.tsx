@@ -1,15 +1,33 @@
-
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Code, Palette, Zap, Users, Award, TrendingUp, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useAuth as useClerkAuth } from '@clerk/clerk-react';
 import Header from '@/components/Header';
 import HorizontalTwitterTestimonials from '@/components/HorizontalTwitterTestimonials';
 
 const Landing = () => {
   const { currentTheme } = useTheme();
+  const { isSignedIn } = useClerkAuth();
+  const navigate = useNavigate();
+
+  const handleStartLearning = () => {
+    if (isSignedIn) {
+      navigate('/dashboard');
+    } else {
+      navigate('/login');
+    }
+  };
+
+  const handleBrowseCourses = () => {
+    if (isSignedIn) {
+      navigate('/dashboard');
+    } else {
+      navigate('/login');
+    }
+  };
 
   const features = [
     {
@@ -104,17 +122,22 @@ const Landing = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20">
-            <Link to="/register">
-              <Button size="lg" className="bg-[#E4593D] hover:bg-[#E3583D] text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-                Start Learning Now
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
-            <Link to="/login">
-              <Button variant="outline" size="lg" className="px-8 py-4 text-lg font-semibold rounded-xl border-2 border-[#2B2B2B] text-[#F1F1F1] hover:bg-[#131313] transition-all duration-300">
-                Browse Courses
-              </Button>
-            </Link>
+            <Button 
+              size="lg" 
+              onClick={handleStartLearning}
+              className="bg-[#E4593D] hover:bg-[#E3583D] text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              Start Learning Now
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              onClick={handleBrowseCourses}
+              className="px-8 py-4 text-lg font-semibold rounded-xl border-2 border-[#2B2B2B] text-[#F1F1F1] hover:bg-[#131313] transition-all duration-300"
+            >
+              Browse Courses
+            </Button>
           </div>
 
           {/* Metrics Cards */}
@@ -329,11 +352,13 @@ const Landing = () => {
           <p className="text-xl text-[#A1A1A1] mb-12 max-w-2xl mx-auto">
             Join thousands of learners who are already advancing their skills with MasterJi's comprehensive learning platform.
           </p>
-          <Link to="/register">
-            <Button size="lg" className="bg-[#E4593D] hover:bg-[#E3583D] text-white px-12 py-5 text-xl font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-              Start Your Journey
-            </Button>
-          </Link>
+          <Button 
+            size="lg" 
+            onClick={handleStartLearning}
+            className="bg-[#E4593D] hover:bg-[#E3583D] text-white px-12 py-5 text-xl font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+          >
+            Start Your Journey
+          </Button>
         </div>
       </section>
 

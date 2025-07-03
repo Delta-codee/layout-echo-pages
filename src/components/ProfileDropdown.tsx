@@ -1,15 +1,18 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, LogOut, ChevronDown } from 'lucide-react';
+import { User, LogOut, ChevronDown, Palette } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAuth as useClerkAuth } from '@clerk/clerk-react';
+import { useTheme } from '@/contexts/ThemeContext';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 const ProfileDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user } = useAuth();
   const { signOut } = useClerkAuth();
+  const { currentTheme, setTheme, themes } = useTheme();
   const navigate = useNavigate();
 
   const toggleDropdown = () => {
@@ -20,6 +23,13 @@ const ProfileDropdown = () => {
     await signOut();
     setIsOpen(false);
     navigate('/');
+  };
+
+  const handleThemeChange = () => {
+    // Toggle between first two themes (dark and light)
+    const nextTheme = currentTheme.id === 'dark' ? 'light' : 'dark';
+    setTheme(nextTheme);
+    setIsOpen(false);
   };
 
   useEffect(() => {
@@ -66,7 +76,7 @@ const ProfileDropdown = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-56 bg-[#131313] border border-[#2B2B2B] rounded-xl shadow-xl py-2 z-[100] animate-fade-in">
+        <div className="absolute right-0 bottom-full mb-2 w-56 bg-[#131313] border border-[#2B2B2B] rounded-xl shadow-xl py-2 z-[100] animate-fade-in">
           {/* Profile Info Section */}
           <div className="px-4 py-3 border-b border-[#2B2B2B]">
             <div className="flex items-center gap-3">
@@ -96,13 +106,21 @@ const ProfileDropdown = () => {
 
           {/* Menu Items */}
           <div className="py-1">
+            <button
+              onClick={handleThemeChange}
+              className="flex items-center gap-3 px-4 py-3 text-[#F1F1F1] hover:bg-[#2B2B2B] transition-colors duration-200 w-full text-left group"
+            >
+              <Palette className="w-4 h-4 text-[#E3583D] group-hover:text-[#E4593D] transition-colors" />
+              <span className="font-medium">Change Theme</span>
+            </button>
+
             <Link
               to="/edit-profile"
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-3 px-4 py-3 text-[#F1F1F1] hover:bg-[#2B2B2B] transition-colors duration-200 group"
             >
               <User className="w-4 h-4 text-[#E3583D] group-hover:text-[#E4593D] transition-colors" />
-              <span className="font-medium">Manage Account</span>
+              <span className="font-medium">Edit Profile</span>
             </Link>
             
             <button
