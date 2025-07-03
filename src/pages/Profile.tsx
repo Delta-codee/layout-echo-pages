@@ -4,24 +4,39 @@ import { Camera, Edit3, Github, Linkedin, Instagram, Twitter, MapPin, Calendar, 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
+import { useProfile } from '@/contexts/ProfileContext';
 import { useUser } from '@clerk/clerk-react';
 
 const Profile = () => {
   const { user } = useAuth();
   const { user: clerkUser } = useUser();
+  const { profileData, isLoading } = useProfile();
 
-  // Use real user data from Clerk
-  const profileData = {
-    fullName: user?.name || 'User',
-    username: clerkUser?.username ? `@${clerkUser.username}` : `@${user?.name?.toLowerCase().replace(/\s+/g, '') || 'user'}`,
-    email: user?.email || '',
-    bio: user?.name ? `Hi, I'm ${user.name}! I'm excited to start my learning journey with MasterJi and connect with fellow learners.` : 'Learning enthusiast passionate about creating innovative web applications.',
-    location: 'Not specified',
+  // Show loading state
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="max-w-4xl mx-auto p-6 bg-[#0B0B0B] min-h-screen">
+          <div className="text-center py-12">
+            <div className="text-[#F1F1F1] mb-4">Loading profile...</div>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
+  // Use profile data from context, fallback to user data
+  const displayData = {
+    fullName: profileData?.fullName || user?.name || 'User',
+    username: profileData?.username || (clerkUser?.username ? `@${clerkUser.username}` : `@${user?.name?.toLowerCase().replace(/\s+/g, '') || 'user'}`),
+    email: profileData?.email || user?.email || '',
+    bio: profileData?.bio || (user?.name ? `Hi, I'm ${user.name}! I'm excited to start my learning journey with MasterJi and connect with fellow learners.` : 'Learning enthusiast passionate about creating innovative web applications.'),
+    location: profileData?.location || 'Not specified',
     joinDate: clerkUser?.createdAt ? new Date(clerkUser.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'Recently',
     role: user?.role || 'Student',
     profileImage: user?.avatar || null,
     coverImage: null,
-    socialLinks: {
+    socialLinks: profileData?.socialLinks || {
       github: '',
       linkedin: '',
       instagram: '',
@@ -43,7 +58,7 @@ const Profile = () => {
       .slice(0, 2);
   };
 
-  const isNewUser = profileData.stats.projects === 0;
+  const isNewUser = displayData.stats.projects === 0;
 
   return (
     <Layout>
@@ -51,8 +66,8 @@ const Profile = () => {
         {/* Cover Photo Section */}
         <div className="relative mb-6">
           <div className="h-48 bg-gradient-to-r from-[#E3583D] to-[#E4593D] rounded-xl relative overflow-hidden">
-            {profileData.coverImage ? (
-              <img src={profileData.coverImage} alt="Cover" className="w-full h-full object-cover" />
+            {displayData.coverImage ? (
+              <img src={displayData.coverImage} alt="Cover" className="w-full h-full object-cover" />
             ) : (
               <div className="w-full h-full bg-gradient-to-r from-[#E3583D] to-[#E4593D]" />
             )}
@@ -65,11 +80,11 @@ const Profile = () => {
           <div className="absolute -bottom-16 left-6">
             <div className="relative">
               <div className="w-32 h-32 bg-[#131313] rounded-full border-4 border-[#0B0B0B] overflow-hidden">
-                {profileData.profileImage ? (
-                  <img src={profileData.profileImage} alt="Profile" className="w-full h-full object-cover" />
+                {displayData.profileImage ? (
+                  <img src={displayData.profileImage} alt="Profile" className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-[#E3583D] to-[#E4593D] flex items-center justify-center text-white text-2xl font-bold">
-                    {getInitials(profileData.fullName)}
+                    {getInitials(displayData.fullName)}
                   </div>
                 )}
               </div>
@@ -84,20 +99,20 @@ const Profile = () => {
         <div className="mt-20 mb-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-[#F1F1F1] mb-1">{profileData.fullName}</h1>
-              <p className="text-[#E3583D] text-lg mb-2">{profileData.username}</p>
+              <h1 className="text-3xl font-bold text-[#F1F1F1] mb-1">{displayData.fullName}</h1>
+              <p className="text-[#E3583D] text-lg mb-2">{displayData.username}</p>
               <div className="flex items-center gap-4 text-[#A1A1A1] text-sm">
                 <span className="flex items-center gap-1">
                   <Mail className="w-4 h-4" />
-                  {profileData.email}
+                  {displayData.email}
                 </span>
                 <span className="flex items-center gap-1">
                   <MapPin className="w-4 h-4" />
-                  {profileData.location}
+                  {displayData.location}
                 </span>
                 <span className="flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
-                  Joined {profileData.joinDate}
+                  Joined {displayData.joinDate}
                 </span>
               </div>
             </div>
@@ -120,7 +135,7 @@ const Profile = () => {
                 <CardTitle className="text-[#F1F1F1]">About</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-[#A1A1A1] leading-relaxed">{profileData.bio}</p>
+                <p className="text-[#A1A1A1] leading-relaxed">{displayData.bio}</p>
                 {isNewUser && (
                   <div className="mt-4 p-3 bg-[#E3583D]/10 rounded-lg border border-[#E3583D]/20">
                     <p className="text-[#E3583D] text-sm">
@@ -138,10 +153,10 @@ const Profile = () => {
               </CardHeader>
               <CardContent className="space-y-3">
                 {[
-                  { icon: Github, label: 'GitHub', value: profileData.socialLinks.github },
-                  { icon: Linkedin, label: 'LinkedIn', value: profileData.socialLinks.linkedin },
-                  { icon: Twitter, label: 'Twitter', value: profileData.socialLinks.twitter },
-                  { icon: Instagram, label: 'Instagram', value: profileData.socialLinks.instagram }
+                  { icon: Github, label: 'GitHub', value: displayData.socialLinks.github },
+                  { icon: Linkedin, label: 'LinkedIn', value: displayData.socialLinks.linkedin },
+                  { icon: Twitter, label: 'Twitter', value: displayData.socialLinks.twitter },
+                  { icon: Instagram, label: 'Instagram', value: displayData.socialLinks.instagram }
                 ].map((link) => (
                   <div key={link.label} className="flex items-center gap-3">
                     <link.icon className="w-5 h-5 text-[#A1A1A1]" />
@@ -167,15 +182,15 @@ const Profile = () => {
               <CardContent className="pt-6">
                 <div className="grid grid-cols-3 gap-4 text-center">
                   <div>
-                    <div className="text-2xl font-bold text-[#E3583D]">{profileData.stats.projects}</div>
+                    <div className="text-2xl font-bold text-[#E3583D]">{displayData.stats.projects}</div>
                     <div className="text-[#A1A1A1] text-sm">Projects</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-[#E3583D]">{profileData.stats.followers}</div>
+                    <div className="text-2xl font-bold text-[#E3583D]">{displayData.stats.followers}</div>
                     <div className="text-[#A1A1A1] text-sm">Followers</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-[#E3583D]">{profileData.stats.following}</div>
+                    <div className="text-2xl font-bold text-[#E3583D]">{displayData.stats.following}</div>
                     <div className="text-[#A1A1A1] text-sm">Following</div>
                   </div>
                 </div>

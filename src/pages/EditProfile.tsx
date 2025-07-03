@@ -8,15 +8,15 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Camera, Save, X, Github, Linkedin, Instagram, Twitter, MapPin, Mail, User } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAuth as useClerkAuth } from '@clerk/clerk-react';
+import { useProfile } from '@/contexts/ProfileContext';
 
 const EditProfile = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
   const { user } = useAuth();
   const { isSignedIn } = useClerkAuth();
+  const { profileData, updateProfile } = useProfile();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -27,11 +27,11 @@ const EditProfile = () => {
     }
   }, [isSignedIn, navigate]);
 
-  // Initialize form data with real user data
+  // Initialize form data with profile data from context
   const [formData, setFormData] = useState({
-    fullName: user?.name || '',
+    fullName: '',
     username: '',
-    email: user?.email || '',
+    email: '',
     bio: '',
     location: '',
     socialLinks: {
@@ -42,9 +42,11 @@ const EditProfile = () => {
     }
   });
 
-  // Update form data when user data changes
+  // Update form data when profile data changes
   useEffect(() => {
-    if (user) {
+    if (profileData) {
+      setFormData(profileData);
+    } else if (user) {
       setFormData(prev => ({
         ...prev,
         fullName: user.name || '',
@@ -53,7 +55,7 @@ const EditProfile = () => {
         bio: prev.bio || `Hi, I'm ${user.name}! I'm excited to start my learning journey with MasterJi.`,
       }));
     }
-  }, [user]);
+  }, [profileData, user]);
 
   const handleInputChange = (field: string, value: string) => {
     // Clear error for this field when user starts typing
@@ -104,25 +106,20 @@ const EditProfile = () => {
 
   const handleSave = async () => {
     if (!validateForm()) {
-      toast({
-        title: "Validation Error",
-        description: "Please fix the errors before saving.",
-        variant: "destructive",
-      });
       return;
     }
 
     setIsLoading(true);
     
-    // Simulate API call - in a real app, this would update the user profile
-    setTimeout(() => {
-      setIsLoading(false);
-      toast({
-        title: "Profile Updated",
-        description: "Your profile has been successfully updated.",
-      });
+    try {
+      await updateProfile(formData);
+      // Navigate back to profile page after successful update
       navigate('/profile');
-    }, 1500);
+    } catch (error) {
+      console.error('Failed to update profile:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const getInitials = (name: string) => {
