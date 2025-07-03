@@ -66,28 +66,53 @@ const ProfileDropdown = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 bottom-full mb-2 w-48 bg-[#131313] border border-[#2B2B2B] rounded-xl shadow-xl py-2 z-[100] animate-fade-in">
-          {/* Arrow pointing down */}
-          <div className="absolute -bottom-2 right-4 w-4 h-4 bg-[#131313] border-r border-b border-[#2B2B2B] transform rotate-45"></div>
-          
-          <Link
-            to="/edit-profile"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 px-4 py-3 text-[#F1F1F1] hover:bg-[#2B2B2B] transition-colors duration-200"
-          >
-            <User className="w-4 h-4 text-[#E3583D]" />
-            <span>Manage Account</span>
-          </Link>
-          
-          <div className="border-t border-[#2B2B2B] my-1"></div>
-          
-          <button
-            onClick={handleSignOut}
-            className="flex items-center gap-3 px-4 py-3 text-[#F1F1F1] hover:bg-[#2B2B2B] transition-colors duration-200 w-full text-left"
-          >
-            <LogOut className="w-4 h-4 text-[#E3583D]" />
-            <span>Sign Out</span>
-          </button>
+        <div className="absolute right-0 top-full mt-2 w-56 bg-[#131313] border border-[#2B2B2B] rounded-xl shadow-xl py-2 z-[100] animate-fade-in">
+          {/* Profile Info Section */}
+          <div className="px-4 py-3 border-b border-[#2B2B2B]">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-br from-[#E3583D] to-[#E4593D]">
+                {user?.avatar ? (
+                  <img 
+                    src={user.avatar} 
+                    alt={user.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-white font-semibold text-sm">
+                    {user?.name ? getInitials(user.name) : 'U'}
+                  </span>
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[#F1F1F1] font-medium text-sm truncate">
+                  {user?.name || 'User'}
+                </p>
+                <p className="text-[#A1A1A1] text-xs truncate">
+                  {user?.email || 'user@example.com'}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Menu Items */}
+          <div className="py-1">
+            <Link
+              to="/edit-profile"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 text-[#F1F1F1] hover:bg-[#2B2B2B] transition-colors duration-200 group"
+            >
+              <User className="w-4 h-4 text-[#E3583D] group-hover:text-[#E4593D] transition-colors" />
+              <span className="font-medium">Manage Account</span>
+            </Link>
+            
+            <button
+              onClick={handleSignOut}
+              className="flex items-center gap-3 px-4 py-3 text-[#F1F1F1] hover:bg-[#2B2B2B] transition-colors duration-200 w-full text-left group"
+            >
+              <LogOut className="w-4 h-4 text-[#E3583D] group-hover:text-[#E4593D] transition-colors" />
+              <span className="font-medium">Sign Out</span>
+            </button>
+          </div>
         </div>
       )}
     </div>
