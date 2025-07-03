@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,28 +9,58 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Camera, Save, X, Github, Linkedin, Instagram, Twitter, MapPin, Mail, User } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
+import { useAuth as useClerkAuth } from '@clerk/clerk-react';
 
 const EditProfile = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user } = useAuth();
+  const { isSignedIn } = useClerkAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Mock user data - will be replaced with real data from Supabase
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (!isSignedIn) {
+      navigate('/');
+    }
+  }, [isSignedIn, navigate]);
+
+  // Initialize form data with real user data
   const [formData, setFormData] = useState({
-    fullName: 'John Doe',
-    username: 'johndoe',
-    email: 'john.doe@example.com',
-    bio: 'Full-stack developer passionate about creating innovative web applications. Currently learning React, Node.js, and cloud technologies.',
-    location: 'San Francisco, CA',
+    fullName: user?.name || '',
+    username: '',
+    email: user?.email || '',
+    bio: '',
+    location: '',
     socialLinks: {
-      github: 'https://github.com/johndoe',
-      linkedin: 'https://linkedin.com/in/johndoe',
+      github: '',
+      linkedin: '',
       instagram: '',
-      twitter: 'https://twitter.com/johndoe'
+      twitter: ''
     }
   });
 
+  // Update form data when user data changes
+  useEffect(() => {
+    if (user) {
+      setFormData(prev => ({
+        ...prev,
+        fullName: user.name || '',
+        email: user.email || '',
+        username: user.name?.toLowerCase().replace(/\s+/g, '') || '',
+        bio: prev.bio || `Hi, I'm ${user.name}! I'm excited to start my learning journey with MasterJi.`,
+      }));
+    }
+  }, [user]);
+
   const handleInputChange = (field: string, value: string) => {
+    // Clear error for this field when user starts typing
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: '' }));
+    }
+
     if (field.startsWith('socialLinks.')) {
       const socialField = field.split('.')[1];
       setFormData(prev => ({
@@ -48,10 +78,43 @@ const EditProfile = () => {
     }
   };
 
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = 'Name is required';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    // Validate social links if provided
+    Object.entries(formData.socialLinks).forEach(([platform, url]) => {
+      if (url && !url.startsWith('http')) {
+        newErrors[`socialLinks.${platform}`] = 'Please enter a valid URL (starting with http:// or https://)';
+      }
+    });
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSave = async () => {
+    if (!validateForm()) {
+      toast({
+        title: "Validation Error",
+        description: "Please fix the errors before saving.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
     
-    // Simulate API call
+    // Simulate API call - in a real app, this would update the user profile
     setTimeout(() => {
       setIsLoading(false);
       toast({
@@ -61,6 +124,20 @@ const EditProfile = () => {
       navigate('/profile');
     }, 1500);
   };
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
+  // Don't render if not signed in
+  if (!isSignedIn) {
+    return null;
+  }
 
   return (
     <Layout>
@@ -73,7 +150,7 @@ const EditProfile = () => {
                 <div className="w-10 h-10 bg-gradient-to-br from-[#E3583D] to-[#E4593D] rounded-lg flex items-center justify-center">
                   <User className="w-5 h-5 text-white" />
                 </div>
-                <h1 className="text-3xl font-bold text-[#F1F1F1]">Edit Profile</h1>
+                <h1 className="text-3xl font-bold text-[#F1F1F1]">Manage Account</h1>
               </div>
               <Button
                 onClick={() => navigate('/profile')}
@@ -84,7 +161,7 @@ const EditProfile = () => {
                 Cancel
               </Button>
             </div>
-            <p className="text-[#A1A1A1]">Update your profile information and social links</p>
+            <p className="text-[#A1A1A1]">Update your profile information and preferences</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -96,34 +173,20 @@ const EditProfile = () => {
                 </CardHeader>
                 <CardContent className="text-center">
                   <div className="relative mx-auto w-32 h-32 mb-4">
-                    <div className="w-full h-full bg-gradient-to-br from-[#E3583D] to-[#E4593D] rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                      {formData.fullName.split(' ').map(n => n[0]).join('')}
+                    <div className="w-full h-full bg-gradient-to-br from-[#E3583D] to-[#E4593D] rounded-full flex items-center justify-center overflow-hidden">
+                      {user?.avatar ? (
+                        <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
+                      ) : (
+                        <span className="text-white text-2xl font-bold">
+                          {getInitials(formData.fullName)}
+                        </span>
+                      )}
                     </div>
                     <button className="absolute bottom-2 right-2 bg-[#E3583D] hover:bg-[#E4593D] text-white p-2 rounded-full transition-colors">
                       <Camera className="w-4 h-4" />
                     </button>
                   </div>
                   <p className="text-[#A1A1A1] text-sm">Click the camera icon to upload a new photo</p>
-                </CardContent>
-              </Card>
-
-              {/* Stats Card */}
-              <Card className="bg-[#131313] border-[#2B2B2B] mt-6">
-                <CardContent className="pt-6">
-                  <div className="grid grid-cols-3 gap-4 text-center">
-                    <div>
-                      <div className="text-2xl font-bold text-[#E3583D]">12</div>
-                      <div className="text-[#A1A1A1] text-sm">Projects</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-[#E3583D]">156</div>
-                      <div className="text-[#A1A1A1] text-sm">Followers</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-[#E3583D]">89</div>
-                      <div className="text-[#A1A1A1] text-sm">Following</div>
-                    </div>
-                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -138,13 +201,14 @@ const EditProfile = () => {
                 <CardContent className="space-y-4">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="fullName" className="text-[#F1F1F1]">Full Name</Label>
+                      <Label htmlFor="fullName" className="text-[#F1F1F1]">Full Name *</Label>
                       <Input
                         id="fullName"
                         value={formData.fullName}
                         onChange={(e) => handleInputChange('fullName', e.target.value)}
-                        className="bg-[#0B0B0B] border-[#2B2B2B] text-[#F1F1F1] focus:border-[#E3583D]"
+                        className={`bg-[#0B0B0B] border-[#2B2B2B] text-[#F1F1F1] focus:border-[#E3583D] ${errors.fullName ? 'border-red-500' : ''}`}
                       />
+                      {errors.fullName && <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>}
                     </div>
                     <div>
                       <Label htmlFor="username" className="text-[#F1F1F1]">Username</Label>
@@ -157,7 +221,7 @@ const EditProfile = () => {
                     </div>
                   </div>
                   <div>
-                    <Label htmlFor="email" className="text-[#F1F1F1]">Email</Label>
+                    <Label htmlFor="email" className="text-[#F1F1F1]">Email *</Label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-3 w-4 h-4 text-[#A1A1A1]" />
                       <Input
@@ -165,8 +229,9 @@ const EditProfile = () => {
                         type="email"
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
-                        className="bg-[#0B0B0B] border-[#2B2B2B] text-[#F1F1F1] focus:border-[#E3583D] pl-10"
+                        className={`bg-[#0B0B0B] border-[#2B2B2B] text-[#F1F1F1] focus:border-[#E3583D] pl-10 ${errors.email ? 'border-red-500' : ''}`}
                       />
+                      {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                     </div>
                   </div>
                   <div>
@@ -178,6 +243,7 @@ const EditProfile = () => {
                         value={formData.location}
                         onChange={(e) => handleInputChange('location', e.target.value)}
                         className="bg-[#0B0B0B] border-[#2B2B2B] text-[#F1F1F1] focus:border-[#E3583D] pl-10"
+                        placeholder="City, Country"
                       />
                     </div>
                   </div>
@@ -216,8 +282,11 @@ const EditProfile = () => {
                           value={formData.socialLinks[social.field as keyof typeof formData.socialLinks]}
                           onChange={(e) => handleInputChange(`socialLinks.${social.field}`, e.target.value)}
                           placeholder={social.placeholder}
-                          className="bg-[#0B0B0B] border-[#2B2B2B] text-[#F1F1F1] focus:border-[#E3583D] pl-10"
+                          className={`bg-[#0B0B0B] border-[#2B2B2B] text-[#F1F1F1] focus:border-[#E3583D] pl-10 ${errors[`socialLinks.${social.field}`] ? 'border-red-500' : ''}`}
                         />
+                        {errors[`socialLinks.${social.field}`] && 
+                          <p className="text-red-500 text-sm mt-1">{errors[`socialLinks.${social.field}`]}</p>
+                        }
                       </div>
                     </div>
                   ))}

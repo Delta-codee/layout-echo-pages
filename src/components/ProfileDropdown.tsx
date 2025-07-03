@@ -1,23 +1,25 @@
 
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { User, Palette, LogOut, ChevronDown } from 'lucide-react';
-import { useTheme } from '@/contexts/ThemeContext';
+import { Link, useNavigate } from 'react-router-dom';
+import { User, LogOut, ChevronDown } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useAuth as useClerkAuth } from '@clerk/clerk-react';
 
 const ProfileDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { currentTheme } = useTheme();
-  const { logout, user } = useAuth();
+  const { user } = useAuth();
+  const { signOut } = useClerkAuth();
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleLogout = () => {
-    logout();
+  const handleSignOut = async () => {
+    await signOut();
     setIsOpen(false);
+    navigate('/');
   };
 
   useEffect(() => {
@@ -45,7 +47,7 @@ const ProfileDropdown = () => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className="flex items-center gap-2 p-2 rounded-xl hover:bg-[#131313] transition-colors focus:outline-none focus:ring-2 focus:ring-[#E3583D] focus:ring-offset-2 focus:ring-offset-[#0B0B0B]"
+        className="flex items-center gap-2 p-2 rounded-xl hover:bg-[#131313] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#E3583D] focus:ring-offset-2 focus:ring-offset-[#0B0B0B]"
       >
         <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-br from-[#E3583D] to-[#E4593D]">
           {user?.avatar ? (
@@ -60,7 +62,7 @@ const ProfileDropdown = () => {
             </span>
           )}
         </div>
-        <ChevronDown className={`w-4 h-4 text-[#A1A1A1] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-4 h-4 text-[#A1A1A1] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (
@@ -69,31 +71,22 @@ const ProfileDropdown = () => {
           <div className="absolute -bottom-2 right-4 w-4 h-4 bg-[#131313] border-r border-b border-[#2B2B2B] transform rotate-45"></div>
           
           <Link
-            to="/profile"
+            to="/edit-profile"
             onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 px-4 py-3 text-[#F1F1F1] hover:bg-[#2B2B2B] transition-colors"
+            className="flex items-center gap-3 px-4 py-3 text-[#F1F1F1] hover:bg-[#2B2B2B] transition-colors duration-200"
           >
             <User className="w-4 h-4 text-[#E3583D]" />
-            <span>Edit Profile</span>
-          </Link>
-          
-          <Link
-            to="/theme-settings"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 px-4 py-3 text-[#F1F1F1] hover:bg-[#2B2B2B] transition-colors"
-          >
-            <Palette className="w-4 h-4 text-[#E3583D]" />
-            <span>Change Theme</span>
+            <span>Manage Account</span>
           </Link>
           
           <div className="border-t border-[#2B2B2B] my-1"></div>
           
           <button
-            onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 text-[#F1F1F1] hover:bg-[#2B2B2B] transition-colors w-full text-left"
+            onClick={handleSignOut}
+            className="flex items-center gap-3 px-4 py-3 text-[#F1F1F1] hover:bg-[#2B2B2B] transition-colors duration-200 w-full text-left"
           >
             <LogOut className="w-4 h-4 text-[#E3583D]" />
-            <span>Log Out</span>
+            <span>Sign Out</span>
           </button>
         </div>
       )}
