@@ -1,6 +1,5 @@
-
 import Layout from '@/components/Layout';
-import { Search, Folder, Plus, Settings, Calendar, Clock, Play } from 'lucide-react';
+import { Search, Folder, Settings, Calendar, Clock, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 
@@ -226,10 +225,6 @@ const Projects = () => {
             ))}
           </div>
         )}
-
-        <button className="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-[#E3583D] to-[#E4593D] hover:from-[#E3583D]/90 hover:to-[#E4593D]/90 rounded-full flex items-center justify-center shadow-lg transition-colors">
-          <Plus className="w-6 h-6 text-white" />
-        </button>
       </div>
     </Layout>
   );
