@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAuth } from '@clerk/clerk-react';
@@ -22,26 +23,27 @@ import ThemeSettings from './pages/ThemeSettings';
 import NotFound from './pages/NotFound';
 import StudentDashboard from './pages/StudentDashboard';
 import MyClassroom from './pages/MyClassroom';
+import AdminDashboard from './pages/AdminDashboard';
 
+import ProtectedRoute from './components/ProtectedRoute';
+import { useRole } from './hooks/useRole';
 import { Toaster } from '@/components/ui/toaster';
 
 const queryClient = new QueryClient();
 
-// Protected Route Component
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isSignedIn, isLoaded } = useAuth();
+// Role-based redirect component
+const RoleBasedRedirect = () => {
+  const { isAdmin, isStudent } = useRole();
   
-  if (!isLoaded) {
-    return <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center">
-      <div className="text-[#F1F1F1]">Loading...</div>
-    </div>;
+  if (isAdmin) {
+    return <Navigate to="/admin" replace />;
   }
   
-  if (!isSignedIn) {
-    return <Navigate to="/landing" replace />;
+  if (isStudent) {
+    return <Navigate to="/dashboard" replace />;
   }
   
-  return <>{children}</>;
+  return <Navigate to="/landing" replace />;
 };
 
 function App() {
@@ -53,25 +55,39 @@ function App() {
             <Router>
               <div className="min-h-screen bg-[#0B0B0B]">
                 <Routes>
-                  {/* Default route - Landing page */}
+                  {/* Public routes */}
                   <Route path="/" element={<Landing />} />
                   <Route path="/landing" element={<Landing />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   
-                  {/* Protected routes */}
-                  <Route path="/dashboard" element={
+                  {/* Role-based dashboard redirect */}
+                  <Route path="/dashboard-redirect" element={
                     <ProtectedRoute>
+                      <RoleBasedRedirect />
+                    </ProtectedRoute>
+                  } />
+                  
+                  {/* Admin routes */}
+                  <Route path="/admin" element={
+                    <ProtectedRoute requireAdmin>
+                      <AdminDashboard />
+                    </ProtectedRoute>
+                  } />
+                  
+                  {/* Student routes */}
+                  <Route path="/dashboard" element={
+                    <ProtectedRoute requireStudent>
                       <Dashboard />
                     </ProtectedRoute>
                   } />
                   <Route path="/student-dashboard" element={
-                    <ProtectedRoute>
+                    <ProtectedRoute requireStudent>
                       <StudentDashboard />
                     </ProtectedRoute>
                   } />
                   <Route path="/my-classroom" element={
-                    <ProtectedRoute>
+                    <ProtectedRoute requireStudent>
                       <MyClassroom />
                     </ProtectedRoute>
                   } />
@@ -86,32 +102,32 @@ function App() {
                     </ProtectedRoute>
                   } />
                   <Route path="/courses" element={
-                    <ProtectedRoute>
+                    <ProtectedRoute requireStudent>
                       <Courses />
                     </ProtectedRoute>
                   } />
                   <Route path="/projects" element={
-                    <ProtectedRoute>
+                    <ProtectedRoute requireStudent>
                       <Projects />
                     </ProtectedRoute>
                   } />
                   <Route path="/blogs" element={
-                    <ProtectedRoute>
+                    <ProtectedRoute requireStudent>
                       <Blogs />
                     </ProtectedRoute>
                   } />
                   <Route path="/community" element={
-                    <ProtectedRoute>
+                    <ProtectedRoute requireStudent>
                       <Community />
                     </ProtectedRoute>
                   } />
                   <Route path="/peer-reviews" element={
-                    <ProtectedRoute>
+                    <ProtectedRoute requireStudent>
                       <PeerReviews />
                     </ProtectedRoute>
                   } />
                   <Route path="/evaluations" element={
-                    <ProtectedRoute>
+                    <ProtectedRoute requireStudent>
                       <Evaluations />
                     </ProtectedRoute>
                   } />

@@ -1,8 +1,26 @@
 
 import { SignIn } from '@clerk/clerk-react';
 import { GraduationCap } from 'lucide-react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@clerk/clerk-react';
+import { useRole } from '@/hooks/useRole';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { isSignedIn } = useAuth();
+  const { isAdmin, isStudent } = useRole();
+
+  useEffect(() => {
+    if (isSignedIn) {
+      if (isAdmin) {
+        navigate('/admin', { replace: true });
+      } else if (isStudent) {
+        navigate('/dashboard', { replace: true });
+      }
+    }
+  }, [isSignedIn, isAdmin, isStudent, navigate]);
+
   return (
     <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center p-6">
       <div className="w-full max-w-md">
@@ -15,6 +33,13 @@ const Login = () => {
           </div>
           <h1 className="text-2xl font-bold text-[#F1F1F1] mb-2">Welcome Back</h1>
           <p className="text-[#A1A1A1]">Sign in to continue your learning journey</p>
+          
+          {/* Admin login hint */}
+          <div className="mt-4 p-3 bg-[#131313] border border-[#2B2B2B] rounded-lg">
+            <p className="text-[#A1A1A1] text-sm">
+              <strong className="text-[#E3583D]">Admin Access:</strong> Use 5@example.com or 6@example.com
+            </p>
+          </div>
         </div>
 
         <div className="flex justify-center">
@@ -54,7 +79,7 @@ const Login = () => {
                 formFieldHintText: "text-[#A1A1A1]"
               }
             }}
-            fallbackRedirectUrl="/landing"
+            fallbackRedirectUrl="/dashboard-redirect"
             signUpUrl="/register"
           />
         </div>
