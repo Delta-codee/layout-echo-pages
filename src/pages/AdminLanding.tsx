@@ -1,46 +1,81 @@
 
-import { Link } from 'react-router-dom';
-import { RiGraduationCapLine } from 'react-icons/ri';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Settings } from 'lucide-react';
+import AdminLayout from '@/components/AdminLayout';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Users, GraduationCap, BookOpen, BarChart3 } from 'lucide-react';
 
 const AdminLanding = () => {
   return (
-    <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center p-6">
-      <div className="w-full max-w-md text-center">
-        <div className="flex items-center justify-center gap-3 mb-8">
-          <div className="w-16 h-16 bg-gradient-to-br from-[#E3583D] to-[#E4593D] rounded-xl flex items-center justify-center shadow-lg">
-            <RiGraduationCapLine className="w-8 h-8 text-white" />
-          </div>
-          <span className="text-4xl font-bold text-[#F1F1F1]">MasterJi</span>
-        </div>
-        
-        <div className="bg-[#131313] border border-[#2B2B2B] rounded-2xl p-8 shadow-xl">
-          <div className="w-12 h-12 bg-gradient-to-br from-[#E3583D] to-[#E4593D] rounded-xl flex items-center justify-center mx-auto mb-6">
-            <Settings className="w-6 h-6 text-white" />
-          </div>
-          
-          <h1 className="text-3xl font-bold text-[#F1F1F1] mb-4">Welcome Admin</h1>
-          <p className="text-[#A1A1A1] mb-8 leading-relaxed">
-            You have successfully logged in as an administrator. Access your admin panel to manage the platform.
+    <AdminLayout>
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold text-[#F1F1F1]">Welcome, Admin</h1>
+          <p className="text-[#A1A1A1] mt-2">
+            Use the sidebar to manage courses, teachers, students, and more.
           </p>
-          
-          <Link to="/admin/dashboard">
-            <Button 
-              size="lg" 
-              className="w-full bg-gradient-to-r from-[#E3583D] to-[#E4593D] hover:from-[#E3583D]/90 hover:to-[#E4593D]/90 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
-            >
-              Go to Admin Panel
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-          </Link>
         </div>
-        
-        <p className="text-[#666] text-sm mt-6">
-          Secure administrative access to MasterJi platform
-        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="bg-[#131313] border-[#2B2B2B]">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-[#A1A1A1]">
+                Total Students
+              </CardTitle>
+              <Users className="h-4 w-4 text-[#E3583D]" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-[#F1F1F1]">245</div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-[#131313] border-[#2B2B2B]">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-[#A1A1A1]">
+                Total Teachers
+              </CardTitle>
+              <GraduationCap className="h-4 w-4 text-[#E3583D]" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-[#F1F1F1]">18</div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-[#131313] border-[#2B2B2B]">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-[#A1A1A1]">
+                Active Courses
+              </CardTitle>
+              <BookOpen className="h-4 w-4 text-[#E3583D]" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-[#F1F1F1]">12</div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-[#131313] border-[#2B2B2B]">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-[#A1A1A1]">
+                Assignments
+              </CardTitle>
+              <BarChart3 className="h-4 w-4 text-[#E3583D]" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-[#F1F1F1]">89</div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <Card className="bg-[#131313] border-[#2B2B2B]">
+          <CardHeader>
+            <CardTitle className="text-[#F1F1F1]">Quick Actions</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-[#A1A1A1]">
+              Get started by selecting an option from the sidebar to manage your platform.
+            </p>
+          </CardContent>
+        </Card>
       </div>
-    </div>
+    </AdminLayout>
   );
 };
 
