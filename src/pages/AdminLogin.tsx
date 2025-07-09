@@ -13,7 +13,7 @@ const AdminLogin = () => {
   useEffect(() => {
     if (isSignedIn) {
       if (isAdmin) {
-        navigate('/admin-landing', { replace: true });
+        navigate('/admin/landing', { replace: true });
       } else {
         navigate('/unauthorized', { replace: true });
       }
@@ -71,7 +71,7 @@ const AdminLogin = () => {
                 formFieldHintText: "text-[#A1A1A1]"
               }
             }}
-            fallbackRedirectUrl="/admin-landing"
+            fallbackRedirectUrl="/admin/landing"
           />
         </div>
       </div>
