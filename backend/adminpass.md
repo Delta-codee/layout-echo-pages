@@ -1,35 +1,107 @@
 
-# Admin Login Credentials
+# Multi-Level Role Login Credentials
 
-## Demo Admin Accounts
+## Demo Account Hierarchy
 
-Use these credentials to access the Admin Dashboard:
-
-### Admin Account 1
-- **Email:** `5@example.com`
+### 🏛️ Super Admin Accounts
+- **Email:** `5@example.com` or `6@example.com`
 - **Password:** Use any password (Clerk handles authentication)
+- **Access:** Full platform control, manage all institutes
+- **Dashboard:** `/super-admin`
 
-### Admin Account 2
-- **Email:** `6@example.com`
+### 🏫 Institute Admin Accounts
+- **Email Pattern:** `admin@institute.com` or `institute_[name]@example.com`
+- **Examples:** 
+  - `admin@techexcellence.com`
+  - `institute_digitalacademy@example.com`
 - **Password:** Use any password (Clerk handles authentication)
+- **Access:** Manage teachers, students, and courses within their institute
+- **Dashboard:** `/institute`
 
-## Access Notes
+### 👨‍🏫 Teacher Accounts
+- **Email Pattern:** `[name]@teacher.com` or `teacher_[name]@example.com`
+- **Examples:**
+  - `sarah.johnson@teacher.com`
+  - `teacher_michael@example.com`
+- **Password:** Use any password (Clerk handles authentication)
+- **Access:** Manage courses, assignments, and student grades
+- **Dashboard:** `/teacher`
 
-- These email addresses are hardcoded in the role detection system
-- Any user with these email addresses will be automatically redirected to the Admin Dashboard
-- All other email addresses will be treated as students and redirected to the Student Dashboard
-- The role detection is handled in `src/hooks/useRole.ts`
+### 👨‍🎓 Student Accounts
+- **Email Pattern:** Any email that doesn't match above patterns
+- **Examples:**
+  - `john.smith@student.com`
+  - `maria@gmail.com`
+  - `any.email@domain.com`
+- **Password:** Use any password (Clerk handles authentication)
+- **Access:** View courses, submit assignments, participate in peer reviews
+- **Dashboard:** `/dashboard`
+
+## Role Hierarchy
+
+```
+Super Admin (Platform Level)
+    ├── Manage all institutes
+    ├── View system-wide analytics
+    ├── Control platform settings
+    └── Monitor overall performance
+
+Institute Admin (Institute Level)
+    ├── Manage teachers within institute
+    ├── Manage students within institute
+    ├── Create and manage courses
+    ├── View institute-wide analytics
+    └── Monitor institute performance
+
+Teacher (Course Level)
+    ├── Create and manage assignments
+    ├── Grade student submissions
+    ├── Manage course content
+    ├── View student performance
+    └── Track class progress
+
+Student (Individual Level)
+    ├── Enroll in courses
+    ├── Submit assignments
+    ├── Participate in peer reviews
+    ├── View grades and feedback
+    └── Access learning materials
+```
+
+## Access Control
+
+- **Role Detection:** Handled in `src/hooks/useRole.ts`
+- **Route Protection:** Configured in `src/components/ProtectedRoute.tsx`
+- **Auto-Redirect:** Users are automatically directed to their appropriate dashboard
 
 ## Authentication Flow
 
 1. Navigate to `/login`
-2. Use one of the admin email addresses above
-3. Enter any password (Clerk manages the actual authentication)
-4. You'll be automatically redirected to `/admin` upon successful login
-5. Students with other email addresses are redirected to `/dashboard`
+2. Use any of the email patterns above
+3. Enter any password (Clerk manages authentication)
+4. You'll be automatically redirected based on your role:
+   - Super Admin → `/super-admin`
+   - Institute Admin → `/institute`
+   - Teacher → `/teacher`
+   - Student → `/dashboard`
 
-## Role-Based Access
+## Test Accounts for Development
 
-- **Admin Users:** Can access `/admin` route with full admin dashboard
-- **Student Users:** Can access `/dashboard`, `/blogs`, `/peer-reviews`, etc.
-- **Protected Routes:** Configured in `src/components/ProtectedRoute.tsx`
+### Super Admin
+- `5@example.com`
+- `6@example.com`
+
+### Institute Admins
+- `admin@techexcellence.com`
+- `admin@digitalacademy.com`
+- `institute_futureskills@example.com`
+
+### Teachers
+- `sarah.johnson@teacher.com`
+- `michael.chen@teacher.com`
+- `emily.rodriguez@teacher.com`
+
+### Students
+- `john.smith@student.com`
+- `maria.garcia@student.com`
+- `alice.johnson@gmail.com`

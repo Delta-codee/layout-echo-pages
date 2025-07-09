@@ -9,17 +9,21 @@ import { useRole } from '@/hooks/useRole';
 const Login = () => {
   const navigate = useNavigate();
   const { isSignedIn } = useAuth();
-  const { isAdmin, isStudent } = useRole();
+  const { isAdmin, isInstitute, isTeacher, isStudent } = useRole();
 
   useEffect(() => {
     if (isSignedIn) {
       if (isAdmin) {
-        navigate('/admin', { replace: true });
+        navigate('/super-admin', { replace: true });
+      } else if (isInstitute) {
+        navigate('/institute', { replace: true });
+      } else if (isTeacher) {
+        navigate('/teacher', { replace: true });
       } else if (isStudent) {
         navigate('/dashboard', { replace: true });
       }
     }
-  }, [isSignedIn, isAdmin, isStudent, navigate]);
+  }, [isSignedIn, isAdmin, isInstitute, isTeacher, isStudent, navigate]);
 
   return (
     <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center p-6">
@@ -34,11 +38,28 @@ const Login = () => {
           <h1 className="text-2xl font-bold text-[#F1F1F1] mb-2">Welcome Back</h1>
           <p className="text-[#A1A1A1]">Sign in to continue your learning journey</p>
           
-          {/* Admin login hint */}
-          <div className="mt-4 p-3 bg-[#131313] border border-[#2B2B2B] rounded-lg">
-            <p className="text-[#A1A1A1] text-sm">
-              <strong className="text-[#E3583D]">Admin Access:</strong> Use 5@example.com or 6@example.com
-            </p>
+          {/* Role-based login hints */}
+          <div className="mt-4 space-y-2">
+            <div className="p-3 bg-[#131313] border border-[#2B2B2B] rounded-lg">
+              <p className="text-[#A1A1A1] text-sm">
+                <strong className="text-[#E3583D]">Super Admin:</strong> 5@example.com or 6@example.com
+              </p>
+            </div>
+            <div className="p-3 bg-[#131313] border border-[#2B2B2B] rounded-lg">
+              <p className="text-[#A1A1A1] text-sm">
+                <strong className="text-blue-400">Institute:</strong> Use emails ending with @institute.com
+              </p>
+            </div>
+            <div className="p-3 bg-[#131313] border border-[#2B2B2B] rounded-lg">
+              <p className="text-[#A1A1A1] text-sm">
+                <strong className="text-green-400">Teacher:</strong> Use emails ending with @teacher.com
+              </p>
+            </div>
+            <div className="p-3 bg-[#131313] border border-[#2B2B2B] rounded-lg">
+              <p className="text-[#A1A1A1] text-sm">
+                <strong className="text-purple-400">Student:</strong> Any other email address
+              </p>
+            </div>
           </div>
         </div>
 

@@ -23,7 +23,9 @@ import ThemeSettings from './pages/ThemeSettings';
 import NotFound from './pages/NotFound';
 import StudentDashboard from './pages/StudentDashboard';
 import MyClassroom from './pages/MyClassroom';
-import AdminDashboard from './pages/AdminDashboard';
+import SuperAdminDashboard from './pages/SuperAdminDashboard';
+import InstituteDashboard from './pages/InstituteDashboard';
+import TeacherDashboard from './pages/TeacherDashboard';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import { useRole } from './hooks/useRole';
@@ -33,10 +35,18 @@ const queryClient = new QueryClient();
 
 // Role-based redirect component
 const RoleBasedRedirect = () => {
-  const { isAdmin, isStudent } = useRole();
+  const { isAdmin, isInstitute, isTeacher, isStudent } = useRole();
   
   if (isAdmin) {
-    return <Navigate to="/admin" replace />;
+    return <Navigate to="/super-admin" replace />;
+  }
+  
+  if (isInstitute) {
+    return <Navigate to="/institute" replace />;
+  }
+  
+  if (isTeacher) {
+    return <Navigate to="/teacher" replace />;
   }
   
   if (isStudent) {
@@ -68,10 +78,29 @@ function App() {
                     </ProtectedRoute>
                   } />
                   
-                  {/* Admin routes */}
+                  {/* Super Admin routes */}
+                  <Route path="/super-admin" element={
+                    <ProtectedRoute requireAdmin>
+                      <SuperAdminDashboard />
+                    </ProtectedRoute>
+                  } />
                   <Route path="/admin" element={
                     <ProtectedRoute requireAdmin>
-                      <AdminDashboard />
+                      <SuperAdminDashboard />
+                    </ProtectedRoute>
+                  } />
+                  
+                  {/* Institute routes */}
+                  <Route path="/institute" element={
+                    <ProtectedRoute requireInstitute>
+                      <InstituteDashboard />
+                    </ProtectedRoute>
+                  } />
+                  
+                  {/* Teacher routes */}
+                  <Route path="/teacher" element={
+                    <ProtectedRoute requireTeacher>
+                      <TeacherDashboard />
                     </ProtectedRoute>
                   } />
                   
