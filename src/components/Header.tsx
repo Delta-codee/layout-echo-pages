@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { UserButton, SignInButton, SignUpButton } from '@clerk/clerk-react';
 import { useAuth as useClerkAuth } from '@clerk/clerk-react';
-import { GraduationCap, BookOpen } from 'lucide-react';
+import { RiGraduationCapLine } from 'react-icons/ri';
+import { BookOpen } from 'lucide-react';
 
 const Header = () => {
   const { isAuthenticated } = useAuth();
@@ -15,7 +16,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3">
           <div className="w-10 h-10 bg-[#E3583D] rounded-xl flex items-center justify-center">
-            <GraduationCap className="w-6 h-6 text-white" />
+            <RiGraduationCapLine className="w-6 h-6 text-white" />
           </div>
           <span className="text-2xl font-bold text-[#F1F1F1]">MasterJi</span>
         </Link>

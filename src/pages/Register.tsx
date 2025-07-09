@@ -1,6 +1,6 @@
 
 import { SignUp } from '@clerk/clerk-react';
-import { GraduationCap } from 'lucide-react';
+import { RiGraduationCapLine } from 'react-icons/ri';
 
 const Register = () => {
   return (
@@ -9,7 +9,7 @@ const Register = () => {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-12 h-12 bg-gradient-to-br from-[#E3583D] to-[#E4593D] rounded-xl flex items-center justify-center shadow-sm">
-              <GraduationCap className="w-7 h-7 text-white" />
+              <RiGraduationCapLine className="w-7 h-7 text-white" />
             </div>
             <span className="text-3xl font-bold text-[#F1F1F1]">MasterJi</span>
           </div>
