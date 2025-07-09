@@ -1,4 +1,3 @@
-
 import { SignIn } from '@clerk/clerk-react';
 import { RiGraduationCapLine } from 'react-icons/ri';
 import { useEffect } from 'react';
@@ -14,7 +13,7 @@ const AdminLogin = () => {
   useEffect(() => {
     if (isSignedIn) {
       if (isAdmin) {
-        navigate('/admin/dashboard', { replace: true });
+        navigate('/admin-landing', { replace: true });
       } else {
         navigate('/unauthorized', { replace: true });
       }
@@ -72,7 +71,7 @@ const AdminLogin = () => {
                 formFieldHintText: "text-[#A1A1A1]"
               }
             }}
-            fallbackRedirectUrl="/admin/dashboard"
+            fallbackRedirectUrl="/admin-landing"
           />
         </div>
       </div>
