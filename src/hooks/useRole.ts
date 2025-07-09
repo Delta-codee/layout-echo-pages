@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 export const useRole = () => {
   const { user } = useAuth();
   
-  // Define role hierarchy based on email patterns
+  // Define role hierarchy - only specific emails can be admin
   const isAdmin = user?.email === '5@example.com' || user?.email === '6@example.com';
   const isInstitute = user?.email?.endsWith('@institute.com') || user?.email?.startsWith('institute_');
   const isTeacher = user?.email?.endsWith('@teacher.com') || user?.email?.startsWith('teacher_');
@@ -18,11 +18,37 @@ export const useRole = () => {
     return null;
   };
 
+  // Admin-only permissions
+  const canManageCourses = isAdmin;
+  const canManageTeachers = isAdmin;
+  const canManageCohorts = isAdmin;
+  const canManageStudents = isAdmin;
+  const canViewAnalytics = isAdmin;
+  const canViewAllData = isAdmin;
+
+  // Teacher permissions (read-only)
+  const canViewAssignedCourses = isTeacher || isAdmin;
+  const canViewAssignedStudents = isTeacher || isAdmin;
+
+  // Student permissions (read-only, own data)
+  const canViewOwnProgress = isStudent || isAdmin;
+
   return {
     isAdmin,
     isInstitute,
     isTeacher,
     isStudent,
-    role: getRole()
+    role: getRole(),
+    permissions: {
+      canManageCourses,
+      canManageTeachers,
+      canManageCohorts,
+      canManageStudents,
+      canViewAnalytics,
+      canViewAllData,
+      canViewAssignedCourses,
+      canViewAssignedStudents,
+      canViewOwnProgress
+    }
   };
 };

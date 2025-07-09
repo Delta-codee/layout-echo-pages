@@ -9,6 +9,7 @@ interface ProtectedRouteProps {
   requireInstitute?: boolean;
   requireTeacher?: boolean;
   requireStudent?: boolean;
+  requirePermission?: string;
 }
 
 const ProtectedRoute = ({ 
@@ -16,10 +17,11 @@ const ProtectedRoute = ({
   requireAdmin = false,
   requireInstitute = false,
   requireTeacher = false,
-  requireStudent = false 
+  requireStudent = false,
+  requirePermission
 }: ProtectedRouteProps) => {
   const { isSignedIn, isLoaded } = useAuth();
-  const { isAdmin, isInstitute, isTeacher, isStudent } = useRole();
+  const { isAdmin, isInstitute, isTeacher, isStudent, permissions } = useRole();
   const location = useLocation();
   
   if (!isLoaded) {
@@ -32,6 +34,11 @@ const ProtectedRoute = ({
   
   if (!isSignedIn) {
     return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  // Check specific permissions if required
+  if (requirePermission && !permissions[requirePermission as keyof typeof permissions]) {
+    return <Navigate to="/dashboard-redirect" replace />;
   }
 
   // Role-based route protection

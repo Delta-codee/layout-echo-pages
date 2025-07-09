@@ -1,6 +1,5 @@
-
 import { useState } from 'react';
-import { BookOpen, Users, FileText, TrendingUp, Search, Plus, Eye, Edit, Clock } from 'lucide-react';
+import { BookOpen, Users, FileText, TrendingUp, Search, Eye, Clock, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -11,13 +10,21 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useRole } from '@/hooks/useRole';
+import { Navigate } from 'react-router-dom';
 
 const TeacherDashboard = () => {
-  const [activeTab, setActiveTab] = useState<'courses' | 'assignments' | 'students' | 'grades'>('courses');
+  const { permissions, isTeacher } = useRole();
+  const [activeTab, setActiveTab] = useState<'courses' | 'assignments' | 'students' | 'analytics'>('courses');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Mock data for demonstration
-  const courses = [
+  // Redirect if not teacher
+  if (!isTeacher) {
+    return <Navigate to="/dashboard-redirect" replace />;
+  }
+
+  // Mock data for assigned courses (read-only)
+  const assignedCourses = [
     {
       id: 1,
       title: 'React Fundamentals',
@@ -26,7 +33,8 @@ const TeacherDashboard = () => {
       avgGrade: 87,
       nextClass: '2024-01-16 10:00 AM',
       progress: 75,
-      status: 'active'
+      status: 'active',
+      assignedByAdmin: true
     },
     {
       id: 2,
@@ -36,7 +44,8 @@ const TeacherDashboard = () => {
       avgGrade: 82,
       nextClass: '2024-01-17 2:00 PM',
       progress: 60,
-      status: 'active'
+      status: 'active',
+      assignedByAdmin: true
     },
     {
       id: 3,
@@ -46,7 +55,8 @@ const TeacherDashboard = () => {
       avgGrade: 90,
       nextClass: '2024-01-18 9:00 AM',
       progress: 40,
-      status: 'active'
+      status: 'active',
+      assignedByAdmin: true
     }
   ];
 
@@ -152,7 +162,7 @@ const TeacherDashboard = () => {
   return (
     <div className="min-h-screen bg-[#0B0B0B] p-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
+        {/* Header with restriction notice */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 bg-gradient-to-br from-[#E3583D] to-[#E4593D] rounded-lg flex items-center justify-center">
@@ -160,8 +170,19 @@ const TeacherDashboard = () => {
             </div>
             <div>
               <h1 className="text-3xl font-bold text-[#F1F1F1]">Teacher Dashboard</h1>
-              <p className="text-[#A1A1A1]">Dr. Sarah Johnson - Computer Science Department</p>
+              <p className="text-[#A1A1A1]">View your assigned courses and students</p>
             </div>
+          </div>
+          
+          {/* Access Restriction Notice */}
+          <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4 mb-6">
+            <div className="flex items-center gap-2">
+              <AlertCircle className="w-5 h-5 text-yellow-400" />
+              <p className="text-yellow-400 font-medium">Read-Only Access</p>
+            </div>
+            <p className="text-[#A1A1A1] text-sm mt-1">
+              You can view your assigned courses and students. All course management is handled by the Admin.
+            </p>
           </div>
         </div>
 
@@ -244,9 +265,9 @@ const TeacherDashboard = () => {
             Students
           </button>
           <button
-            onClick={() => setActiveTab('grades')}
+            onClick={() => setActiveTab('analytics')}
             className={`px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap ${
-              activeTab === 'grades'
+              activeTab === 'analytics'
                 ? 'bg-gradient-to-r from-[#E3583D] to-[#E4593D] text-white'
                 : 'text-[#A1A1A1] hover:text-[#F1F1F1] hover:bg-[#131313]'
             }`}
@@ -268,16 +289,12 @@ const TeacherDashboard = () => {
               className="w-full bg-[#131313] border border-[#2B2B2B] rounded-lg pl-12 pr-4 py-3 text-[#F1F1F1] placeholder-[#A1A1A1] focus:outline-none focus:border-[#E3583D]"
             />
           </div>
-          <Button className="bg-gradient-to-r from-[#E3583D] to-[#E4593D] hover:from-[#E3583D]/90 hover:to-[#E4593D]/90 text-white">
-            <Plus className="w-4 h-4 mr-2" />
-            Create {activeTab === 'courses' ? 'Course' : activeTab === 'assignments' ? 'Assignment' : 'Content'}
-          </Button>
         </div>
 
-        {/* Content */}
+        {/* Content with restricted actions */}
         {activeTab === 'courses' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-            {courses.map((course) => (
+            {assignedCourses.map((course) => (
               <Card key={course.id} className="bg-[#131313] border-[#2B2B2B]">
                 <CardHeader>
                   <div className="flex justify-between items-start">
@@ -287,7 +304,9 @@ const TeacherDashboard = () => {
                         {course.studentsEnrolled} students enrolled
                       </CardDescription>
                     </div>
-                    {getStatusBadge(course.status)}
+                    <span className="bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full text-xs">
+                      Assigned
+                    </span>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -324,11 +343,7 @@ const TeacherDashboard = () => {
                     <div className="flex gap-2 pt-2">
                       <Button variant="outline" size="sm" className="flex-1 border-[#2B2B2B] text-[#A1A1A1] hover:text-[#F1F1F1]">
                         <Eye className="w-4 h-4 mr-1" />
-                        View
-                      </Button>
-                      <Button variant="outline" size="sm" className="flex-1 border-[#2B2B2B] text-[#A1A1A1] hover:text-[#F1F1F1]">
-                        <Edit className="w-4 h-4 mr-1" />
-                        Edit
+                        View Only
                       </Button>
                     </div>
                   </div>
@@ -390,9 +405,6 @@ const TeacherDashboard = () => {
                           <Button variant="ghost" size="sm" className="text-[#A1A1A1] hover:text-[#F1F1F1]">
                             <Eye className="w-4 h-4" />
                           </Button>
-                          <Button variant="ghost" size="sm" className="text-[#A1A1A1] hover:text-[#F1F1F1]">
-                            Grade
-                          </Button>
                         </div>
                       </TableCell>
                     </TableRow>
@@ -447,9 +459,6 @@ const TeacherDashboard = () => {
                           <Button variant="ghost" size="sm" className="text-[#A1A1A1] hover:text-[#F1F1F1]">
                             <Eye className="w-4 h-4" />
                           </Button>
-                          <Button variant="ghost" size="sm" className="text-[#A1A1A1] hover:text-[#F1F1F1]">
-                            Message
-                          </Button>
                         </div>
                       </TableCell>
                     </TableRow>
@@ -460,7 +469,7 @@ const TeacherDashboard = () => {
           </Card>
         )}
 
-        {activeTab === 'grades' && (
+        {activeTab === 'analytics' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Card className="bg-[#131313] border-[#2B2B2B]">
               <CardHeader>
@@ -514,7 +523,7 @@ const TeacherDashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {courses.map((course) => (
+                  {assignedCourses.map((course) => (
                     <div key={course.id} className="flex justify-between items-center">
                       <span className="text-[#A1A1A1] text-sm">{course.title}</span>
                       <div className="flex items-center gap-2">
