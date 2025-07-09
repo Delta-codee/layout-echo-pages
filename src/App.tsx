@@ -1,7 +1,6 @@
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useAuth } from '@clerk/clerk-react';
 
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -10,6 +9,8 @@ import { ProfileProvider } from './contexts/ProfileContext';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import AdminLogin from './pages/AdminLogin';
+import Unauthorized from './pages/Unauthorized';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
@@ -26,6 +27,7 @@ import MyClassroom from './pages/MyClassroom';
 import SuperAdminDashboard from './pages/SuperAdminDashboard';
 import InstituteDashboard from './pages/InstituteDashboard';
 import TeacherDashboard from './pages/TeacherDashboard';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import { useRole } from './hooks/useRole';
@@ -38,7 +40,7 @@ const RoleBasedRedirect = () => {
   const { isAdmin, isInstitute, isTeacher, isStudent } = useRole();
   
   if (isAdmin) {
-    return <Navigate to="/super-admin" replace />;
+    return <Navigate to="/admin/dashboard" replace />;
   }
   
   if (isInstitute) {
@@ -70,6 +72,15 @@ function App() {
                   <Route path="/landing" element={<Landing />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
+                  
+                  {/* Admin-only routes */}
+                  <Route path="/admin-login" element={<AdminLogin />} />
+                  <Route path="/unauthorized" element={<Unauthorized />} />
+                  <Route path="/admin/dashboard" element={
+                    <ProtectedRoute requireAdmin>
+                      <AdminDashboard />
+                    </ProtectedRoute>
+                  } />
                   
                   {/* Role-based dashboard redirect */}
                   <Route path="/dashboard-redirect" element={

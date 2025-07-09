@@ -6,25 +6,20 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@clerk/clerk-react';
 import { useRole } from '@/hooks/useRole';
 
-const Login = () => {
+const AdminLogin = () => {
   const navigate = useNavigate();
   const { isSignedIn } = useAuth();
-  const { isAdmin, isInstitute, isTeacher, isStudent } = useRole();
+  const { isAdmin } = useRole();
 
   useEffect(() => {
     if (isSignedIn) {
-      // Redirect admins to admin login instead
       if (isAdmin) {
-        navigate('/admin-login', { replace: true });
-      } else if (isInstitute) {
-        navigate('/institute', { replace: true });
-      } else if (isTeacher) {
-        navigate('/teacher', { replace: true });
-      } else if (isStudent) {
-        navigate('/dashboard', { replace: true });
+        navigate('/admin/dashboard', { replace: true });
+      } else {
+        navigate('/unauthorized', { replace: true });
       }
     }
-  }, [isSignedIn, isAdmin, isInstitute, isTeacher, isStudent, navigate]);
+  }, [isSignedIn, isAdmin, navigate]);
 
   return (
     <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center p-6">
@@ -36,11 +31,8 @@ const Login = () => {
             </div>
             <span className="text-3xl font-bold text-[#F1F1F1]">MasterJi</span>
           </div>
-          <h1 className="text-2xl font-bold text-[#F1F1F1] mb-2">Welcome Back</h1>
-          <p className="text-[#A1A1A1]">Sign in to continue your learning journey</p>
-          <p className="text-[#A1A1A1] text-sm mt-2">
-            Admin? <a href="/admin-login" className="text-[#E3583D] hover:text-[#E4593D]">Login here</a>
-          </p>
+          <h1 className="text-2xl font-bold text-[#F1F1F1] mb-2">Admin Login</h1>
+          <p className="text-[#A1A1A1]">Restricted access for administrators only</p>
         </div>
 
         <div className="flex justify-center">
@@ -80,8 +72,7 @@ const Login = () => {
                 formFieldHintText: "text-[#A1A1A1]"
               }
             }}
-            fallbackRedirectUrl="/dashboard-redirect"
-            signUpUrl="/register"
+            fallbackRedirectUrl="/admin/dashboard"
           />
         </div>
       </div>
@@ -89,4 +80,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;
