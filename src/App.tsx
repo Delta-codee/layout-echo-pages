@@ -1,4 +1,3 @@
-
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -28,6 +27,11 @@ import SuperAdminDashboard from './pages/SuperAdminDashboard';
 import InstituteDashboard from './pages/InstituteDashboard';
 import TeacherDashboard from './pages/TeacherDashboard';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import AddStudent from './pages/admin/AddStudent';
+import AddTeacher from './pages/admin/AddTeacher';
+import AddCourse from './pages/admin/AddCourse';
+import Reviews from './pages/admin/Reviews';
+import Assignments from './pages/admin/Assignments';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import { useRole } from './hooks/useRole';
@@ -79,6 +83,31 @@ function App() {
                   <Route path="/admin/dashboard" element={
                     <ProtectedRoute requireAdmin>
                       <AdminDashboard />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/admin/students" element={
+                    <ProtectedRoute requireAdmin>
+                      <AddStudent />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/admin/teachers" element={
+                    <ProtectedRoute requireAdmin>
+                      <AddTeacher />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/admin/add-course" element={
+                    <ProtectedRoute requireAdmin>
+                      <AddCourse />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/admin/reviews" element={
+                    <ProtectedRoute requireAdmin>
+                      <Reviews />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/admin/assignments" element={
+                    <ProtectedRoute requireAdmin>
+                      <Assignments />
                     </ProtectedRoute>
                   } />
                   
