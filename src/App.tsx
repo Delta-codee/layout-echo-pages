@@ -9,8 +9,6 @@ import { ProfileProvider } from './contexts/ProfileContext';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import AdminLogin from './pages/AdminLogin';
-import AdminLanding from './pages/admin/AdminLanding';
 import Unauthorized from './pages/Unauthorized';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
@@ -46,7 +44,7 @@ const RoleBasedRedirect = () => {
   const { isAdmin, isInstitute, isTeacher, isStudent } = useRole();
   
   if (isAdmin) {
-    return <Navigate to="/admin/landing" replace />;
+    return <Navigate to="/admin/dashboard" replace />;
   }
   
   if (isInstitute) {
@@ -79,19 +77,9 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   
-                  {/* Admin-only routes */}
-                  <Route path="/admin-login" element={<AdminLogin />} />
-                  <Route path="/admin/landing" element={
-                    <ProtectedRoute requireAdmin>
-                      <AdminLanding />
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/admin-landing" element={
-                    <ProtectedRoute requireAdmin>
-                      <AdminLanding />
-                    </ProtectedRoute>
-                  } />
                   <Route path="/unauthorized" element={<Unauthorized />} />
+                  
+                  {/* Admin routes */}
                   <Route path="/admin/dashboard" element={
                     <ProtectedRoute requireAdmin>
                       <AdminDashboard />
