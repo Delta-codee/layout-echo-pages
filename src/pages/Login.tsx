@@ -1,53 +1,8 @@
 
 import { SignIn } from '@clerk/clerk-react';
 import { RiGraduationCapLine } from 'react-icons/ri';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth, useUser } from '@clerk/clerk-react';
 
 const Login = () => {
-  const navigate = useNavigate();
-  const { isSignedIn, isLoaded } = useAuth();
-  const { user } = useUser();
-  const [hasRedirected, setHasRedirected] = useState(false);
-
-  useEffect(() => {
-    if (!isLoaded || !isSignedIn || hasRedirected) return;
-
-    // Wait a bit to ensure user data is fully loaded
-    const timer = setTimeout(() => {
-      if (user?.primaryEmailAddress?.emailAddress) {
-        const email = user.primaryEmailAddress.emailAddress;
-        
-        if (email.endsWith('@example.com')) {
-          navigate('/admin/dashboard', { replace: true });
-        } else {
-          navigate('/dashboard', { replace: true });
-        }
-        
-        setHasRedirected(true);
-      }
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, [isSignedIn, isLoaded, user, navigate, hasRedirected]);
-
-  if (!isLoaded) {
-    return (
-      <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center">
-        <div className="text-[#F1F1F1]">Loading...</div>
-      </div>
-    );
-  }
-
-  if (isSignedIn && hasRedirected) {
-    return (
-      <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center">
-        <div className="text-[#F1F1F1]">Redirecting...</div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center p-6">
       <div className="w-full max-w-md">
@@ -104,7 +59,7 @@ const Login = () => {
                 formFieldHintText: "text-[#A1A1A1]"
               }
             }}
-            fallbackRedirectUrl="/dashboard-redirect"
+            fallbackRedirectUrl="/"
             signUpUrl="/register"
           />
         </div>
