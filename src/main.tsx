@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import React from "react";
 import { ClerkProvider } from "@clerk/clerk-react";
 import { AuthProvider } from './contexts/AuthContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import App from './App.tsx'
 import './index.css'
 
@@ -16,7 +17,9 @@ createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
       <AuthProvider>
-        <App />
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
       </AuthProvider>
     </ClerkProvider>
   </React.StrictMode>
