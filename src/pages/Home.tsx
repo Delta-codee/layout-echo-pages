@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@clerk/clerk-react';
@@ -8,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { GraduationCap, ArrowRight, BookOpen, Users, Trophy, Code, Palette, Zap, CheckCircle, Star } from 'lucide-react';
 import Header from '@/components/Header';
+import HorizontalTwitterTestimonials from '@/components/HorizontalTwitterTestimonials';
 
 const Home = () => {
   const { isSignedIn } = useAuth();
@@ -278,45 +278,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* What Our Community Says Section */}
-      <section className="py-32 bg-[#0B0B0B]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#F1F1F1]">
-              What Our <span className="text-[#E3583D]">Community Says</span>
-            </h2>
-            <p className="text-xl text-[#A1A1A1] max-w-3xl mx-auto">
-              Real feedback from real students who have transformed their careers with MasterJi.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="bg-[#131313] border-[#2B2B2B] hover:border-[#E3583D]/30 transition-all duration-300 rounded-xl">
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-4">
-                    <img 
-                      src={testimonial.avatar} 
-                      alt={testimonial.name}
-                      className="w-10 h-10 rounded-full mr-3"
-                    />
-                    <div>
-                      <h4 className="font-semibold text-[#F1F1F1]">{testimonial.name}</h4>
-                      <p className="text-[#A1A1A1] text-sm">{testimonial.username}</p>
-                    </div>
-                  </div>
-                  <p className="text-[#A1A1A1] leading-relaxed mb-4">{testimonial.content}</p>
-                  <div className="flex text-[#E3583D]">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Twitter-style Testimonials Section */}
+      <HorizontalTwitterTestimonials />
 
       {/* Pricing Section */}
       <section className="py-32 bg-[#0B0B0B]">
