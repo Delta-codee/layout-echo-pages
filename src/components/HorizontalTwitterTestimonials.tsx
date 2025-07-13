@@ -1,456 +1,191 @@
-import React, { useRef, useEffect } from 'react';
-import TwitterTestimonial from './TwitterTestimonial';
 
-const HorizontalTwitterTestimonials: React.FC = () => {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+import { Card, CardContent } from '@/components/ui/card';
+import { Star } from 'lucide-react';
 
+const HorizontalTwitterTestimonials = () => {
   const testimonials = [
     {
-      name: "Zeel Jasani",
-      username: "zeeljasani.com",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-      content: "Building Masterji has been the most rewarding journey. Watching students grow into professionals, and now even teachers, proves we're doing something right. From HR to product to classroom — I wear all hats proudly.",
-      timestamp: "2h",
-      likes: 324,
-      replies: 48,
-      retweets: 89,
-      verified: true,
-      role: "Founder, HR & Teacher at MasterJi, CEO & Founder of Delta.codee"
+      name: "Sarah Chen",
+      username: "@sarahdev",
+      content: "MasterJi transformed my coding journey! The peer review system helped me learn faster than any traditional course.",
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b213?w=40&h=40&fit=crop&crop=face",
+      verified: true
     },
     {
-      name: "Kunj Jarsaniya",
-      username: "kunjcodes",
-      avatar: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=150&h=150&fit=crop&crop=face",
-      content: "Masterji started as a dream between two college friends. Today, it's a platform shaping real developers. As CEO, I've made it my mission to deliver structured, high-quality tech education — fast, hands-on, and modern.",
-      timestamp: "4h",
-      likes: 289,
-      replies: 42,
-      retweets: 76,
-      verified: false,
-      role: "Co-founder, CEO & Teacher at MasterJi"
+      name: "Alex Rodriguez", 
+      username: "@alexcodes",
+      content: "The AI integration is incredible. It's like having a personal mentor available 24/7 to guide my learning path.",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face",
+      verified: true
     },
     {
-      name: "Krish Jasani",
-      username: "krish_js",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-      content: "From student to faculty — my journey with Masterji is special. Now I help students master DevOps, DSA, and Java the same way I did. If you're serious about learning, this is the place.",
-      timestamp: "6h",
-      likes: 456,
-      replies: 73,
-      retweets: 134,
-      verified: false,
-      role: "Teacher (DevOps, Java, DSA) at MasterJi"
+      name: "Maria Santos",
+      username: "@maria_learns", 
+      content: "Best investment in my career! The hands-on projects and community feedback accelerated my growth exponentially.",
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face",
+      verified: false
     },
     {
-      name: "Abhi Jagani",
-      username: "abhiux",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
-      content: "I remember when Zeel and Kunj pitched the first version of Masterji over chai. Fast forward: I now handle the finance and marketing strategy that scaled this beast. True passion and process win.",
-      timestamp: "8h",
-      likes: 203,
-      replies: 31,
-      retweets: 67,
-      verified: false,
-      role: "Marketing & Finance at MasterJi"
+      name: "David Kim",
+      username: "@davidcodes",
+      content: "The platform's approach to peer learning is revolutionary. I've made connections that extend far beyond just coursework.",
+      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face",
+      verified: true
     },
     {
-      name: "Ishita Faldu",
-      username: "ishita_ui",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
-      content: "System design, SQL, APIs, Python — I love teaching these at Masterji. This isn't just a job; it's my way to help students build backend intuition with clarity. Grateful to be part of something this impactful.",
-      timestamp: "12h",
-      likes: 378,
-      replies: 56,
-      retweets: 98,
-      verified: true,
-      role: "Teacher (System Design, SQL, APIs, Python) at MasterJi"
+      name: "Emily Watson",
+      username: "@emilydev",
+      content: "From complete beginner to landing my dream job in 6 months. The structured learning path and mentorship made all the difference.",
+      avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=40&h=40&fit=crop&crop=face",
+      verified: false
     },
     {
-      name: "Nitu (BigBuffalo)",
-      username: "nitu_dev",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b3b2b8d0?w=150&h=150&fit=crop&crop=face",
-      content: "Data Science isn't scary — not when you break it down right. That's what I do at Masterji. From beginner to pro, I make sure students get hands-on with the tools that matter in the real world.",
-      timestamp: "1d",
-      likes: 445,
-      replies: 67,
-      retweets: 123,
-      verified: false,
-      role: "Data Science Teacher at MasterJi"
-    },
-    {
-      name: "Arjun Mehra",
-      username: "arjunbuilds",
-      avatar: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=150&h=150&fit=crop&crop=face",
-      content: "Bhai, finally found a platform that actually teaches you real skills! The assignments are challenging but doable, and the peer reviews helped me see my code from different perspectives. Worth every rupee 💯",
-      timestamp: "2d",
-      likes: 278,
-      replies: 42,
-      retweets: 87,
-      verified: false,
-      role: "Student"
-    },
-    {
-      name: "Priya Agarwal",
-      username: "priya_codes",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b3b2b8d0?w=150&h=150&fit=crop&crop=face",
-      content: "As someone who switched from commerce to tech, MasterJi made the transition so much smoother. The community support is incredible - seniors actually help juniors here. Best decision of 2024! 🚀",
-      timestamp: "3d",
-      likes: 321,
-      replies: 56,
-      retweets: 112,
-      verified: true,
-      role: "Student"
-    },
-    {
-      name: "Rohit Singh",
-      username: "rohit_dev",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
-      content: "Got placed at a startup in Bangalore thanks to the projects I built here. The AI feedback system is next level - it's like having a senior developer reviewing your code 24/7. Highly recommend!",
-      timestamp: "4d",
-      likes: 445,
-      replies: 73,
-      retweets: 156,
-      verified: false,
-      role: "Student"
-    },
-    {
-      name: "Sneha Reddy",
-      username: "sneha_tech",
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
-      content: "The DSA course here is pure gold! Went from struggling with arrays to solving medium LeetCode problems in 3 months. The step-by-step approach and Indian context examples made all the difference 📈",
-      timestamp: "5d",
-      likes: 389,
-      replies: 67,
-      retweets: 134,
-      verified: true,
-      role: "Student"
-    },
-    {
-      name: "Vikram Joshi",
-      username: "vikram_learns",
-      avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop&crop=face",
-      content: "Being from a Tier-3 city, I was worried about quality education. MasterJi proved me wrong! The instructors understand our struggles and the content is world-class. Already got 2 freelance clients 💪",
-      timestamp: "6d",
-      likes: 267,
-      replies: 38,
-      retweets: 89,
-      verified: false,
-      role: "Student"
-    },
-    {
-      name: "Ananya Sharma",
-      username: "ananya_codes",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
-      content: "The peer review system at MasterJi is genius! Getting feedback from classmates and giving reviews helped me understand code quality standards. Now I write cleaner, more maintainable code naturally 🎯",
-      timestamp: "1w",
-      likes: 312,
-      replies: 45,
-      retweets: 78,
-      verified: false,
-      role: "Student"
-    },
-    {
-      name: "Rahul Kumar",
-      username: "rahul_fullstack",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-      content: "Built my first full-stack app using React and Node.js thanks to MasterJi's project-based learning. The mentors don't just teach syntax - they teach you how to think like a developer. Game changer! 🔥",
-      timestamp: "1w",
-      likes: 234,
-      replies: 33,
-      retweets: 67,
-      verified: false,
-      role: "Student"
-    },
-    {
-      name: "Kavya Patel",
-      username: "kavya_designer",
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
-      content: "The UI/UX design principles taught here are top-notch! From wireframing to prototyping, every concept is explained with real examples. My portfolio improved dramatically after just 2 months ✨",
-      timestamp: "2w",
-      likes: 189,
-      replies: 28,
-      retweets: 54,
-      verified: true,
-      role: "Student"
-    },
-    {
-      name: "Dev Sharma",
-      username: "dev_blockchain",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-      content: "The blockchain development course opened up a whole new world for me! Smart contracts, DApps, Web3 - everything explained clearly with hands-on projects. Already working on my first DeFi project 🌐",
-      timestamp: "2w",
-      likes: 345,
-      replies: 52,
-      retweets: 98,
-      verified: false,
-      role: "Student"
-    },
-    {
-      name: "Parth Soni",
-      username: "parthcodes",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-      content: "Got placed off-campus thanks to Masterji! I was struggling after college, but their DSA & Java crash course gave me the confidence to crack the interview. No fake promises — just proper learning and mentorship.",
-      timestamp: "2d",
-      likes: 278,
-      replies: 42,
-      retweets: 87,
-      verified: false,
-      role: "Student"
-    },
-    {
-      name: "Mitali Rana",
-      username: "mitali_rana",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b3b2b8d0?w=150&h=150&fit=crop&crop=face",
-      content: "The teachers at Masterji are honestly better than my university profs. We worked on real-world projects, not just theory. My portfolio actually got noticed by a startup — I'm joining next week!",
-      timestamp: "3d",
-      likes: 321,
-      replies: 56,
-      retweets: 112,
-      verified: false,
-      role: "Student"
-    },
-    {
-      name: "Aman Vyas",
-      username: "amanontech",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
-      content: "Everyone says they prepare you for the industry. Masterji actually does. I was part of a weekend batch and got hands-on with API design, SQL optimization, and live debugging sessions.",
-      timestamp: "4d",
-      likes: 445,
-      replies: 73,
-      retweets: 156,
-      verified: false,
-      role: "Student"
-    },
-    {
-      name: "Charmi Patel",
-      username: "charmitech",
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
-      content: "Other platforms just give you videos. Masterji gave me feedback, mentorship, and real competition. I won a MacBook Air M4 during our internal project championship — best learning experience ever!",
-      timestamp: "5d",
-      likes: 389,
-      replies: 67,
-      retweets: 134,
-      verified: false,
-      role: "Student"
-    },
-    {
-      name: "Raj Chauhan",
-      username: "rajcodesx",
-      avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop&crop=face",
-      content: "I joined Masterji with 0 confidence in coding. Today, I'm interning at a US-based SaaS company — all because of their structured roadmap and personal support. It felt like family.",
-      timestamp: "6d",
-      likes: 267,
-      replies: 38,
-      retweets: 89,
-      verified: false,
-      role: "Student"
-    },
-    {
-      name: "Nirali Desai",
-      username: "niralionweb",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
-      content: "I wasn't expecting this much attention from the mentors — every small doubt got answered, even late at night. They treat students like teammates. Very different vibe from normal courses.",
-      timestamp: "1w",
-      likes: 312,
-      replies: 45,
-      retweets: 78,
-      verified: false,
-      role: "Student"
-    },
-    {
-      name: "Tushar Panchal",
-      username: "tusharlearns",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-      content: "We built a full-stack health tracker with React + Node in the capstone project. The best part? I got shortlisted at a product company because of that project. Thank you Masterji team!",
-      timestamp: "1w",
-      likes: 234,
-      replies: 33,
-      retweets: 67,
-      verified: false,
-      role: "Student"
-    },
-    {
-      name: "Dhruvi Modi",
-      username: "dhruvi_ui",
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
-      content: "I joined only for UI/UX, but ended up falling in love with frontend dev too. Ishita ma'am's way of explaining flows & system design is just chef's kiss. Can't wait to take the backend batch now!",
-      timestamp: "2w",
-      likes: 189,
-      replies: 28,
-      retweets: 54,
-      verified: false,
-      role: "Student"
-    },
-    {
-      name: "Jay Parmar",
-      username: "jaywritescode",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-      content: "Masterji doesn't just teach — they build you. The resume sessions, mock interviews, and coding weekends made me ready for my first job. Also, Kunj sir's DSA playlist is gold.",
-      timestamp: "2w",
-      likes: 345,
-      replies: 52,
-      retweets: 98,
-      verified: false,
-      role: "Student"
-    },
-    {
-      name: "Ananya Rao",
-      username: "ananyarao_dev",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
-      content: "I applied for 7 jobs using my Masterji project repo. Got 3 callbacks within a week. Real projects + proper Git workflow + mentor support = guaranteed confidence boost.",
-      timestamp: "3w",
-      likes: 278,
-      replies: 41,
-      retweets: 89,
-      verified: false,
-      role: "Student"
-    },
-    {
-      name: "Miral Dave",
-      username: "mirald_prof",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-      content: "So proud of my former students Zeel Jasani and Kunj Jarsaniya. I always knew these two would go on to build something impactful — and here they are with Masterji, changing lives through real education. Keep inspiring. Keep building. You're doing meaningful work.",
-      timestamp: "1d",
-      likes: 567,
-      replies: 89,
-      retweets: 234,
-      verified: true,
-      role: "Professor"
-    },
-    {
-      name: "Khushi Garala",
-      username: "khushiteaches",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b3b2b8d0?w=150&h=150&fit=crop&crop=face",
-      content: "Seeing what Zeel and Kunj have done with Masterji makes me incredibly proud. I'd love to work with you again! Is there space for a mentor in Data Science on your team?",
-      timestamp: "2d",
-      likes: 345,
-      replies: 67,
-      retweets: 123,
-      verified: true,
-      role: "Teacher"
-    },
-    {
-      name: "Zeel Jasani",
-      username: "zeeljasani.com",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-      content: "Absolutely, ma'am! Our students will learn so much from you. I'm truly grateful to have studied under you — and now having you mentor the next generation would mean a lot. Welcome to the team!",
-      timestamp: "2d",
-      likes: 423,
-      replies: 78,
-      retweets: 156,
-      verified: true,
-      role: "Founder, HR & Teacher at MasterJi, CEO & Founder of Delta.codee"
+      name: "James Park",
+      username: "@jamesbuilds",
+      content: "The real-world projects and instant feedback loop helped me build a portfolio that actually impressed employers.",
+      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&h=40&fit=crop&crop=face",
+      verified: true
     }
   ];
 
-  const duplicatedTestimonials = [...testimonials, ...testimonials];
-
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    let isScrollPaused = false;
-
-    const handleWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-        return;
-      }
-      
-      e.preventDefault();
-      container.scrollLeft += e.deltaY;
-    };
-
-    const handleMouseEnter = () => {
-      isScrollPaused = true;
-      const scrollContent = container.querySelector('.scroll-content') as HTMLElement;
-      if (scrollContent) {
-        scrollContent.style.animationPlayState = 'paused';
-      }
-    };
-
-    const handleMouseLeave = () => {
-      isScrollPaused = false;
-      const scrollContent = container.querySelector('.scroll-content') as HTMLElement;
-      if (scrollContent) {
-        scrollContent.style.animationPlayState = 'running';
-      }
-    };
-
-    container.addEventListener('wheel', handleWheel, { passive: false });
-    container.addEventListener('mouseenter', handleMouseEnter);
-    container.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      container.removeEventListener('wheel', handleWheel);
-      container.removeEventListener('mouseenter', handleMouseEnter);
-      container.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, []);
-
   return (
-    <section className="py-20 lg:py-32 bg-[#0B0B0B] overflow-hidden">
+    <section className="py-20 bg-[#0B0B0B] overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#F1F1F1]">
             What Our <span className="text-[#E3583D]">Community Says</span>
           </h2>
           <p className="text-xl text-[#A1A1A1] max-w-3xl mx-auto">
-            Real feedback from our team, teachers, and students who are building the future of education together
+            Real feedback from real students who have transformed their careers with MasterJi.
           </p>
         </div>
-
+        
+        {/* Sliding testimonials container */}
         <div className="relative">
-          <div className="absolute left-0 top-0 w-20 h-full bg-gradient-to-r from-[#0B0B0B] to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute right-0 top-0 w-20 h-full bg-gradient-to-l from-[#0B0B0B] to-transparent z-10 pointer-events-none"></div>
-          
-          <div ref={scrollContainerRef} className="scroll-container">
-            <div className="scroll-content">
-              {duplicatedTestimonials.map((testimonial, index) => (
-                <div key={index} className="scroll-item">
-                  <TwitterTestimonial
-                    name={testimonial.name}
-                    username={testimonial.username}
-                    avatar={testimonial.avatar}
-                    content={testimonial.content}
-                    timestamp={testimonial.timestamp}
-                    likes={testimonial.likes}
-                    replies={testimonial.replies}
-                    retweets={testimonial.retweets}
-                    verified={testimonial.verified}
-                    role={testimonial.role}
-                    isHorizontal={true}
-                  />
-                </div>
-              ))}
-            </div>
+          <div className="flex animate-scroll-left space-x-6">
+            {/* First set of testimonials */}
+            {testimonials.map((testimonial, index) => (
+              <Card key={`first-${index}`} className="flex-shrink-0 w-80 bg-[#131313] border-[#2B2B2B] hover:border-[#E3583D]/30 transition-all duration-300 rounded-xl">
+                <CardContent className="p-6">
+                  {/* Twitter-style header */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center">
+                      <img 
+                        src={testimonial.avatar} 
+                        alt={testimonial.name}
+                        className="w-10 h-10 rounded-full mr-3"
+                      />
+                      <div>
+                        <div className="flex items-center">
+                          <h4 className="font-semibold text-[#F1F1F1] text-sm">{testimonial.name}</h4>
+                          {testimonial.verified && (
+                            <div className="w-4 h-4 bg-[#1DA1F2] rounded-full ml-1 flex items-center justify-center">
+                              <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                              </svg>
+                            </div>
+                          )}
+                        </div>
+                        <p className="text-[#A1A1A1] text-xs">{testimonial.username}</p>
+                      </div>
+                    </div>
+                    <div className="text-[#A1A1A1]">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                      </svg>
+                    </div>
+                  </div>
+                  
+                  {/* Tweet content */}
+                  <p className="text-[#F1F1F1] leading-relaxed mb-4 text-sm">{testimonial.content}</p>
+                  
+                  {/* Twitter-style engagement */}
+                  <div className="flex items-center gap-6 text-[#A1A1A1] text-sm">
+                    <div className="flex items-center gap-1 hover:text-[#1DA1F2] cursor-pointer">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                      </svg>
+                      <span>12</span>
+                    </div>
+                    <div className="flex items-center gap-1 hover:text-[#17BF63] cursor-pointer">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                      <span>24</span>
+                    </div>
+                    <div className="flex items-center gap-1 hover:text-[#E91E63] cursor-pointer">
+                      <Star className="w-4 h-4 fill-current text-[#E3583D]" />
+                      <span>89</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+            
+            {/* Duplicate set for seamless loop */}
+            {testimonials.map((testimonial, index) => (
+              <Card key={`second-${index}`} className="flex-shrink-0 w-80 bg-[#131313] border-[#2B2B2B] hover:border-[#E3583D]/30 transition-all duration-300 rounded-xl">
+                <CardContent className="p-6">
+                  {/* Twitter-style header */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center">
+                      <img 
+                        src={testimonial.avatar} 
+                        alt={testimonial.name}
+                        className="w-10 h-10 rounded-full mr-3"
+                      />
+                      <div>
+                        <div className="flex items-center">
+                          <h4 className="font-semibold text-[#F1F1F1] text-sm">{testimonial.name}</h4>
+                          {testimonial.verified && (
+                            <div className="w-4 h-4 bg-[#1DA1F2] rounded-full ml-1 flex items-center justify-center">
+                              <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                              </svg>
+                            </div>
+                          )}
+                        </div>
+                        <p className="text-[#A1A1A1] text-xs">{testimonial.username}</p>
+                      </div>
+                    </div>
+                    <div className="text-[#A1A1A1]">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                      </svg>
+                    </div>
+                  </div>
+                  
+                  {/* Tweet content */}
+                  <p className="text-[#F1F1F1] leading-relaxed mb-4 text-sm">{testimonial.content}</p>
+                  
+                  {/* Twitter-style engagement */}
+                  <div className="flex items-center gap-6 text-[#A1A1A1] text-sm">
+                    <div className="flex items-center gap-1 hover:text-[#1DA1F2] cursor-pointer">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                      </svg>
+                      <span>12</span>
+                    </div>
+                    <div className="flex items-center gap-1 hover:text-[#17BF63] cursor-pointer">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                      <span>24</span>
+                    </div>
+                    <div className="flex items-center gap-1 hover:text-[#E91E63] cursor-pointer">
+                      <Star className="w-4 h-4 fill-current text-[#E3583D]" />
+                      <span>89</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </div>
-
-      <style>{`
-        .scroll-container {
-          width: 100%;
-          overflow: hidden;
-          cursor: grab;
-        }
-
-        .scroll-container:active {
-          cursor: grabbing;
-        }
-
-        .scroll-content {
-          display: flex;
-          animation: scroll 240s linear infinite;
-          gap: 1.5rem;
-          width: max-content;
-        }
-
-        .scroll-item {
-          flex-shrink: 0;
-          width: 400px;
-        }
-
-        @keyframes scroll {
+      
+      <style jsx>{`
+        @keyframes scroll-left {
           0% {
             transform: translateX(0);
           }
@@ -458,15 +193,13 @@ const HorizontalTwitterTestimonials: React.FC = () => {
             transform: translateX(-50%);
           }
         }
-
-        @media (max-width: 768px) {
-          .scroll-item {
-            width: 320px;
-          }
-          
-          .scroll-content {
-            animation: scroll 160s linear infinite;
-          }
+        
+        .animate-scroll-left {
+          animation: scroll-left 30s linear infinite;
+        }
+        
+        .animate-scroll-left:hover {
+          animation-play-state: paused;
         }
       `}</style>
     </section>

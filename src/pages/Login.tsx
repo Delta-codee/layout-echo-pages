@@ -1,29 +1,52 @@
 
 import { SignIn } from '@clerk/clerk-react';
 import { RiGraduationCapLine } from 'react-icons/ri';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@clerk/clerk-react';
-import { useRole } from '@/hooks/useRole';
+import { useAuth, useUser } from '@clerk/clerk-react';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { isSignedIn } = useAuth();
-  const { isAdmin, isInstitute, isTeacher, isStudent } = useRole();
+  const { isSignedIn, isLoaded } = useAuth();
+  const { user } = useUser();
+  const [hasRedirected, setHasRedirected] = useState(false);
 
   useEffect(() => {
-    if (isSignedIn) {
-      if (isAdmin) {
-        navigate('/admin/dashboard', { replace: true });
-      } else if (isInstitute) {
-        navigate('/institute', { replace: true });
-      } else if (isTeacher) {
-        navigate('/teacher', { replace: true });
-      } else if (isStudent) {
-        navigate('/dashboard', { replace: true });
+    if (!isLoaded || !isSignedIn || hasRedirected) return;
+
+    // Wait a bit to ensure user data is fully loaded
+    const timer = setTimeout(() => {
+      if (user?.primaryEmailAddress?.emailAddress) {
+        const email = user.primaryEmailAddress.emailAddress;
+        
+        if (email.endsWith('@example.com')) {
+          navigate('/admin/dashboard', { replace: true });
+        } else {
+          navigate('/dashboard', { replace: true });
+        }
+        
+        setHasRedirected(true);
       }
-    }
-  }, [isSignedIn, isAdmin, isInstitute, isTeacher, isStudent, navigate]);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [isSignedIn, isLoaded, user, navigate, hasRedirected]);
+
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center">
+        <div className="text-[#F1F1F1]">Loading...</div>
+      </div>
+    );
+  }
+
+  if (isSignedIn && hasRedirected) {
+    return (
+      <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center">
+        <div className="text-[#F1F1F1]">Redirecting...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center p-6">
@@ -37,6 +60,11 @@ const Login = () => {
           </div>
           <h1 className="text-2xl font-bold text-[#F1F1F1] mb-2">Welcome Back</h1>
           <p className="text-[#A1A1A1]">Sign in to continue your learning journey</p>
+          <div className="mt-4 p-4 bg-[#131313] border border-[#2B2B2B] rounded-lg">
+            <p className="text-sm text-[#A1A1A1] mb-2">Role-based access:</p>
+            <p className="text-xs text-[#A1A1A1]">• Regular email: Student dashboard</p>
+            <p className="text-xs text-[#A1A1A1]">• @example.com: Admin dashboard</p>
+          </div>
         </div>
 
         <div className="flex justify-center">

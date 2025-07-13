@@ -10,16 +10,8 @@ import Header from '@/components/Header';
 import HorizontalTwitterTestimonials from '@/components/HorizontalTwitterTestimonials';
 
 const Home = () => {
-  const { isSignedIn } = useAuth();
-  const { isAdmin } = useRole();
+  // Remove the manual redirect logic - it's now handled by App.tsx
   const navigate = useNavigate();
-
-  // Redirect admin users to admin dashboard
-  useEffect(() => {
-    if (isSignedIn && isAdmin) {
-      navigate('/admin/dashboard');
-    }
-  }, [isSignedIn, isAdmin, navigate]);
 
   const features = [
     {
@@ -132,14 +124,10 @@ const Home = () => {
   ];
 
   const handleStartLearning = () => {
-    if (isSignedIn) {
-      navigate('/dashboard');
-    } else {
-      navigate('/login');
-    }
+    navigate('/login');
   };
 
-  // Show landing page for non-admin users and guests
+  // Show landing page for all users (redirect logic is handled at App level)
   return (
     <div className="min-h-screen bg-[#0B0B0B] text-[#F1F1F1]">
       <Header />

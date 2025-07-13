@@ -7,7 +7,7 @@ interface User {
   name: string;
   email: string;
   avatar?: string;
-  role: 'student' | 'admin';
+  role: 'student' | 'admin' | 'teacher' | 'institute';
 }
 
 interface AuthContextType {
@@ -16,21 +16,24 @@ interface AuthContextType {
   register: (name: string, email: string, password: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
+  isLoaded: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const { isSignedIn, signOut } = useClerkAuth();
-  const { user: clerkUser } = useUser();
+  const { isSignedIn, signOut, isLoaded: clerkIsLoaded } = useClerkAuth();
+  const { user: clerkUser, isLoaded: userIsLoaded } = useUser();
 
-  // Convert Clerk user to our User interface
+  const isLoaded = clerkIsLoaded && userIsLoaded;
+
+  // Convert Clerk user to our User interface with proper role detection
   const user: User | null = clerkUser ? {
     id: clerkUser.id,
     name: clerkUser.fullName || clerkUser.firstName || clerkUser.username || 'User',
     email: clerkUser.primaryEmailAddress?.emailAddress || '',
     avatar: clerkUser.imageUrl,
-    role: 'student' // Default role, you can modify this based on your needs
+    role: clerkUser.primaryEmailAddress?.emailAddress?.endsWith('@example.com') ? 'admin' : 'student'
   } : null;
 
   // These functions are kept for compatibility but won't be used with Clerk
@@ -54,7 +57,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       login,
       register,
       logout,
-      isAuthenticated: isSignedIn || false
+      isAuthenticated: isSignedIn || false,
+      isLoaded
     }}>
       {children}
     </AuthContext.Provider>
