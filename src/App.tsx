@@ -1,5 +1,8 @@
+
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '@clerk/clerk-react';
+import { useUser } from '@clerk/clerk-react';
 import Home from '@/pages/Home';
 import About from '@/pages/About';
 import Courses from '@/pages/Courses';
@@ -16,7 +19,8 @@ import SuperAdminDashboard from '@/pages/SuperAdminDashboard';
 
 // Protected Route Component
 const ProtectedRoute = ({ children, requireRole }: { children: React.ReactNode, requireRole?: string }) => {
-  const { isSignedIn, user } = useAuth();
+  const { isSignedIn } = useAuth();
+  const { user } = useUser();
 
   if (!isSignedIn) {
     return <Navigate to="/login" replace />;
@@ -31,7 +35,8 @@ const ProtectedRoute = ({ children, requireRole }: { children: React.ReactNode, 
 
 // Dashboard Redirect Component
 const DashboardRedirect = () => {
-  const { isSignedIn, user } = useAuth();
+  const { isSignedIn } = useAuth();
+  const { user } = useUser();
 
   useEffect(() => {
     if (isSignedIn) {

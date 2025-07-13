@@ -9,6 +9,7 @@ interface ProfileData {
   username: string;
   email: string;
   bio: string;
+  about: string;
   location: string;
   socialLinks: {
     github: string;
@@ -50,6 +51,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
         username: user?.name?.toLowerCase().replace(/\s+/g, '') || '',
         email: user?.email || '',
         bio: user?.name ? `Hi, I'm ${user.name}! I'm excited to start my learning journey with MasterJi.` : '',
+        about: user?.name ? `I'm passionate about learning and growing. Looking forward to connecting with fellow learners and educators on this platform.` : '',
         location: '',
         socialLinks: {
           github: '',
