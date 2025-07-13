@@ -5,17 +5,15 @@ import { User, LogOut, ChevronDown, Palette } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAuth as useClerkAuth } from '@clerk/clerk-react';
 import { useTheme } from '@/contexts/ThemeContext';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 const ProfileDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user } = useAuth();
   const { signOut } = useClerkAuth();
-  const { currentTheme, setTheme } = useTheme();
+  const { currentTheme, setTheme, themes } = useTheme();
   const navigate = useNavigate();
-
-  // Check if user is admin
-  const isAdmin = user?.role === 'admin';
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -102,27 +100,22 @@ const ProfileDropdown = () => {
                 <p className="text-[#A1A1A1] text-xs truncate">
                   {user?.email || 'user@example.com'}
                 </p>
-                {isAdmin && (
-                  <p className="text-[#E3583D] text-xs font-medium">Admin</p>
-                )}
               </div>
             </div>
           </div>
 
           {/* Menu Items */}
           <div className="py-1">
-            {!isAdmin && (
-              <button
-                onClick={handleThemeChange}
-                className="flex items-center gap-3 px-4 py-3 text-[#F1F1F1] hover:bg-[#2B2B2B] transition-colors duration-200 w-full text-left group"
-              >
-                <Palette className="w-4 h-4 text-[#E3583D] group-hover:text-[#E4593D] transition-colors" />
-                <span className="font-medium">Change Theme</span>
-              </button>
-            )}
+            <button
+              onClick={handleThemeChange}
+              className="flex items-center gap-3 px-4 py-3 text-[#F1F1F1] hover:bg-[#2B2B2B] transition-colors duration-200 w-full text-left group"
+            >
+              <Palette className="w-4 h-4 text-[#E3583D] group-hover:text-[#E4593D] transition-colors" />
+              <span className="font-medium">Change Theme</span>
+            </button>
 
             <Link
-              to={isAdmin ? "/admin/edit-profile" : "/edit-profile"}
+              to="/edit-profile"
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-3 px-4 py-3 text-[#F1F1F1] hover:bg-[#2B2B2B] transition-colors duration-200 group"
             >

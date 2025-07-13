@@ -1,38 +1,13 @@
 
-import { useUser } from '@clerk/clerk-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 export const useRole = () => {
-  const { user, isLoaded } = useUser();
+  const { user } = useAuth();
   
-  // Wait for user data to load
-  if (!isLoaded || !user) {
-    return {
-      isAdmin: false,
-      isInstitute: false,
-      isTeacher: false,
-      isStudent: false,
-      role: null,
-      isLoaded,
-      permissions: {
-        canManageCourses: false,
-        canManageTeachers: false,
-        canManageCohorts: false,
-        canManageStudents: false,
-        canViewAnalytics: false,
-        canViewAllData: false,
-        canViewAssignedCourses: false,
-        canViewAssignedStudents: false,
-        canViewOwnProgress: false
-      }
-    };
-  }
-
-  const email = user.primaryEmailAddress?.emailAddress || '';
-  
-  // Define role hierarchy based on email patterns
-  const isAdmin = email.endsWith('@example.com');
-  const isInstitute = email.endsWith('@institute.com') || email.startsWith('institute_');
-  const isTeacher = email.endsWith('@teacher.com') || email.startsWith('teacher_');
+  // Define role hierarchy - only specific emails can be admin
+  const isAdmin = user?.email === '5@example.com' || user?.email === '6@example.com';
+  const isInstitute = user?.email?.endsWith('@institute.com') || user?.email?.startsWith('institute_');
+  const isTeacher = user?.email?.endsWith('@teacher.com') || user?.email?.startsWith('teacher_');
   const isStudent = !isAdmin && !isInstitute && !isTeacher && !!user;
 
   const getRole = () => {
@@ -64,7 +39,6 @@ export const useRole = () => {
     isTeacher,
     isStudent,
     role: getRole(),
-    isLoaded,
     permissions: {
       canManageCourses,
       canManageTeachers,

@@ -33,7 +33,6 @@ const EditProfile = () => {
     username: '',
     email: '',
     bio: '',
-    about: '',
     location: '',
     socialLinks: {
       github: '',
@@ -54,7 +53,6 @@ const EditProfile = () => {
         email: user.email || '',
         username: user.name?.toLowerCase().replace(/\s+/g, '') || '',
         bio: prev.bio || `Hi, I'm ${user.name}! I'm excited to start my learning journey with MasterJi.`,
-        about: prev.about || `I'm passionate about learning and growing. Looking forward to connecting with fellow learners and educators on this platform.`,
       }));
     }
   }, [profileData, user]);
