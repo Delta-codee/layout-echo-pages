@@ -1,8 +1,7 @@
 
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from '@clerk/clerk-react';
-import { useUser } from '@clerk/clerk-react';
+import { useAuth, useUser } from '@clerk/clerk-react';
 import Home from '@/pages/Home';
 import About from '@/pages/About';
 import Courses from '@/pages/Courses';
@@ -62,80 +61,82 @@ const DashboardRedirect = () => {
 
 function App() {
   return (
-    <Routes>
-      {/* Public Routes */}
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/courses" element={<Courses />} />
-      <Route path="/pricing" element={<Pricing />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+    <Router>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
-      {/* Protected Routes */}
-      <Route 
-        path="/dashboard" 
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/profile" 
-        element={
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/edit-profile" 
-        element={
-          <ProtectedRoute>
-            <EditProfile />
-          </ProtectedRoute>
-        } 
-      />
+        {/* Protected Routes */}
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/profile" 
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/edit-profile" 
+          element={
+            <ProtectedRoute>
+              <EditProfile />
+            </ProtectedRoute>
+          } 
+        />
 
-      {/* Admin Routes */}
-      <Route 
-        path="/admin/landing" 
-        element={
-          <ProtectedRoute requireRole="admin">
-            <AdminLanding />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/admin/dashboard" 
-        element={
-          <ProtectedRoute requireRole="admin">
-            <AdminDashboard />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/admin/edit-profile" 
-        element={
-          <ProtectedRoute requireRole="admin">
-            <AdminEditProfile />
-          </ProtectedRoute>
-        } 
-      />
+        {/* Admin Routes */}
+        <Route 
+          path="/admin/landing" 
+          element={
+            <ProtectedRoute requireRole="admin">
+              <AdminLanding />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/admin/dashboard" 
+          element={
+            <ProtectedRoute requireRole="admin">
+              <AdminDashboard />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/admin/edit-profile" 
+          element={
+            <ProtectedRoute requireRole="admin">
+              <AdminEditProfile />
+            </ProtectedRoute>
+          } 
+        />
 
-      {/* Super Admin Routes */}
-      <Route 
-        path="/super-admin/dashboard" 
-        element={
-          <ProtectedRoute requireRole="super-admin">
-            <SuperAdminDashboard />
-          </ProtectedRoute>
-        } 
-      />
+        {/* Super Admin Routes */}
+        <Route 
+          path="/super-admin/dashboard" 
+          element={
+            <ProtectedRoute requireRole="super-admin">
+              <SuperAdminDashboard />
+            </ProtectedRoute>
+          } 
+        />
 
-      {/* Dashboard Redirect */}
-      <Route path="/dashboard-redirect" element={<DashboardRedirect />} />
-    </Routes>
+        {/* Dashboard Redirect */}
+        <Route path="/dashboard-redirect" element={<DashboardRedirect />} />
+      </Routes>
+    </Router>
   );
 }
 
