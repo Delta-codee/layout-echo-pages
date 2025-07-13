@@ -223,66 +223,66 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0B0B] p-8">
+    <div className="min-h-screen bg-[#0B0B0B] p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-[#E3583D] to-[#E4593D] rounded-lg flex items-center justify-center">
-              <Users className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[#E3583D] to-[#E4593D] rounded-lg flex items-center justify-center shadow-lg">
+              <Users className="w-5 h-5 md:w-6 md:h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-[#F1F1F1]">Admin Control Panel</h1>
-              <p className="text-[#A1A1A1]">Complete system management and oversight</p>
+              <h1 className="text-2xl md:text-3xl font-bold text-[#F1F1F1] leading-tight">Admin Control Panel</h1>
+              <p className="text-[#A1A1A1] text-sm md:text-base mt-1">Complete system management and oversight</p>
             </div>
           </div>
         </div>
 
         {/* System Overview Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-[#131313] border-[#2B2B2B]">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
+          <Card className="bg-[#131313] border-[#2B2B2B] hover:border-[#E3583D]/30 transition-colors">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-[#A1A1A1]">Total Courses</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[#F1F1F1]">{systemStats.totalCourses}</div>
-              <p className="text-xs text-green-400">+3 this month</p>
+              <div className="text-xl md:text-2xl font-bold text-[#F1F1F1]">{systemStats.totalCourses}</div>
+              <p className="text-xs text-green-400 mt-1">+3 this month</p>
             </CardContent>
           </Card>
           
-          <Card className="bg-[#131313] border-[#2B2B2B]">
+          <Card className="bg-[#131313] border-[#2B2B2B] hover:border-[#E3583D]/30 transition-colors">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-[#A1A1A1]">Active Teachers</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[#F1F1F1]">{systemStats.totalTeachers}</div>
-              <p className="text-xs text-blue-400">All verified</p>
+              <div className="text-xl md:text-2xl font-bold text-[#F1F1F1]">{systemStats.totalTeachers}</div>
+              <p className="text-xs text-blue-400 mt-1">All verified</p>
             </CardContent>
           </Card>
           
-          <Card className="bg-[#131313] border-[#2B2B2B]">
+          <Card className="bg-[#131313] border-[#2B2B2B] hover:border-[#E3583D]/30 transition-colors">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-[#A1A1A1]">Active Cohorts</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[#F1F1F1]">{systemStats.totalCohorts}</div>
-              <p className="text-xs text-purple-400">2 starting soon</p>
+              <div className="text-xl md:text-2xl font-bold text-[#F1F1F1]">{systemStats.totalCohorts}</div>
+              <p className="text-xs text-purple-400 mt-1">2 starting soon</p>
             </CardContent>
           </Card>
           
-          <Card className="bg-[#131313] border-[#2B2B2B]">
+          <Card className="bg-[#131313] border-[#2B2B2B] hover:border-[#E3583D]/30 transition-colors">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-[#A1A1A1]">Total Students</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[#F1F1F1]">{systemStats.totalStudents}</div>
-              <p className="text-xs text-green-400">+{systemStats.monthlyGrowth}% growth</p>
+              <div className="text-xl md:text-2xl font-bold text-[#F1F1F1]">{systemStats.totalStudents}</div>
+              <p className="text-xs text-green-400 mt-1">+{systemStats.monthlyGrowth}% growth</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex gap-4 mb-8 overflow-x-auto">
+        <div className="flex gap-2 md:gap-4 mb-6 md:mb-8 overflow-x-auto pb-2">
           {[
             { id: 'overview', label: 'Overview', icon: BarChart3 },
             { id: 'courses', label: 'Courses', icon: BookOpen },
@@ -294,10 +294,10 @@ const AdminDashboard = () => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap ${
+              className={`px-4 md:px-6 py-2 md:py-3 rounded-lg font-medium transition-all whitespace-nowrap text-sm md:text-base ${
                 activeTab === tab.id
-                  ? 'bg-gradient-to-r from-[#E3583D] to-[#E4593D] text-white'
-                  : 'text-[#A1A1A1] hover:text-[#F1F1F1] hover:bg-[#131313]'
+                  ? 'bg-gradient-to-r from-[#E3583D] to-[#E4593D] text-white shadow-lg'
+                  : 'text-[#A1A1A1] hover:text-[#F1F1F1] hover:bg-[#131313] border border-transparent hover:border-[#2B2B2B]'
               }`}
             >
               <tab.icon className="w-4 h-4 inline mr-2" />
@@ -307,51 +307,53 @@ const AdminDashboard = () => {
         </div>
 
         {/* Search and Actions */}
-        <div className="flex flex-col lg:flex-row gap-4 mb-8">
+        <div className="flex flex-col lg:flex-row gap-3 md:gap-4 mb-6 md:mb-8">
           <div className="flex-1 relative">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#A1A1A1] w-5 h-5" />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#A1A1A1] w-4 h-4 md:w-5 md:h-5" />
             <input
               type="text"
               placeholder={`Search ${activeTab}...`}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#131313] border border-[#2B2B2B] rounded-lg pl-12 pr-4 py-3 text-[#F1F1F1] placeholder-[#A1A1A1] focus:outline-none focus:border-[#E3583D]"
+              className="w-full bg-[#131313] border border-[#2B2B2B] rounded-lg pl-10 md:pl-12 pr-4 py-2.5 md:py-3 text-[#F1F1F1] placeholder-[#A1A1A1] focus:outline-none focus:border-[#E3583D] focus:ring-1 focus:ring-[#E3583D] transition-colors text-sm md:text-base"
             />
           </div>
-          <Button className="bg-gradient-to-r from-[#E3583D] to-[#E4593D] hover:from-[#E3583D]/90 hover:to-[#E4593D]/90 text-white">
-            <Plus className="w-4 h-4 mr-2" />
-            Add {activeTab === 'overview' ? 'New' : activeTab.charAt(0).toUpperCase() + activeTab.slice(1, -1)}
-          </Button>
-          <Button variant="outline" className="border-[#2B2B2B] text-[#A1A1A1] hover:text-[#F1F1F1]">
-            <Filter className="w-4 h-4 mr-2" />
-            Filter
-          </Button>
-          <Button variant="outline" className="border-[#2B2B2B] text-[#A1A1A1] hover:text-[#F1F1F1]">
-            <Download className="w-4 h-4 mr-2" />
-            Export
-          </Button>
+          <div className="flex gap-2 md:gap-3">
+            <Button className="bg-gradient-to-r from-[#E3583D] to-[#E4593D] hover:from-[#E3583D]/90 hover:to-[#E4593D]/90 text-white shadow-lg text-sm md:text-base">
+              <Plus className="w-4 h-4 mr-2" />
+              Add {activeTab === 'overview' ? 'New' : activeTab.charAt(0).toUpperCase() + activeTab.slice(1, -1)}
+            </Button>
+            <Button variant="outline" className="border-[#2B2B2B] text-[#A1A1A1] hover:text-[#F1F1F1] hover:border-[#E3583D]/30 text-sm md:text-base">
+              <Filter className="w-4 h-4 mr-2" />
+              Filter
+            </Button>
+            <Button variant="outline" className="border-[#2B2B2B] text-[#A1A1A1] hover:text-[#F1F1F1] hover:border-[#E3583D]/30 text-sm md:text-base">
+              <Download className="w-4 h-4 mr-2" />
+              Export
+            </Button>
+          </div>
         </div>
 
         {/* Content Sections */}
         {activeTab === 'overview' && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
             <Card className="bg-[#131313] border-[#2B2B2B]">
               <CardHeader>
-                <CardTitle className="text-[#F1F1F1]">Recent Activity</CardTitle>
+                <CardTitle className="text-[#F1F1F1] text-lg md:text-xl">Recent Activity</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 p-3 bg-[#0B0B0B] rounded-lg">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    <span className="text-[#F1F1F1] text-sm">New teacher added: Dr. Sarah Johnson</span>
+                <div className="space-y-3 md:space-y-4">
+                  <div className="flex items-center gap-3 p-3 bg-[#0B0B0B] rounded-lg border border-[#1A1A1A]">
+                    <div className="w-2 h-2 bg-green-400 rounded-full flex-shrink-0"></div>
+                    <span className="text-[#F1F1F1] text-sm md:text-base">New teacher added: Dr. Sarah Johnson</span>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-[#0B0B0B] rounded-lg">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                    <span className="text-[#F1F1F1] text-sm">Course "React Fundamentals" updated</span>
+                  <div className="flex items-center gap-3 p-3 bg-[#0B0B0B] rounded-lg border border-[#1A1A1A]">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full flex-shrink-0"></div>
+                    <span className="text-[#F1F1F1] text-sm md:text-base">Course "React Fundamentals" updated</span>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-[#0B0B0B] rounded-lg">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                    <span className="text-[#F1F1F1] text-sm">New cohort created: Spring 2024 Batch</span>
+                  <div className="flex items-center gap-3 p-3 bg-[#0B0B0B] rounded-lg border border-[#1A1A1A]">
+                    <div className="w-2 h-2 bg-purple-400 rounded-full flex-shrink-0"></div>
+                    <span className="text-[#F1F1F1] text-sm md:text-base">New cohort created: Spring 2024 Batch</span>
                   </div>
                 </div>
               </CardContent>
@@ -359,21 +361,21 @@ const AdminDashboard = () => {
             
             <Card className="bg-[#131313] border-[#2B2B2B]">
               <CardHeader>
-                <CardTitle className="text-[#F1F1F1]">System Health</CardTitle>
+                <CardTitle className="text-[#F1F1F1] text-lg md:text-xl">System Health</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-[#A1A1A1]">Active Users</span>
-                    <span className="text-green-400 font-medium">{systemStats.activeUsers}</span>
+                <div className="space-y-3 md:space-y-4">
+                  <div className="flex justify-between items-center py-1">
+                    <span className="text-[#A1A1A1] text-sm md:text-base">Active Users</span>
+                    <span className="text-green-400 font-medium text-sm md:text-base">{systemStats.activeUsers}</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-[#A1A1A1]">Completion Rate</span>
-                    <span className="text-green-400 font-medium">{systemStats.completionRate}%</span>
+                  <div className="flex justify-between items-center py-1">
+                    <span className="text-[#A1A1A1] text-sm md:text-base">Completion Rate</span>
+                    <span className="text-green-400 font-medium text-sm md:text-base">{systemStats.completionRate}%</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-[#A1A1A1]">Average Grade</span>
-                    <span className="text-yellow-400 font-medium">{systemStats.avgGrade}%</span>
+                  <div className="flex justify-between items-center py-1">
+                    <span className="text-[#A1A1A1] text-sm md:text-base">Average Grade</span>
+                    <span className="text-yellow-400 font-medium text-sm md:text-base">{systemStats.avgGrade}%</span>
                   </div>
                 </div>
               </CardContent>
@@ -437,7 +439,6 @@ const AdminDashboard = () => {
           </Card>
         )}
 
-        {/* Similar tables for teachers, cohorts, students, and analytics tabs */}
         {activeTab === 'teachers' && (
           <Card className="bg-[#131313] border-[#2B2B2B]">
             <CardHeader>
@@ -612,8 +613,6 @@ const AdminDashboard = () => {
             </CardContent>
           </Card>
         )}
-
-        {/* Additional content sections would continue here for cohorts, students, and analytics */}
       </div>
     </div>
   );

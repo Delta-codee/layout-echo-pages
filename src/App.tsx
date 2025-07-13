@@ -1,6 +1,7 @@
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useAuth } from '@clerk/clerk-react';
 
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -9,7 +10,6 @@ import { ProfileProvider } from './contexts/ProfileContext';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import AdminLogin from './pages/AdminLogin';
 import AdminLanding from './pages/admin/AdminLanding';
 import Unauthorized from './pages/Unauthorized';
 import Dashboard from './pages/Dashboard';
@@ -46,7 +46,7 @@ const RoleBasedRedirect = () => {
   const { isAdmin, isInstitute, isTeacher, isStudent } = useRole();
   
   if (isAdmin) {
-    return <Navigate to="/admin/landing" replace />;
+    return <Navigate to="/admin/dashboard" replace />;
   }
   
   if (isInstitute) {
@@ -64,6 +64,27 @@ const RoleBasedRedirect = () => {
   return <Navigate to="/landing" replace />;
 };
 
+// Admin route wrapper that blocks access to public pages
+const AdminRouteGuard = ({ children }: { children: React.ReactNode }) => {
+  const { isAdmin } = useRole();
+  const { isSignedIn, isLoaded } = useAuth();
+  
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center">
+        <div className="text-[#F1F1F1]">Loading...</div>
+      </div>
+    );
+  }
+  
+  // If admin is signed in and tries to access public routes, redirect to admin dashboard
+  if (isSignedIn && isAdmin) {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
+  
+  return <>{children}</>;
+};
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -73,28 +94,29 @@ function App() {
             <Router>
               <div className="min-h-screen bg-[#0B0B0B]">
                 <Routes>
-                  {/* Public routes */}
-                  <Route path="/" element={<Landing />} />
-                  <Route path="/landing" element={<Landing />} />
+                  {/* Public routes with admin guard */}
+                  <Route path="/" element={
+                    <AdminRouteGuard>
+                      <Landing />
+                    </AdminRouteGuard>
+                  } />
+                  <Route path="/landing" element={
+                    <AdminRouteGuard>
+                      <Landing />
+                    </AdminRouteGuard>
+                  } />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   
                   {/* Admin-only routes */}
-                  <Route path="/admin-login" element={<AdminLogin />} />
-                  <Route path="/admin/landing" element={
-                    <ProtectedRoute requireAdmin>
-                      <AdminLanding />
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/admin-landing" element={
-                    <ProtectedRoute requireAdmin>
-                      <AdminLanding />
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/unauthorized" element={<Unauthorized />} />
                   <Route path="/admin/dashboard" element={
                     <ProtectedRoute requireAdmin>
                       <AdminDashboard />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/admin/landing" element={
+                    <ProtectedRoute requireAdmin>
+                      <AdminLanding />
                     </ProtectedRoute>
                   } />
                   <Route path="/admin/students" element={
@@ -122,6 +144,8 @@ function App() {
                       <Assignments />
                     </ProtectedRoute>
                   } />
+                  
+                  <Route path="/unauthorized" element={<Unauthorized />} />
                   
                   {/* Role-based dashboard redirect */}
                   <Route path="/dashboard-redirect" element={

@@ -13,9 +13,8 @@ const Login = () => {
 
   useEffect(() => {
     if (isSignedIn) {
-      // Redirect admins to admin login instead
       if (isAdmin) {
-        navigate('/admin-login', { replace: true });
+        navigate('/admin/dashboard', { replace: true });
       } else if (isInstitute) {
         navigate('/institute', { replace: true });
       } else if (isTeacher) {
@@ -38,9 +37,6 @@ const Login = () => {
           </div>
           <h1 className="text-2xl font-bold text-[#F1F1F1] mb-2">Welcome Back</h1>
           <p className="text-[#A1A1A1]">Sign in to continue your learning journey</p>
-          <p className="text-[#A1A1A1] text-sm mt-2">
-            Admin? <a href="/admin-login" className="text-[#E3583D] hover:text-[#E4593D]">Login here</a>
-          </p>
         </div>
 
         <div className="flex justify-center">
