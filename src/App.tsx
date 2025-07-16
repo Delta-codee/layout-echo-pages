@@ -72,7 +72,7 @@ function App() {
               <div className="min-h-screen bg-[#0B0B0B]">
                 <Routes>
                   {/* Public routes */}
-                  <Route path="/" element={<Landing />} />
+                  <Route path="/" element={<RoleBasedRedirect />} />
                   <Route path="/landing" element={<Landing />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
