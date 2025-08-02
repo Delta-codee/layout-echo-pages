@@ -33,8 +33,8 @@ const TwitterTestimonial: React.FC<TwitterTestimonialProps> = ({
   const [isRetweeted, setIsRetweeted] = useState(false);
 
   const containerClasses = isHorizontal 
-    ? "bg-[#131313] border border-[#2B2B2B] rounded-2xl p-6 hover:bg-[#1a1a1a] transition-all duration-300 hover:scale-[1.02] hover:border-[#E3583D]/30 h-fit min-w-0"
-    : "bg-[#131313] border border-[#2B2B2B] rounded-2xl p-6 hover:bg-[#1a1a1a] transition-all duration-300 hover:scale-[1.02] hover:border-[#E3583D]/30";
+    ? "bg-[#131313] border border-[#2B2B2B] rounded-xl p-4 hover:bg-[#1a1a1a] transition-all duration-300 hover:border-[#E3583D]/30 h-fit min-w-0 shadow-sm hover:shadow-lg"
+    : "bg-[#131313] border border-[#2B2B2B] rounded-xl p-6 hover:bg-[#1a1a1a] transition-all duration-300 hover:border-[#E3583D]/30 shadow-sm hover:shadow-lg";
 
   // Check if this is a MasterJi team member for special styling
   const isMasterJiTeam = role && (role.includes('MasterJi') || role.includes('Teacher') || role.includes('Founder') || role.includes('CEO'));
