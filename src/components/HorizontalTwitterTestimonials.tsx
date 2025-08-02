@@ -190,7 +190,7 @@ const HorizontalTwitterTestimonials: React.FC = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .scroll-container {
           overflow-x: auto;
           overflow-y: hidden;
